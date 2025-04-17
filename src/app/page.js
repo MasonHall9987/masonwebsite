@@ -1,103 +1,143 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useEffect, useRef} from 'react';
+import './globals.css'
+
+const MinecraftWebsite = () => {
+  const [showTitle, setShowTitle] = useState(false);
+  const [showMainButtons, setShowMainButtons] = useState(false);
+  const [showFooterButtons, setShowFooterButtons] = useState(false);
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    // Animate elements in sequence
+    setTimeout(() => setShowTitle(true), 500);
+    setTimeout(() => setShowMainButtons(true), 1500);
+    setTimeout(() => setShowFooterButtons(true), 2500);
+
+  }, []);
+
+
+  const handleButtonClick = (action) => {
+    console.log(`Button clicked: ${action}`);
+    // Dummy functions for now
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="relative h-screen w-full overflow-hidden font-mono">
+      {/* Background video */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src="/videos/background-sakura.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  {/* Optional overlay to darken video a little for better contrast */}
+  <div className="absolute inset-0 bg-black opacity-0"></div>
+</div>
+
+<audio ref={audioRef} loop>
+        <source src="/audio/song-moogcity.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+</audio>
+
+      {/* Minecraft splash text */}
+      <div className="absolute top-70 right-140 z-20 transform -rotate-24">
+        <div className="minecraft-font text-yellow-300 text-xl drop-shadow-lg animate-pulse">
+          Who pushed to Main?
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </div>
+
+      {/* Content container */}
+      <div className="minecraft-font relative z-10 h-full flex flex-col items-center justify-center">
+        {/* Title */}
+        <div 
+          className={`transition-opacity duration-1000 mb-16 ${showTitle ? 'opacity-100' : 'opacity-0'}`}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+          <img 
+            src="/images/title.png" 
+            alt="Minecraft" 
+            className="w-150"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        </div>
+
+        {/* Main buttons */}
+        <div 
+          className={`flex flex-col gap-2 items-center transition-opacity duration-1000 ${showMainButtons ? 'opacity-100' : 'opacity-0'}`}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          {/* Main menu buttons */}
+          <button 
+            onClick={() => handleButtonClick('singleplayer')}
+            className="large-button"
+            >
+            Singleplayer
+          </button>
+          <button 
+            onClick={() => handleButtonClick('multiplayer')}
+            className="large-button"
+            >
+            Multiplayer
+          </button>
+          
+          <button 
+            onClick={() => handleButtonClick('realms')}
+            className="large-button"
+            >
+            Minecraft Realms
+          </button>
+        </div>
+
+        {/* Footer buttons */}
+        <div 
+          className={`flex gap-4 mt-8 transition-opacity duration-1000 ${showFooterButtons ? 'opacity-100' : 'opacity-0'}`}
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+         <button 
+  onClick={() => handleButtonClick('options')}
+  className="small-button"
+  style={{ fontFamily: 'Minecraft, monospace' }}
+>
+  Options...
+</button>
+          
+          <button 
+            onClick={() => handleButtonClick('quit')}
+            className="small-button"
+            style={{ fontFamily: 'Minecraft, monospace', fontWeight: 400 }} >
+            Quit Game
+          </button>
+        </div>
+      </div>
+
+      {/* Copyright info */}
+      <div className="absolute bottom-4 left-4 text-white text-sm">
+        Devcraft 1.20.2
+      </div>
+      <div className="absolute bottom-4 right-4 z-30">
+  <button
+    onClick={() => {
+      if (audioRef.current) {
+        if (audioRef.current.paused) {
+          audioRef.current.play().catch(err => console.warn("Play failed", err));
+        } else {
+          audioRef.current.pause();
+        }
+        setAudioPlaying(!audioPlaying);
+      }
+    }}
+    className="minecraft-font bg-gray-600 hover:bg-gray-500 text-white border-b-4 border-gray-800 hover:border-gray-600 px-4 py-2 text-sm"
+  >
+    {audioPlaying ? 'Music: On' : 'Music: Off'}
+  </button>
+</div>
     </div>
   );
-}
+};
+
+export default MinecraftWebsite;

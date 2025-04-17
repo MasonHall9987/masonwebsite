@@ -19,8 +19,54 @@
   }
 }
 
+@font-face {
+  font-family: 'Minecraft';
+  src: url('../../public/fonts/Minecraftia.ttf') format('truetype');
+  font-display: swap;
+}
+
+.minecraft-font {
+  font-family: 'Minecraft', monospace;
+  image-rendering: pixelated;
+}
+
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.large-button {
+  background-color: #6d6d6d;
+  color: white;
+  width: 24rem; /* 96px in Tailwind = 24rem */
+  padding: 0.75rem 1rem; /* Tailwind's py-3 and px-4 */
+  border-bottom: 4px solid #7d7d7d;
+  text-align: center;
+  font-size: 1.125rem; /* Equivalent to text-lg */
+  transition: all 0.2s ease;
+}
+
+.large-button:hover {
+  background-color: #5a5a5a;
+  border-color: #6d6d6d;
+}
+
+
+.small-button {
+  background-color: #6d6d6d;
+  color: white;
+  width: 11rem; /* 44px in Tailwind = 11rem */
+  padding: 0.75rem 1rem; /* Tailwind's py-3 and px-4 */
+  border-bottom: 4px solid #7d7d7d;
+  text-align: center;
+  font-size: 1.125rem; /* Equivalent to text-lg */
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.small-button:hover {
+  background-color: #5a5a5a;
+  border-color: #6d6d6d;
 }
