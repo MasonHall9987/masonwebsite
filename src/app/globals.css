@@ -86,7 +86,7 @@ body {
   padding: 0.25rem 0.5rem;
 }
 
-.minecraft-pulse {
+.minecraft-splash-text {
   color: #fde047; /* tailwind's text-yellow-300 */
   font-size: 1.6rem; /* text-xl */
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5)); /* drop-shadow-lg equivalent */

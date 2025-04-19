@@ -26,14 +26,25 @@ export const SmallButton = ({ text, onClick }) => {
   };
 
   
-export const TinyButton = ({ text, onClick }) => {
-    return (
-      <div className="border-3 hover:border-white">
-          <div className='border-t-3 border-l-3 border-r-3 border-t-[#c7c7c7] border-l-[#c7c7c7] border-r-[##6b6b6b]'>
-              <button onClick={onClick} className="textured-button tiny-button minecraft-font">
-              {text}
-              </button>
-          </div>
+export const MusicButton = ({ audioPlaying, onClick }) => {
+  return (
+    <div className="border-3 hover:border-white z-30">
+      <div className="border-t-3 border-l-3 border-r-3 border-t-[#c7c7c7] border-l-[#c7c7c7] border-r-[#6b6b6b]">
+        <button
+          onClick={onClick}
+          className="relative textured-button tiny-button minecraft-font p-1 overflow-hidden"
+        >
+          <img
+            src={
+              audioPlaying
+                ? '/images/icon-purple-disc.png'
+                : '/images/icon-not-playing.png'
+            }
+            className="w-15 h-10 relative z-20"
+            alt="Music Disc"
+          />
+        </button>
       </div>
-    );
-  };
+    </div>
+  );
+};
