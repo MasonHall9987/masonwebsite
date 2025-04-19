@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef} from 'react';
-import './globals.css'
+import { useState, useEffect, useRef } from 'react';
+import './globals.css';
+import { LargeButton, SmallButton } from './UIElements';
 
 const MinecraftWebsite = () => {
   const [showTitle, setShowTitle] = useState(false);
@@ -11,17 +12,26 @@ const MinecraftWebsite = () => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // Animate elements in sequence
     setTimeout(() => setShowTitle(true), 500);
     setTimeout(() => setShowMainButtons(true), 1500);
     setTimeout(() => setShowFooterButtons(true), 2500);
-
   }, []);
-
 
   const handleButtonClick = (action) => {
     console.log(`Button clicked: ${action}`);
-    // Dummy functions for now
+    const clickSound = new Audio('/audio/effect-button.mp3');
+    clickSound.play();
+  };
+
+  const playMusic = () => {
+    if (audioRef.current) {
+      if (audioRef.current.paused) {
+        audioRef.current.play().catch(err => console.warn("Play failed", err));
+      } else {
+        audioRef.current.pause();
+      }
+      setAudioPlaying(!audioPlaying);
+    }
   };
 
   return (
@@ -38,104 +48,61 @@ const MinecraftWebsite = () => {
           <source src="/videos/background-sakura.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+        <div className="bg-black opacity-5"></div>
+      </div>
 
-  {/* Optional overlay to darken video a little for better contrast */}
-  <div className="absolute inset-0 bg-black opacity-0"></div>
-</div>
-
-<audio ref={audioRef} loop>
+      <audio ref={audioRef} loop>
         <source src="/audio/song-moogcity.mp3" type="audio/mp3" />
         Your browser does not support the audio element.
-</audio>
-
-      {/* Minecraft splash text */}
-      <div className="absolute top-70 right-140 z-20 transform -rotate-24">
-        <div className="minecraft-font text-yellow-300 text-xl drop-shadow-lg animate-pulse">
-          Who pushed to Main?
-        </div>
-      </div>
+      </audio>
 
       {/* Content container */}
       <div className="minecraft-font relative z-10 h-full flex flex-col items-center justify-center">
         {/* Title */}
-        <div 
-          className={`transition-opacity duration-1000 mb-16 ${showTitle ? 'opacity-100' : 'opacity-0'}`}
-        >
+        <div className={`transition-opacity duration-1000 mb-16 ${showTitle ? 'opacity-100' : 'opacity-0'} flex justify-end relative`}>
           <img 
             src="/images/title.png" 
             alt="Minecraft" 
-            className="w-150"
+            className="w-200"
           />
+          <div className="minecraft-pulse z-20 transform -rotate-20 absolute bottom-11 translate-x-1/3 translate-y-1/4">
+            Who pushed to Main?
+          </div>
         </div>
 
         {/* Main buttons */}
-        <div 
-          className={`flex flex-col gap-2 items-center transition-opacity duration-1000 ${showMainButtons ? 'opacity-100' : 'opacity-0'}`}
-        >
-          {/* Main menu buttons */}
-          <button 
-            onClick={() => handleButtonClick('singleplayer')}
-            className="large-button"
-            >
-            Singleplayer
-          </button>
-          <button 
-            onClick={() => handleButtonClick('multiplayer')}
-            className="large-button"
-            >
-            Multiplayer
-          </button>
-          
-          <button 
-            onClick={() => handleButtonClick('realms')}
-            className="large-button"
-            >
-            Minecraft Realms
-          </button>
+        <div className={`flex flex-col gap-2 items-center transition-opacity duration-1000 ${showMainButtons ? 'opacity-100' : 'opacity-0'}`}>
+          <LargeButton text="Projects/Experience" onClick={() => handleButtonClick('settings')} />
+          <LargeButton text="About" onClick={() => handleButtonClick('settings')} />
         </div>
 
         {/* Footer buttons */}
-        <div 
-          className={`flex gap-4 mt-8 transition-opacity duration-1000 ${showFooterButtons ? 'opacity-100' : 'opacity-0'}`}
-        >
-         <button 
-  onClick={() => handleButtonClick('options')}
-  className="small-button"
-  style={{ fontFamily: 'Minecraft, monospace' }}
->
-  Options...
-</button>
-          
-          <button 
-            onClick={() => handleButtonClick('quit')}
-            className="small-button"
-            style={{ fontFamily: 'Minecraft, monospace', fontWeight: 400 }} >
-            Quit Game
-          </button>
+        <div className={`flex gap-4 mt-6 transition-opacity duration-1000 ${showFooterButtons ? 'opacity-100' : 'opacity-0'}`}>
+          <SmallButton text="Contact" onClick={() => handleButtonClick('settings')} />
+          <SmallButton text="Settings" onClick={() => handleButtonClick('settings')} />
         </div>
       </div>
 
-      {/* Copyright info */}
-      <div className="absolute bottom-4 left-4 text-white text-sm">
+      {/* Copyright */}
+      <div className="minecraft-font absolute bottom-4 left-4 text-white text-sm">
         Devcraft 1.20.2
       </div>
-      <div className="absolute bottom-4 right-4 z-30">
-  <button
-    onClick={() => {
-      if (audioRef.current) {
-        if (audioRef.current.paused) {
-          audioRef.current.play().catch(err => console.warn("Play failed", err));
-        } else {
-          audioRef.current.pause();
-        }
-        setAudioPlaying(!audioPlaying);
-      }
-    }}
-    className="minecraft-font bg-gray-600 hover:bg-gray-500 text-white border-b-4 border-gray-800 hover:border-gray-600 px-4 py-2 text-sm"
-  >
-    {audioPlaying ? 'Music: On' : 'Music: Off'}
-  </button>
-</div>
+
+      {/* Music toggle button */}
+      <div className="border-3 hover:border-white absolute bottom-4 right-4 z-30">
+        <div className="border-t-3 border-l-3 border-r-3 border-t-[#d4d4d4] border-l-[#d4d4d4] border-r-[#7d7d7d]">
+          <button
+            onClick={playMusic}
+            className="textured-button tiny-button minecraft-font p-1"
+          >
+            <img 
+              src="/images/icon-purple-disc.png"
+              className={`w-15 h-10 z-20 relative ${audioPlaying ? '' : ''}`}
+              alt="Music Disc"
+            />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

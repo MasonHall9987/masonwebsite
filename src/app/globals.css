@@ -25,9 +25,23 @@
   font-display: swap;
 }
 
+@keyframes growShrink {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+
+
 .minecraft-font {
   font-family: 'Minecraft', monospace;
   image-rendering: pixelated;
+  text-shadow: 2px 2px 0 #000;
+  letter-spacing: 0.09em;
+
 }
 
 
@@ -37,36 +51,44 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.large-button {
-  background-color: #6d6d6d;
+.textured-button {
+  position: relative;
+  background-image: url(/images/texture-button.png);
+  background-size: 3em;
+  background-repeat: repeat;
   color: white;
-  width: 24rem; /* 96px in Tailwind = 24rem */
-  padding: 0.75rem 1rem; /* Tailwind's py-3 and px-4 */
-  border-bottom: 4px solid #7d7d7d;
+  padding: 0.75rem 1rem;
+  border-bottom: 4px solid #8d8d8d00;
   text-align: center;
-  font-size: 1.125rem; /* Equivalent to text-lg */
+  font-size: 1.3rem;
   transition: all 0.2s ease;
 }
 
-.large-button:hover {
-  background-color: #5a5a5a;
-  border-color: #6d6d6d;
+.textured-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.14);
+  pointer-events: none;
 }
 
+/* Size-specific styles */
+.large-button {
+  width: 36rem;
+}
 
 .small-button {
-  background-color: #6d6d6d;
-  color: white;
-  width: 11rem; /* 44px in Tailwind = 11rem */
-  padding: 0.75rem 1rem; /* Tailwind's py-3 and px-4 */
-  border-bottom: 4px solid #7d7d7d;
-  text-align: center;
-  font-size: 1.125rem; /* Equivalent to text-lg */
-  font-weight: bold;
-  transition: all 0.2s ease;
+  width: 17rem;
 }
 
-.small-button:hover {
-  background-color: #5a5a5a;
-  border-color: #6d6d6d;
+.tiny-button {
+  width: 4rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.minecraft-pulse {
+  color: #fde047; /* tailwind's text-yellow-300 */
+  font-size: 1.6rem; /* text-xl */
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5)); /* drop-shadow-lg equivalent */
+  animation: growShrink 1.5s ease-in-out infinite;
 }
