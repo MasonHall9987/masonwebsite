@@ -9,16 +9,20 @@ const MinecraftWebsite = () => {
   const [showMainButtons, setShowMainButtons] = useState(false);
   const [showFooterButtons, setShowFooterButtons] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
+  const [splashText, setSplashText] = useState('Bruh');
   const audioRef = useRef(null);
+  const videoNames = ['sakura'];
+  const songNames = ['moogcity'];
+  const splashTextOptions = ['Who pushed to main?', 'Built with HTML and bedrock!', 'Now with 73 unused npm packages!', "git commit -m 'final final FINAL version'", "Trust me, it’s asynchronous"];
 
-  useEffect(() => {
-    setTimeout(() => setShowTitle(true), 500);
-    setTimeout(() => setShowMainButtons(true), 1500);
-    setTimeout(() => setShowFooterButtons(true), 2500);
-  }, []);
+useEffect(() => {
+  setSplashText(returnSplashText());
+  setTimeout(() => setShowTitle(true), 500);
+  setTimeout(() => setShowMainButtons(true), 1500);
+  setTimeout(() => setShowFooterButtons(true), 2500);
+}, []);  // This effect will run once when the component mounts
 
   const handleButtonClick = (action) => {
-    console.log(`Button clicked: ${action}`);
     const clickSound = new Audio('/audio/effect-button.mp3');
     clickSound.play();
   };
@@ -36,7 +40,29 @@ const MinecraftWebsite = () => {
     }
   };
 
-  function renderBackgroundMedia(videoSrc, audioSrc, audioRef) {
+  function returnBackgroundAudio()
+  {
+    const index = Math.floor(Math.random() * songNames.length);
+    const name = songNames[index];
+    return `https://ezaujbltyppiqzzsoxae.supabase.co/storage/v1/object/public/assets/music/song-${name}.mp3`;
+  }
+
+  function returnBackgroundVideo()
+  {
+    const index = Math.floor(Math.random() * videoNames.length);
+    const name = videoNames[index];
+    return `https://ezaujbltyppiqzzsoxae.supabase.co/storage/v1/object/public/assets/videos/background-${name}.mp4`;
+  }
+
+    function returnSplashText()
+  {
+    const index = Math.floor(Math.random() * splashTextOptions.length);
+    const text = splashTextOptions[index];
+    return text;
+  }
+
+
+function renderBackgroundMedia(videoSrc, audioSrc, audioRef) {
   return (
     <>
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -76,7 +102,7 @@ const MinecraftWebsite = () => {
               className="w-200"
             />
             <div className="minecraft-splash-text z-2 transform -rotate-19 absolute bottom-11 translate-x-1/3 translate-y-1/4">
-              Who pushed to Main?
+              {splashText}
             </div>
           </div>
 
@@ -106,7 +132,7 @@ const MinecraftWebsite = () => {
         </div>
       </div>
     {/* Background video */}
-    {renderBackgroundMedia('/videos/background-sakura.mp4', '/audio/song-moogcity.mp3', audioRef)}
+    {renderBackgroundMedia(returnBackgroundVideo(), returnBackgroundAudio(), audioRef)}
     </div>
   );
 };

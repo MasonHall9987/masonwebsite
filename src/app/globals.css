@@ -88,7 +88,7 @@ body {
 
 .minecraft-splash-text {
   color: #fde047; /* tailwind's text-yellow-300 */
-  font-size: 1.6rem; /* text-xl */
+  font-size: 1.2rem; /* text-xl */
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5)); /* drop-shadow-lg equivalent */
   animation: growShrink 1.5s ease-in-out infinite;
 }
