@@ -9,28 +9,26 @@ import { Footer } from './UIElements';
 import { AboutPage, ProjectsPage, ContactPage, SettingsPage } from './pageComponents';
 
 const MinecraftWebsite = () => {
-  const [audioPlaying, setAudioPlaying] = useState(false);
-  const [showMusicButton, setShowMusicButton] = useState(false);
-  const audioRef = useRef(null);
-  const audioSrc = returnBackgroundAudio();
   const [currentPage, setCurrentPage] = useState('home'); // Default page is home
   const [skipHomeAnimation, setSkipHomeAnimation] = useState(false);
-
+  const [isBlurred, setIsBlurred] = useState(false);
 
   const handleVideoLoaded = () => {};
 
-   const handleNavigate = (page) => {
+  const handleNavigate = (page) => {
     setCurrentPage(page);
+    if (page !== 'home') {
+      setIsBlurred(true); // 👈 Enable blur
+    }
   };
 
-   const handleBackToHome = () => {
-    // Play click sound
+  const handleBackToHome = () => {
     const clickSound = new Audio('/audio/effect-button.mp3');
     clickSound.play();
-    
-    // Set skip animation flag to true before navigating back to home
+
     setSkipHomeAnimation(true);
     setCurrentPage('home');
+    setIsBlurred(false); // 👈 Disable blur
   };
 
   // Render content based on current page
@@ -52,8 +50,10 @@ const MinecraftWebsite = () => {
   // Rendered Main Function
   return (
     <div className="relative h-screen w-full overflow-hidden font-mono">
+      {isBlurred && <div className="fixed inset-0 z-1 backdrop-blur-sm" />}
+
       {/* Content container */}
-      <div className="minecraft-font relative z-10 h-full flex flex-col items-center justify-between">
+      <div className="minecraft-font relative z-2 h-full flex flex-col items-center justify-between">
         {/* Current page content */}
         {renderContent()}
         {/* Bottom container for version and music button */}

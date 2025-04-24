@@ -56,7 +56,7 @@ export const Footer = () => {
 
   return (
     <div
-      className={`w-full px-4 py-4 flex justify-between items-center transition-opacity duration-1000 ${
+      className={`w-full z-10 px-4 py-4 flex justify-between items-center transition-opacity duration-1000 ${
         showMusicButton ? 'opacity-100' : 'opacity-0'
       }`}
     >
