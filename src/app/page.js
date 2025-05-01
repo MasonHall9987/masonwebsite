@@ -7,11 +7,21 @@ import { Background, returnBackgroundAudio} from './background';
 import { Home, SmallButton } from './home';
 import { Footer } from './UIElements';
 import { AboutPage, ProjectsPage, ContactPage, SettingsPage } from './pageComponents';
+import MinecraftCursor from './MinecraftCursor';
 
 const MinecraftWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home'); // Default page is home
   const [skipHomeAnimation, setSkipHomeAnimation] = useState(false);
   const [isBlurred, setIsBlurred] = useState(false);
+  const [splashText, setSplashText] = useState(() => returnSplashText());
+
+
+
+   function returnSplashText (){
+    const splashTextOptions = ['Who pushed to main?', 'Built with HTML and bedrock!', 'Now with 73 unused npm packages!', "git commit -m 'final FINAL version'", "Trust me, it's asynchronous"];
+    const index = Math.floor(Math.random() * splashTextOptions.length);
+    return splashTextOptions[index];
+   };
 
   const handleVideoLoaded = () => {};
 
@@ -31,6 +41,8 @@ const MinecraftWebsite = () => {
     setIsBlurred(false); // 👈 Disable blur
   };
 
+
+
   // Render content based on current page
   const renderContent = () => {
     switch (currentPage) {
@@ -44,7 +56,7 @@ const MinecraftWebsite = () => {
         return <SettingsPage onBack={handleBackToHome} />;
       case 'home':
       default:
-        return <Home onNavigate={handleNavigate} skipAnimation={skipHomeAnimation} />;
+        return <Home onNavigate={handleNavigate} skipAnimation={skipHomeAnimation} splashText={splashText}/>;
     }
   };
   // Rendered Main Function
@@ -60,6 +72,7 @@ const MinecraftWebsite = () => {
         <Footer />
       </div>
       <Background onVideoLoaded={handleVideoLoaded} />
+      <MinecraftCursor />
     </div>
   );
 };

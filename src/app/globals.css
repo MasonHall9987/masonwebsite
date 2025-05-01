@@ -64,6 +64,11 @@ body {
   transition: all 0.2s ease;
 }
 
+* {
+  cursor: none !important;
+}
+
+
 .textured-button::before {
   content: "";
   position: absolute;
@@ -71,8 +76,11 @@ body {
   background-color: rgba(255, 255, 255, 0.14);
   pointer-events: none;
 }
+.textured-button:hover {
+  cursor: none;
+}
 
-/* Size-specific styles */
+
 .large-button {
   width: 36rem;
 }
@@ -87,8 +95,19 @@ body {
 }
 
 .minecraft-splash-text {
-  color: #fde047; /* tailwind's text-yellow-300 */
-  font-size: 1.2rem; /* text-xl */
-  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5)); /* drop-shadow-lg equivalent */
+  color: #fde047; 
+  font-size: 1.2rem; 
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
   animation: growShrink 1.5s ease-in-out infinite;
+}
+
+.underline-link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.hide-cursor-on-hover:hover {
+  cursor: none;
+  color: #fde047;  /* Yellow text on hover */
 }

@@ -4,16 +4,12 @@
 import { useState, useEffect } from 'react';
 import { LargeButton, SmallButton } from './UIElements';
 
-const Home = ({ onNavigate, skipAnimation = false }) => {
+const Home = ({ onNavigate, skipAnimation, splashText = false }) => {
   const [showTitle, setShowTitle] = useState(skipAnimation);
   const [showMainButtons, setShowMainButtons] = useState(skipAnimation);
   const [showFooterButtons, setShowFooterButtons] = useState(skipAnimation);
-  const [splashText, setSplashText] = useState('Bruh');
   
-  const splashTextOptions = ['Who pushed to main?', 'Built with HTML and bedrock!', 'Now with 73 unused npm packages!', "git commit -m 'final FINAL version'", "Trust me, it's asynchronous"];
-
   useEffect(() => {
-    setSplashText(returnSplashText());
     
     // Skip animations if requested
     if (skipAnimation) {
@@ -31,11 +27,7 @@ const Home = ({ onNavigate, skipAnimation = false }) => {
     };
   }, [skipAnimation]);
 
-  function returnSplashText() {
-    const index = Math.floor(Math.random() * splashTextOptions.length);
-    const text = splashTextOptions[index];
-    return text;
-  }
+ 
 
   const handleButtonClick = (page) => {
     const clickSound = new Audio('/audio/effect-button.mp3');
