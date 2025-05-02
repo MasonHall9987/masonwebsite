@@ -93,6 +93,8 @@ const ContactPage = ({ onBack }) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [statusMessage, setStatusMessage] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   const isFormValid = name.trim() !== "" && email.trim() !== "" && message.trim() !== "";
 
@@ -100,11 +102,13 @@ const ContactPage = ({ onBack }) => {
     e.preventDefault();
 
     if (!isFormValid) {
-      alert("Please fill in all fields before sending.");
+      setStatusMessage("Please fill in all fields before sending.");
+      setIsError(true);
       return;
     }
 
     setIsSending(true);
+    setStatusMessage(null);
 
     const body = { name, email, message };
 
@@ -120,13 +124,15 @@ const ContactPage = ({ onBack }) => {
         throw new Error(errorText || "Unknown error");
       }
 
-      alert("Message sent!");
+      setStatusMessage("Email sent. I'll get back with you shortly.");
+      setIsError(false);
       setName("");
       setEmail("");
       setMessage("");
     } catch (err) {
       console.error("Error sending email:", err);
-      alert("Failed to send message. Please try again later.");
+      setStatusMessage(`Failed to send message: ${err.message}`);
+      setIsError(true);
     } finally {
       setIsSending(false);
     }
@@ -177,25 +183,32 @@ const ContactPage = ({ onBack }) => {
           </div>
         </div>
 
-        <div className="flex justify-end gap-2 mt-4">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-            <div className="h-14 w-14 flex items-center justify-center">
-              <img 
-                src="/images/icon-githublogo.png" 
-                alt="GitHub" 
-                className="max-h-full max-w-full object-contain"
-              />
+        <div className="flex justify-between items-center mt-4">
+          {statusMessage && (
+            <div className={`${isError ? 'text-red-500' : 'text-green-500'} text-sm`}>
+              {statusMessage}
             </div>
-          </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-            <div className="h-10 w-10 flex items-center justify-center">
-              <img 
-                src="/images/icon-linkedin.png" 
-                alt="LinkedIn" 
-                className="max-h-full max-w-full object-contain"
-              />
-            </div>
-          </a>
+          )}
+          <div className="flex gap-2 ml-auto">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+              <div className="h-13 w-13 flex items-center justify-center">
+                <img 
+                  src="/images/icon-githublogo.png" 
+                  alt="GitHub" 
+                  className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition duration-200"
+                />
+              </div>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+              <div className="h-10 w-10 flex items-center justify-center">
+                <img 
+                  src="/images/icon-linkedin.png" 
+                  alt="LinkedIn" 
+                  className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition duration-200"
+                />
+              </div>
+            </a>
+          </div>
         </div>
       </div>
 

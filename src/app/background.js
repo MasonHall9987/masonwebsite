@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 
 function returnBackgroundAudio() {
     const songNames = ['moogcity'];
-    
+
     const index = Math.floor(Math.random() * songNames.length);
     const name = songNames[index];
     return `/audio/song-${name}.mp3`;
@@ -15,10 +15,8 @@ const Background = ({ onVideoLoaded }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const videoRef = useRef(null);
-  const audioRef = useRef(null);
   const videoLoadTimeoutRef = useRef(null);
-  const videoNames = ['sakura'];
-
+  const videoNames = ['sakura','jungle','coral','cave','village','canyon'];
 
   useEffect(() => {
     const cleanup = setupVideoFallback();
