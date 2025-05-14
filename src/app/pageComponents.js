@@ -3,6 +3,8 @@
 import { LargeButton, SmallButton } from "./UIElements";
 import {React,useState} from "react";
 
+
+
 // About Page Component
 const AboutPage = ({ onBack }) => {
   return (
@@ -97,9 +99,13 @@ const ContactPage = ({ onBack }) => {
   const [isError, setIsError] = useState(false);
 
   const isFormValid = name.trim() !== "" && email.trim() !== "" && message.trim() !== "";
+  const clickSound = new Audio('/audio/effect-button.mp3');
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    clickSound.play();
+
 
     if (!isFormValid) {
       setStatusMessage("Please fill in all fields before sending.");
@@ -200,7 +206,7 @@ const ContactPage = ({ onBack }) => {
               </div>
             </a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-              <div className="h-10 w-10 flex items-center justify-center">
+              <div className="h-10.5 w-10.5 flex items-center justify-center">
                 <img 
                   src="/images/icon-linkedin.png" 
                   alt="LinkedIn" 
@@ -228,17 +234,205 @@ const ContactPage = ({ onBack }) => {
 
 // Settings Page Component
 const SettingsPage = ({ onBack }) => {
-   return (
-    <div className="flex flex-col items-center justify-center w-screen min-h-screen px-0 py-12 space-y-2">
-      <div className="text-white">
-      {/* Heading above the translucent box */}
-      <h2 className="text-3xl text-center">About Me</h2>
+  // Sample background data with distinct images
+  const backgroundsData = [
+    { name: "Forest", image: "images/background-sakura.jpg" },
+    { name: "Ocean", image: "images/background-sakura.jpg" },
+    { name: "Mountain", image: "images/background-sakura.jpg" },
+  ];
+  
+  // Sample music data with different colors
+  const musicData = [
+    { name: "Moogcity", image: "images/icon-yellow-disc.png" },
+    { name: "Moogcity 2", image: "images/icon-red-disc.png" },
+    { name: "Mice On Venus", image: "images/icon-blue-disc.png" },
+  ];
+  
+  // State for carousel items in display order
+  const [backgrounds, setBackgrounds] = useState([...backgroundsData]);
+  const [musicTracks, setMusicTracks] = useState([...musicData]);
 
+  const clickSound = new Audio('/audio/effect-button.mp3');
+
+  
+  // Function to shift backgrounds carousel left
+  const shiftBackgroundsLeft = () => {
+    clickSound.play();
+    setBackgrounds(prevState => {
+      const newArray = [...prevState];
+      // Remove the first item and add it to the end
+      const firstItem = newArray.shift();
+      newArray.push(firstItem);
+      return newArray;
+    });
+  };
+  
+  // Function to shift backgrounds carousel right
+  const shiftBackgroundsRight = () => {
+    clickSound.play();
+    setBackgrounds(prevState => {
+      const newArray = [...prevState];
+      // Remove the last item and add it to the beginning
+      const lastItem = newArray.pop();
+      newArray.unshift(lastItem);
+      return newArray;
+    });
+  };
+  
+  // Function to shift music carousel left
+  const shiftMusicLeft = () => {
+      clickSound.play();
+      setMusicTracks(prevState => {
+      const newArray = [...prevState];
+      // Remove the first item and add it to the end
+      const firstItem = newArray.shift();
+      newArray.push(firstItem);
+      return newArray;
+    });
+  };
+  
+  // Function to shift music carousel right
+  const shiftMusicRight = () => {
+    clickSound.play();
+    setMusicTracks(prevState => {
+      const newArray = [...prevState];
+      // Remove the last item and add it to the beginning
+      const lastItem = newArray.pop();
+      newArray.unshift(lastItem);
+      return newArray;
+    });
+  };
+  
+  // Get currently selected items (middle of carousel)
+  const selectedBackground = backgrounds[1];
+  const selectedMusic = musicTracks[1];
+  
+  // Handler for Save button
+  const handleSave = () => {
+   clickSound.play();
+  };
+
+
+  return (
+    <div className="flex flex-col items-center justify-center w-screen min-h-screen py-12 space-y-3">
+      {/* Heading above the translucent box */}
+      <h2 className="text-3xl font-semibold text-center text-white">Setting</h2>
+      
       {/* FULL-WIDTH translucent container */}
-      <div className="bg-black/60 border-t-2 border-b border-white w-full h-[70vh] p-10 px-20 flex flex-col justify-start">
+      <div className="bg-black/60 border-t-2 border-b border-white w-full h-[70vh] p-10 px-20 flex flex-col justify-start text-white space-y-12">
+        {/* Backgrounds carousel */}
+        <div className="mb-10">
+          <h3 className="text-2xl font-medium mb-8 text-center">Background</h3>
+          
+          <div className="flex items-center justify-center gap-4">
+            {/* Left arrow button */}
+               <button 
+  onClick={shiftBackgroundsLeft}
+  className="text-white text-2xl opacity-70 hover:opacity-100"
+>
+  <img 
+    src="/images/icon-arrow.png" 
+    alt="Shift Right" 
+    className="w-15 h-10" 
+    style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
+  />
+</button>
+            {/* Carousel items */}
+            <div className="flex items-center justify-center gap-6">
+              {backgrounds.map((background, index) => (
+                <div 
+                  key={index}
+                  className={`
+                    transition-all duration-300
+                    ${index === 1 
+                      ? "transform scale-110 opacity-100 z-10 border-2 border-white" 
+                      : "opacity-40 scale-90"}
+                  `}
+                >
+                  <img 
+                    src={background.image} 
+                    alt={background.name}
+                    className="w-50 h-32 object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+            
+            {/* Right arrow button */}
+    <button 
+  onClick={shiftBackgroundsRight}
+  className="text-white text-2xl opacity-70 hover:opacity-100"
+>
+  <img 
+    src="/images/icon-arrow.png" 
+    alt="Shift Right" 
+    className="w-15 h-10" 
+  />
+</button>
+          </div>
+          
+          {/* Display the selected background name */}
+          <p className="text-xl text-center mt-6">{selectedBackground.name}</p>
+        </div>
+        
+        {/* Music carousel */}
+        <div>
+          <h3 className="text-2xl font-medium mb-8 text-center">Music</h3>
+          
+          <div className="flex items-center justify-center gap-4">
+            {/* Left arrow button */}
+            <button 
+              onClick={shiftMusicLeft}
+              className="text-white text-2xl opacity-70 hover:opacity-100"
+            >
+              <img 
+    src="/images/icon-next.png" 
+    alt="Shift Right" 
+    className="w-10 h-10"
+    style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
+  />
+            </button>
+            
+            {/* Music disc items */}
+            <div className="flex items-center justify-center gap-6">
+  {musicTracks.map((music, index) => (
+    <img 
+      key={index}
+      src={music.image} 
+      alt={music.name}
+      className={`
+        w-32 h-32 object-cover rounded-full transition-all duration-300
+        ${index === 1 
+          ? "opacity-100 scale-110 brightness-100 saturate-100 z-10" 
+          : "opacity-50 scale-90 brightness-75 saturate-50"}
+      `}
+    />
+  ))}
+</div>
+            
+            {/* Right arrow button */}
+            <button 
+              onClick={shiftMusicRight}
+              className="text-white text-2xl opacity-70 hover:opacity-100"
+            >
+              <img 
+    src="/images/icon-next.png" 
+    alt="Shift Right" 
+    className="w-10 h-10" 
+  />
+            </button>
+          </div>
+          
+          {/* Display the selected music name */}
+          <p className="text-xl text-center mt-6">{selectedMusic.name}</p>
+        </div>
       </div>
+      
+      {/* Bottom buttons */}
+      <div className="flex gap-4">
+        <LargeButton text="Back" onClick={onBack} />
+        <LargeButton text="Save" onClick={handleSave} />
       </div>
-    <LargeButton text="Back" onClick={() => onBack()} />   
     </div>
   );
 };
