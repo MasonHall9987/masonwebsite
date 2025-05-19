@@ -3,7 +3,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import './globals.css';
-import { Background, returnBackgroundAudio} from './background';
+import { Background, returnBackgroundAudio, returnBackgroundVideo} from './background';
 import { Home, SmallButton } from './home';
 import { Footer } from './UIElements';
 import { AboutPage, ProjectsPage, ContactPage, SettingsPage } from './pageComponents';
@@ -14,6 +14,9 @@ const MinecraftWebsite = () => {
   const [skipHomeAnimation, setSkipHomeAnimation] = useState(false);
   const [isBlurred, setIsBlurred] = useState(false);
   const [splashText, setSplashText] = useState(() => returnSplashText());
+  const [backgroundVideo, setBackgroundVideo] = useState(() => returnBackgroundVideo());
+  const [backgroundAudio, setBackgroundAudio] = useState(() => returnBackgroundAudio());
+  
 
 
 
@@ -53,7 +56,11 @@ const MinecraftWebsite = () => {
       case 'contact':
         return <ContactPage onBack={handleBackToHome} />;
       case 'settings':
-        return <SettingsPage onBack={handleBackToHome} />;
+        return  <SettingsPage
+        onBack={handleBackToHome}
+        setBackgroundVideo={setBackgroundVideo}
+        setBackgroundAudio={setBackgroundAudio}
+      />;
       case 'home':
       default:
         return <Home onNavigate={handleNavigate} skipAnimation={skipHomeAnimation} splashText={splashText}/>;
@@ -71,7 +78,11 @@ const MinecraftWebsite = () => {
         {/* Bottom container for version and music button */}
         <Footer />
       </div>
-      <Background onVideoLoaded={handleVideoLoaded} />
+      <Background
+    videoSrc={backgroundVideo[0]}
+    fallbackImageSrc={backgroundVideo[1]}
+    onVideoLoaded={handleVideoLoaded}
+  />
       <MinecraftCursor />
     </div>
   );

@@ -232,11 +232,11 @@ const ContactPage = ({ onBack }) => {
 };
 
 
-const SettingsPage = ({ onBack }) => {
+const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio }) => {
   // Sample background data with distinct images
   const backgroundsData = [
     { name: "Canyon", image: "images/framed-canyon.png" },
-    { name: "Ocean", image: "images/framed-ocean.png" },
+    { name: "Coral", image: "images/framed-ocean.png" },
     { name: "Jungle", image: "images/framed-jungle.png" },
     { name: "Sakura", image: "images/framed-sakura.png" },
     { name: "Village", image: "images/framed-village.png" },
@@ -304,8 +304,10 @@ const SettingsPage = ({ onBack }) => {
   const selectedMusic = musicData[visibleMusicIndices[1]];
   
   // Handler for Save button
-  const handleSave = () => {
+  const handleSave = (name) => {
     clickSound.play();
+    const videoUrl = `/videos/background-${name.toLowerCase()}.mp4`;
+    setBackgroundVideo([videoUrl, "/images/background-jungle.jpg"]);
   };
 
   return (
@@ -443,7 +445,7 @@ const SettingsPage = ({ onBack }) => {
       {/* Bottom buttons */}
       <div className="flex gap-4">
         <LargeButton text="Back" onClick={onBack} />
-        <LargeButton text="Save" onClick={handleSave} />
+        <LargeButton text="Save" onClick={() => handleSave(selectedBackground.name)} />
       </div>
     </div>
   );

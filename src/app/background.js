@@ -5,23 +5,30 @@ import { useState, useEffect, useRef } from 'react';
 
 function returnBackgroundAudio() {
     const songNames = ['moogcity'];
-
     const index = Math.floor(Math.random() * songNames.length);
     const name = songNames[index];
     return `/audio/song-${name}.mp3`;
 }
 
-const Background = ({ onVideoLoaded }) => {
+function returnBackgroundVideo() {
+  const videoNames = ['sakura','jungle','coral','village','canyon'];
+  const index = Math.floor(Math.random() * videoNames.length);
+  const name = videoNames[index];
+  const videoUrl = `/videos/background-${name}.mp4`;
+  const imagePath = `/images/background-${name}.jpg`;
+  return [videoUrl, imagePath];
+}
+
+const Background = ({ onVideoLoaded, videoSrc }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const videoRef = useRef(null);
   const videoLoadTimeoutRef = useRef(null);
-  const videoNames = ['sakura','jungle','coral','village','canyon'];
 
-  useEffect(() => {
+  /*useEffect(() => {
     const cleanup = setupVideoFallback();
     return cleanup;
-  }, []);
+  }, []); */
 
   // Set up video fallback timer
   const setupVideoFallback = () => {
@@ -86,22 +93,15 @@ const Background = ({ onVideoLoaded }) => {
 
 
 
-  function returnBackgroundVideo() {
-    const index = Math.floor(Math.random() * videoNames.length);
-    const name = videoNames[index];
-    const videoUrl = `/videos/background-${name}.mp4`;
-    const imagePath = `/images/background-${name}.jpg`;
-    return [videoUrl, imagePath];
-  }
+ 
 
-  const [videoSrc, fallbackImageSrc] = returnBackgroundVideo();
   const audioSrc = returnBackgroundAudio();
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
       {/* Use a container with absolute positioning for both elements */}
       <div className="absolute inset-0 w-full h-full">
-        {/* Placeholder image */}
+        {/* Placeholder image 
         <div 
           className={`absolute inset-0 w-full h-full transition-opacity duration-3000 ${
             videoLoaded && !videoError ? 'opacity-0' : 'opacity-100'
@@ -112,15 +112,15 @@ const Background = ({ onVideoLoaded }) => {
             alt="Loading background" 
             className="w-full h-full object-cover"
           />
-        </div>
+        </div>*/}
         
         {/* Video element */}
         <div 
-          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
-            videoLoaded && !videoError ? 'opacity-100' : 'opacity-0'
+          className={`absolute inset-0 w-full h-full
           }`}
         >
           <video
+            key={videoSrc} // ✅ this forces re-render
             ref={videoRef}
             autoPlay
             loop
@@ -146,4 +146,4 @@ const Background = ({ onVideoLoaded }) => {
   );
 };
 
-export { Background, returnBackgroundAudio };
+export { Background, returnBackgroundAudio, returnBackgroundVideo};
