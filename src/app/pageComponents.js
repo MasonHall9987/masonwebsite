@@ -232,13 +232,14 @@ const ContactPage = ({ onBack }) => {
 };
 
 
-// Settings Page Component
 const SettingsPage = ({ onBack }) => {
   // Sample background data with distinct images
   const backgroundsData = [
-    { name: "Forest", image: "images/background-sakura.jpg" },
-    { name: "Ocean", image: "images/background-sakura.jpg" },
-    { name: "Mountain", image: "images/background-sakura.jpg" },
+    { name: "Canyon", image: "images/framed-canyon.png" },
+    { name: "Ocean", image: "images/framed-ocean.png" },
+    { name: "Jungle", image: "images/framed-jungle.png" },
+    { name: "Sakura", image: "images/framed-sakura.png" },
+    { name: "Village", image: "images/framed-village.png" },
   ];
   
   // Sample music data with different colors
@@ -248,70 +249,64 @@ const SettingsPage = ({ onBack }) => {
     { name: "Mice On Venus", image: "images/icon-blue-disc.png" },
   ];
   
-  // State for carousel items in display order
-  const [backgrounds, setBackgrounds] = useState([...backgroundsData]);
-  const [musicTracks, setMusicTracks] = useState([...musicData]);
+  // State for visible carousel items - array of exactly 3 indices
+  const [visibleBackgroundIndices, setVisibleBackgroundIndices] = useState([0, 1, 2]);
+  const [visibleMusicIndices, setVisibleMusicIndices] = useState([0, 1, 2]);
 
   const clickSound = new Audio('/audio/effect-button.mp3');
-
   
   // Function to shift backgrounds carousel left
-  const shiftBackgroundsLeft = () => {
+  const shiftBackgroundsRight = () => {
     clickSound.play();
-    setBackgrounds(prevState => {
-      const newArray = [...prevState];
-      // Remove the first item and add it to the end
-      const firstItem = newArray.shift();
-      newArray.push(firstItem);
-      return newArray;
+    setVisibleBackgroundIndices(prevIndices => {
+      // Calculate the new indices by shifting left
+      return prevIndices.map(index => 
+        (index + 1) % backgroundsData.length
+      );
     });
   };
   
   // Function to shift backgrounds carousel right
-  const shiftBackgroundsRight = () => {
+  const shiftBackgroundsLeft = () => {
     clickSound.play();
-    setBackgrounds(prevState => {
-      const newArray = [...prevState];
-      // Remove the last item and add it to the beginning
-      const lastItem = newArray.pop();
-      newArray.unshift(lastItem);
-      return newArray;
+    setVisibleBackgroundIndices(prevIndices => {
+      // Calculate the new indices by shifting right
+      return prevIndices.map(index => 
+        (index - 1 + backgroundsData.length) % backgroundsData.length
+      );
     });
   };
   
   // Function to shift music carousel left
-  const shiftMusicLeft = () => {
-      clickSound.play();
-      setMusicTracks(prevState => {
-      const newArray = [...prevState];
-      // Remove the first item and add it to the end
-      const firstItem = newArray.shift();
-      newArray.push(firstItem);
-      return newArray;
+  const shiftMusicRight = () => {
+    clickSound.play();
+    setVisibleMusicIndices(prevIndices => {
+      // Calculate the new indices by shifting left
+      return prevIndices.map(index => 
+        (index + 1) % musicData.length
+      );
     });
   };
   
   // Function to shift music carousel right
-  const shiftMusicRight = () => {
+  const shiftMusicLeft = () => {
     clickSound.play();
-    setMusicTracks(prevState => {
-      const newArray = [...prevState];
-      // Remove the last item and add it to the beginning
-      const lastItem = newArray.pop();
-      newArray.unshift(lastItem);
-      return newArray;
+    setVisibleMusicIndices(prevIndices => {
+      // Calculate the new indices by shifting right
+      return prevIndices.map(index => 
+        (index - 1 + musicData.length) % musicData.length
+      );
     });
   };
   
-  // Get currently selected items (middle of carousel)
-  const selectedBackground = backgrounds[1];
-  const selectedMusic = musicTracks[1];
+  // Get the selected items (middle of each carousel)
+  const selectedBackground = backgroundsData[visibleBackgroundIndices[1]];
+  const selectedMusic = musicData[visibleMusicIndices[1]];
   
   // Handler for Save button
   const handleSave = () => {
-   clickSound.play();
+    clickSound.play();
   };
-
 
   return (
     <div className="flex flex-col items-center justify-center w-screen min-h-screen py-12 space-y-3">
@@ -326,49 +321,59 @@ const SettingsPage = ({ onBack }) => {
           
           <div className="flex items-center justify-center gap-4">
             {/* Left arrow button */}
-               <button 
-  onClick={shiftBackgroundsLeft}
-  className="text-white text-2xl opacity-70 hover:opacity-100"
->
-  <img 
-    src="/images/icon-arrow.png" 
-    alt="Shift Right" 
-    className="w-15 h-10" 
-    style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
-  />
-</button>
-            {/* Carousel items */}
+            <button 
+              onClick={shiftBackgroundsLeft}
+              className="text-white text-2xl opacity-70 hover:opacity-100"
+            >
+              <img 
+                src="/images/icon-next.png" 
+                alt="Shift Left" 
+                className="w-10 h-10"
+                style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
+              />
+            </button>
+            
+            {/* Three carousel items using direct indices */}
             <div className="flex items-center justify-center gap-6">
-              {backgrounds.map((background, index) => (
-                <div 
-                  key={index}
-                  className={`
-                    transition-all duration-300
-                    ${index === 1 
-                      ? "transform scale-110 opacity-100 z-10 border-2 border-white" 
-                      : "opacity-40 scale-90"}
-                  `}
-                >
-                  <img 
-                    src={background.image} 
-                    alt={background.name}
-                    className="w-50 h-32 object-cover"
-                  />
-                </div>
-              ))}
+              {/* Left item (index 0) */}
+              <div className="transition-all duration-300 opacity-40 scale-90">
+                <img 
+                  src={backgroundsData[visibleBackgroundIndices[0]].image} 
+                  alt={backgroundsData[visibleBackgroundIndices[0]].name}
+                  className="w-50 h-32 object-cover"
+                />
+              </div>
+              
+              {/* Middle item (index 1) - highlighted */}
+              <div className="transition-all duration-300 transform scale-110 opacity-100 z-10">
+                <img 
+                  src={backgroundsData[visibleBackgroundIndices[1]].image} 
+                  alt={backgroundsData[visibleBackgroundIndices[1]].name}
+                  className="w-50 h-32 object-cover"
+                />
+              </div>
+              
+              {/* Right item (index 2) */}
+              <div className="transition-all duration-300 opacity-40 scale-90">
+                <img 
+                  src={backgroundsData[visibleBackgroundIndices[2]].image} 
+                  alt={backgroundsData[visibleBackgroundIndices[2]].name}
+                  className="w-50 h-32 object-cover"
+                />
+              </div>
             </div>
             
             {/* Right arrow button */}
-    <button 
-  onClick={shiftBackgroundsRight}
-  className="text-white text-2xl opacity-70 hover:opacity-100"
->
-  <img 
-    src="/images/icon-arrow.png" 
-    alt="Shift Right" 
-    className="w-15 h-10" 
-  />
-</button>
+            <button 
+              onClick={shiftBackgroundsRight}
+              className="text-white text-2xl opacity-70 hover:opacity-100"
+            >
+              <img 
+                src="/images/icon-next.png" 
+                alt="Shift Right" 
+                className="w-10 h-10"
+              />
+            </button>
           </div>
           
           {/* Display the selected background name */}
@@ -386,29 +391,36 @@ const SettingsPage = ({ onBack }) => {
               className="text-white text-2xl opacity-70 hover:opacity-100"
             >
               <img 
-    src="/images/icon-next.png" 
-    alt="Shift Right" 
-    className="w-10 h-10"
-    style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
-  />
+                src="/images/icon-next.png" 
+                alt="Shift Left" 
+                className="w-10 h-10"
+                style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
+              />
             </button>
             
-            {/* Music disc items */}
+            {/* Three music items using direct indices */}
             <div className="flex items-center justify-center gap-6">
-  {musicTracks.map((music, index) => (
-    <img 
-      key={index}
-      src={music.image} 
-      alt={music.name}
-      className={`
-        w-32 h-32 object-cover rounded-full transition-all duration-300
-        ${index === 1 
-          ? "opacity-100 scale-110 brightness-100 saturate-100 z-10" 
-          : "opacity-50 scale-90 brightness-75 saturate-50"}
-      `}
-    />
-  ))}
-</div>
+              {/* Left item (index 0) */}
+              <img 
+                src={musicData[visibleMusicIndices[0]].image} 
+                alt={musicData[visibleMusicIndices[0]].name}
+                className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-50 scale-90 brightness-75 saturate-50"
+              />
+              
+              {/* Middle item (index 1) - highlighted */}
+              <img 
+                src={musicData[visibleMusicIndices[1]].image} 
+                alt={musicData[visibleMusicIndices[1]].name}
+                className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-100 scale-110 brightness-100 saturate-100 z-10"
+              />
+              
+              {/* Right item (index 2) */}
+              <img 
+                src={musicData[visibleMusicIndices[2]].image} 
+                alt={musicData[visibleMusicIndices[2]].name}
+                className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-50 scale-90 brightness-75 saturate-50"
+              />
+            </div>
             
             {/* Right arrow button */}
             <button 
@@ -416,10 +428,10 @@ const SettingsPage = ({ onBack }) => {
               className="text-white text-2xl opacity-70 hover:opacity-100"
             >
               <img 
-    src="/images/icon-next.png" 
-    alt="Shift Right" 
-    className="w-10 h-10" 
-  />
+                src="/images/icon-next.png" 
+                alt="Shift Right" 
+                className="w-10 h-10" 
+              />
             </button>
           </div>
           

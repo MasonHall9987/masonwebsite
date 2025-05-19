@@ -16,7 +16,7 @@ const Background = ({ onVideoLoaded }) => {
   const [videoError, setVideoError] = useState(false);
   const videoRef = useRef(null);
   const videoLoadTimeoutRef = useRef(null);
-  const videoNames = ['sakura','jungle','coral','cave','village','canyon'];
+  const videoNames = ['sakura','jungle','coral','village','canyon'];
 
   useEffect(() => {
     const cleanup = setupVideoFallback();
