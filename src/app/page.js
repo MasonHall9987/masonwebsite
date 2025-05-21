@@ -59,6 +59,8 @@ const MinecraftWebsite = () => {
         onBack={handleBackToHome}
         setBackgroundVideo={setBackgroundVideo}
         setBackgroundAudio={setBackgroundAudio}
+        currentBackgroundVideoPath={backgroundVideo[0]}
+        currentBackgroundAudioPath={backgroundAudio}
       />;
       case 'home':
       default:

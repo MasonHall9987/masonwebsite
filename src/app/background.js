@@ -7,7 +7,7 @@ function returnBackgroundAudio() {
     const songNames = ['moogcity','mice','haggstorm','minecraft','aria'];
     const index = Math.floor(Math.random() * songNames.length);
     const name = songNames[index];
-    return `/audio/song-${name}.mp3`;
+    return `audio/song-${name}.mp3`;
 }
 
 function returnBackgroundVideo() {
@@ -120,7 +120,7 @@ const Background = ({ onVideoLoaded, videoSrc }) => {
           }`}
         >
           <video
-            key={videoSrc} // ✅ this forces re-render
+            key={videoSrc} // this forces re-render
             ref={videoRef}
             autoPlay
             loop

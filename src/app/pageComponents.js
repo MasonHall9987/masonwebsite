@@ -3,7 +3,36 @@
 import { LargeButton, SmallButton } from "./UIElements";
 import {React,useState} from "react";
 
+// Helper function to determine initial carousel indices
+const getInitialCarouselIndices = (dataArray, currentPath, pathKey = "filepath") => {
+  if (!dataArray || dataArray.length === 0) return [0, 0, 0]; // Should not happen with current hardcoded data
+  
+  const defaultIndices = [
+    0, 
+    Math.min(1, dataArray.length - 1), 
+    Math.min(2, dataArray.length - 1)
+  ];
+  
+  if (dataArray.length === 1) return [0, 0, 0];
+  // For length 2, show [0,1,0] to center the second item, or [1,0,1] to center the first.
+  // To center the item at index 1: [0,1,0]. To center item at index 0: [1,0,1]
+  // Let's try to center the found item, or default to centering index 1.
+  // If length 2, default to [0,1,0] which means data[0] is left, data[1] is middle, data[0] is right (repeated) - this is ok.
 
+  const currentIndex = dataArray.findIndex(item => item[pathKey] === currentPath);
+
+  if (currentIndex !== -1) {
+    const middle = currentIndex;
+    const left = (middle - 1 + dataArray.length) % dataArray.length;
+    const right = (middle + 1) % dataArray.length;
+    return [left, middle, right];
+  } else {
+    // Default to centering the second item (index 1) if current not found and array is long enough.
+    if (dataArray.length >= 3) return [0, 1, 2];
+    if (dataArray.length === 2) return [0, 1, 0]; // shows data[0], data[1], data[0]
+    return defaultIndices; // Fallback, though covered by specific length checks
+  }
+};
 
 // About Page Component
 const AboutPage = ({ onBack }) => {
@@ -232,17 +261,17 @@ const ContactPage = ({ onBack }) => {
 };
 
 
-const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio }) => {
+const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentBackgroundVideoPath, currentBackgroundAudioPath }) => {
   // Sample background data with distinct images
   const backgroundsData = [
     { name: "Canyon", image: "images/framed-canyon.png", filepath: "/videos/background-canyon.mp4"},
-    { name: "Coral", image: "images/framed-ocean.png", filepath: "/videos/background-coral.mp4"},
+    { name: "Coral", image: "images/framed-coral.png", filepath: "/videos/background-coral.mp4"},
     { name: "Jungle", image: "images/framed-jungle.png", filepath: "/videos/background-jungle.mp4"},
     { name: "Sakura", image: "images/framed-sakura.png", filepath: "/videos/background-sakura.mp4"},
     { name: "Village", image: "images/framed-village.png", filepath: "/videos/background-village.mp4"},
   ];
   
-  // Sample music data with different colors
+  // Sample music data with (now updated) different colors
   const musicData = [
     { name: "Moogcity", image: "images/icon-moogcity-disc.png", filepath: "audio/song-moogcity.mp3"},
     { name: "Haggstorm", image: "images/icon-haggstorm-disc.png", filepath: "audio/song-haggstorm.mp3"},
@@ -252,8 +281,12 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio }) => {
   ];
   
   // State for visible carousel items - array of exactly 3 indices
-  const [visibleBackgroundIndices, setVisibleBackgroundIndices] = useState([0, 1, 2]);
-  const [visibleMusicIndices, setVisibleMusicIndices] = useState([0, 1, 2]);
+  const [visibleBackgroundIndices, setVisibleBackgroundIndices] = useState(() => 
+    getInitialCarouselIndices(backgroundsData, currentBackgroundVideoPath, "filepath")
+  );
+  const [visibleMusicIndices, setVisibleMusicIndices] = useState(() =>
+    getInitialCarouselIndices(musicData, currentBackgroundAudioPath, "filepath")
+  );
 
   const clickSound = new Audio('/audio/effect-button.mp3');
   
