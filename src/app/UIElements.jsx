@@ -37,7 +37,6 @@ export const Footer = ({ audioSrc}) => {
   const playMusic = () => {
     const clickSound = new Audio('/audio/effect-button.mp3');
     clickSound.play();
-    // Let the useEffect handle play/pause based on audioPlaying state
     setAudioPlaying(prevAudioPlaying => !prevAudioPlaying);
   };
 
@@ -49,23 +48,32 @@ export const Footer = ({ audioSrc}) => {
   useEffect(() => {
     if (audioRef.current) {
       if (audioPlaying) {
-        // When audioSrc changes, the audio element is new (due to the key prop) and paused.
-        // If audioPlaying is true, we should start playing the new audio.
-        // If audioPlaying state changes (e.g. user clicks button), this effect also handles it.
         const playPromise = audioRef.current.play();
         if (playPromise !== undefined) {
           playPromise.catch(error => {
             console.warn("Audio play was prevented:", error);
-            // If autoplay is blocked (e.g. browser policy after src change),
-            // audioPlaying might be true but audio is not playing.
-            // For this fix, we ensure play is attempted. User might need to interact again if blocked.
           });
         }
       } else {
         audioRef.current.pause();
       }
     }
-  }, [audioSrc, audioPlaying]); // Depend on audioSrc and audioPlaying
+  }, [audioSrc, audioPlaying]);
+
+  const getDiscImageSrc = () => {
+    if (!audioSrc) return "/images/icon-orange-disc.png"; // Default/fallback
+
+    const fileName = audioSrc.split('/').pop(); // e.g., "song-aria.mp3"
+    if (!fileName) return "/images/icon-orange-disc.png";
+
+    // Remove "song-" prefix and ".mp3" suffix
+    const songName = fileName.replace(/^song-/, '').replace(/\.mp3$/, ''); // e.g., "aria"
+    
+    if (songName) {
+      return `/images/icon-${songName}-disc.png`;
+    }
+    return "/images/icon-orange-disc.png"; // Fallback if parsing fails
+  };
 
   return (
     <div
@@ -85,7 +93,7 @@ export const Footer = ({ audioSrc}) => {
     >
       {/* Always show disc icon */}
       <img
-        src="/images/icon-orange-disc.png"
+        src={getDiscImageSrc()}
         className="w-15 h-10 relative z-10"
         alt="Music Disc"
       />

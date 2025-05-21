@@ -28,7 +28,7 @@ const AboutPage = ({ onBack }) => {
           </p>
 
           <p>
-            Here’s how the site works:
+            Here's how the site works:
             <ul className="list-none pl-5">
               <li className="marker:text-white">* Projects/Experience: Take a look at my relevant coding projects and professional experience.</li>
               <li className="marker:text-white">* About: Learn more about who I am and what drives me.</li>
@@ -38,15 +38,15 @@ const AboutPage = ({ onBack }) => {
           </p>
 
           <p>
-            A little about me: I’m currently a Senior at the University of Central Florida, studying Computer Science, and I’ll be graduating in December 2025. When I’m not coding, you’ll find me enjoying hobbies like cooking, working out, language learning (currently A1 in Portuguese and B1 in Spanish), traveling, and — believe it or not — diving even deeper into technology.
+            A little about me: I'm currently a Senior at the University of Central Florida, studying Computer Science, and I'll be graduating in December 2025. When I'm not coding, you'll find me enjoying hobbies like cooking, working out, language learning (currently A1 in Portuguese and B1 in Spanish), traveling, and — believe it or not — diving even deeper into technology.
           </p>
 
           <p>
-            I’ve dabbled in many different areas of coding: from front-end/back-end for both web development and app development, game development, machine learning, robotics and firmware. What excites me most is working on projects that make a real, positive impact on people’s lives, all while challenging myself to innovate and grow within my field.
+            I've dabbled in many different areas of coding: from front-end/back-end for both web development and app development, game development, machine learning, robotics and firmware. What excites me most is working on projects that make a real, positive impact on people's lives, all while challenging myself to innovate and grow within my field.
           </p>
 
           <p>
-            At the end of the day, this website is more than just a portfolio — it’s a reflection of who I am, my passions, and my journey. I hope you enjoy exploring it as much as I enjoyed creating it.
+            At the end of the day, this website is more than just a portfolio — it's a reflection of who I am, my passions, and my journey. I hope you enjoy exploring it as much as I enjoyed creating it.
           </p>
 
           <p>Thank you again for visiting!</p>
@@ -244,11 +244,11 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio }) => {
   
   // Sample music data with different colors
   const musicData = [
-    { name: "Moogcity", image: "images/icon-yellow-disc.png", filepath: "audio/song-moogcity.mp3"},
-    { name: "Haggstorm", image: "images/icon-red-disc.png", filepath: "audio/song-haggstorm.mp3"},
-    { name: "Mice On Venus", image: "images/icon-blue-disc.png", filepath: "audio/song-mice.mp3"},
-    { name: "Minecraft", image: "images/icon-orange-disc.png", filepath: "audio/song-minecraft.mp3"},
-    { name: "Aria Math", image: "images/icon-green-disc.png", filepath: "audio/song-aria.mp3"},
+    { name: "Moogcity", image: "images/icon-moogcity-disc.png", filepath: "audio/song-moogcity.mp3"},
+    { name: "Haggstorm", image: "images/icon-haggstorm-disc.png", filepath: "audio/song-haggstorm.mp3"},
+    { name: "Mice On Venus", image: "images/icon-mice-disc.png", filepath: "audio/song-mice.mp3"},
+    { name: "Minecraft", image: "images/icon-minecraft-disc.png", filepath: "audio/song-minecraft.mp3"},
+    { name: "Aria Math", image: "images/icon-aria-disc.png", filepath: "audio/song-aria.mp3"},
   ];
   
   // State for visible carousel items - array of exactly 3 indices
