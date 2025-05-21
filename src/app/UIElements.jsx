@@ -29,30 +29,43 @@ export const SmallButton = ({ text, onClick }) => {
   );
 };
 
-export const Footer = () => {
+export const Footer = ({ audioSrc}) => {
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [showMusicButton, setShowMusicButton] = useState(false);
   const audioRef = useRef(null);
-  const audioSrc = returnBackgroundAudio();
 
   const playMusic = () => {
     const clickSound = new Audio('/audio/effect-button.mp3');
     clickSound.play();
-
-    if (audioRef.current) {
-      if (audioRef.current.paused) {
-        audioRef.current.play().catch((err) => console.warn("Play failed", err));
-      } else {
-        audioRef.current.pause();
-      }
-      setAudioPlaying(!audioPlaying);
-    }
+    // Let the useEffect handle play/pause based on audioPlaying state
+    setAudioPlaying(prevAudioPlaying => !prevAudioPlaying);
   };
 
   useEffect(() => {
     const musicButtonTimer = setTimeout(() => setShowMusicButton(true), 3000);
     return () => clearTimeout(musicButtonTimer);
   }, []);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      if (audioPlaying) {
+        // When audioSrc changes, the audio element is new (due to the key prop) and paused.
+        // If audioPlaying is true, we should start playing the new audio.
+        // If audioPlaying state changes (e.g. user clicks button), this effect also handles it.
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.warn("Audio play was prevented:", error);
+            // If autoplay is blocked (e.g. browser policy after src change),
+            // audioPlaying might be true but audio is not playing.
+            // For this fix, we ensure play is attempted. User might need to interact again if blocked.
+          });
+        }
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [audioSrc, audioPlaying]); // Depend on audioSrc and audioPlaying
 
   return (
     <div
@@ -65,25 +78,35 @@ export const Footer = () => {
       </div>
 
       <div className="border-3 hover:border-white z-30">
-         <div className={`${borderOthers} ${borderRight}`}>
-          <button
-            onClick={playMusic}
-            className="relative textured-button tiny-button minecraft-font p-1 overflow-hidden"
-          >
-            <img
-              src={
-                audioPlaying
-                  ? '/images/icon-purple-disc.png'
-                  : '/images/icon-not-playing.png'
-              }
-              className="w-15 h-10 relative z-20"
-              alt="Music Disc"
-            />
-          </button>
-        </div>
-      </div>
+  <div className={`${borderOthers} ${borderRight}`}>
+    <button
+      onClick={playMusic}
+      className="relative textured-button tiny-button minecraft-font p-1 overflow-hidden"
+    >
+      {/* Always show disc icon */}
+      <img
+        src="/images/icon-orange-disc.png"
+        className="w-15 h-10 relative z-10"
+        alt="Music Disc"
+      />
+      
+      {/* Overlay prohibit icon only when not playing */}
+      {!audioPlaying && (
+        <img
+          src="/images/icon-prohibit.png"
+          className="absolute top-1 left-0 w-15 h-10 z-20"
+          alt="Prohibit Icon"
+        />
+      )}
+    </button>
+  </div>
+</div>
 
-      <audio ref={audioRef} loop>
+<audio
+        ref={audioRef}
+        key={audioSrc} // ensures reload on src change
+        loop
+      >
         <source src={audioSrc} type="audio/mp3" />
         Your browser does not support the audio element.
       </audio>

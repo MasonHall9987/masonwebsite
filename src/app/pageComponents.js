@@ -235,18 +235,20 @@ const ContactPage = ({ onBack }) => {
 const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio }) => {
   // Sample background data with distinct images
   const backgroundsData = [
-    { name: "Canyon", image: "images/framed-canyon.png" },
-    { name: "Coral", image: "images/framed-ocean.png" },
-    { name: "Jungle", image: "images/framed-jungle.png" },
-    { name: "Sakura", image: "images/framed-sakura.png" },
-    { name: "Village", image: "images/framed-village.png" },
+    { name: "Canyon", image: "images/framed-canyon.png", filepath: "/videos/background-canyon.mp4"},
+    { name: "Coral", image: "images/framed-ocean.png", filepath: "/videos/background-coral.mp4"},
+    { name: "Jungle", image: "images/framed-jungle.png", filepath: "/videos/background-jungle.mp4"},
+    { name: "Sakura", image: "images/framed-sakura.png", filepath: "/videos/background-sakura.mp4"},
+    { name: "Village", image: "images/framed-village.png", filepath: "/videos/background-village.mp4"},
   ];
   
   // Sample music data with different colors
   const musicData = [
-    { name: "Moogcity", image: "images/icon-yellow-disc.png" },
-    { name: "Moogcity 2", image: "images/icon-red-disc.png" },
-    { name: "Mice On Venus", image: "images/icon-blue-disc.png" },
+    { name: "Moogcity", image: "images/icon-yellow-disc.png", filepath: "audio/song-moogcity.mp3"},
+    { name: "Haggstorm", image: "images/icon-red-disc.png", filepath: "audio/song-haggstorm.mp3"},
+    { name: "Mice On Venus", image: "images/icon-blue-disc.png", filepath: "audio/song-mice.mp3"},
+    { name: "Minecraft", image: "images/icon-orange-disc.png", filepath: "audio/song-minecraft.mp3"},
+    { name: "Aria Math", image: "images/icon-green-disc.png", filepath: "audio/song-aria.mp3"},
   ];
   
   // State for visible carousel items - array of exactly 3 indices
@@ -304,10 +306,12 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio }) => {
   const selectedMusic = musicData[visibleMusicIndices[1]];
   
   // Handler for Save button
-  const handleSave = (name) => {
+  const handleSave = (videoPath, musicPath) => {
     clickSound.play();
-    const videoUrl = `/videos/background-${name.toLowerCase()}.mp4`;
-    setBackgroundVideo([videoUrl, "/images/background-jungle.jpg"]);
+    console.log(musicPath);
+    console.log(videoPath);
+    setBackgroundVideo([videoPath, "/images/background-jungle.jpg"]);
+    setBackgroundAudio(musicPath);
   };
 
   return (
@@ -336,7 +340,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio }) => {
             </button>
             
             {/* Three carousel items using direct indices */}
-            <div className="flex items-center justify-center gap-6">
+            <div className="flex items-center justify-center gap-3">
               {/* Left item (index 0) */}
               <div className="transition-all duration-300 opacity-40 scale-90">
                 <img 
@@ -401,7 +405,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio }) => {
             </button>
             
             {/* Three music items using direct indices */}
-            <div className="flex items-center justify-center gap-6">
+            <div className="flex items-center justify-center gap-3">
               {/* Left item (index 0) */}
               <img 
                 src={musicData[visibleMusicIndices[0]].image} 
@@ -445,7 +449,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio }) => {
       {/* Bottom buttons */}
       <div className="flex gap-4">
         <LargeButton text="Back" onClick={onBack} />
-        <LargeButton text="Save" onClick={() => handleSave(selectedBackground.name)} />
+        <LargeButton text="Save" onClick={() => handleSave(selectedBackground.filepath, selectedMusic.filepath)} />
       </div>
     </div>
   );

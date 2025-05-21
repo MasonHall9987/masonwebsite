@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 function returnBackgroundAudio() {
-    const songNames = ['moogcity'];
+    const songNames = ['moogcity','mice','haggstorm','minecraft','aria'];
     const index = Math.floor(Math.random() * songNames.length);
     const name = songNames[index];
     return `/audio/song-${name}.mp3`;

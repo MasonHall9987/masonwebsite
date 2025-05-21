@@ -45,7 +45,6 @@ const MinecraftWebsite = () => {
   };
 
 
-
   // Render content based on current page
   const renderContent = () => {
     switch (currentPage) {
@@ -76,7 +75,7 @@ const MinecraftWebsite = () => {
         {/* Current page content */}
         {renderContent()}
         {/* Bottom container for version and music button */}
-        <Footer />
+        <Footer audioSrc={backgroundAudio}/>
       </div>
       <Background
     videoSrc={backgroundVideo[0]}
