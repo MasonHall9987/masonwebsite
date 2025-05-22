@@ -1,5 +1,4 @@
-import {React,useState,useRef,useEffect} from 'react';
-import { returnBackgroundAudio} from './background';
+import {useState,useRef,useEffect} from 'react';
 // Shared border class variables
 const borderRight = 'border-r-3 border-r-[#6b6b6b]';
 const borderOthers = 'border-t-3 border-l-3 border-t-[#c7c7c7] border-l-[#c7c7c7]';
@@ -29,7 +28,7 @@ export const SmallButton = ({ text, onClick }) => {
   );
 };
 
-export const Footer = ({ audioSrc}) => {
+export const Footer = ({ audioSrc, onSongEnd }) => {
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [showMusicButton, setShowMusicButton] = useState(false);
   const audioRef = useRef(null);
@@ -44,6 +43,23 @@ export const Footer = ({ audioSrc}) => {
     const musicButtonTimer = setTimeout(() => setShowMusicButton(true), 3000);
     return () => clearTimeout(musicButtonTimer);
   }, []);
+
+  useEffect(() => {
+    const audioEl = audioRef.current;
+    if (audioEl) {
+      const handleAudioEnded = () => {
+        if (audioPlaying) {
+          onSongEnd();
+        }
+      };
+
+      audioEl.addEventListener('ended', handleAudioEnded);
+
+      return () => {
+        audioEl.removeEventListener('ended', handleAudioEnded);
+      };
+    }
+  }, [audioSrc, audioPlaying, onSongEnd]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -113,7 +129,6 @@ export const Footer = ({ audioSrc}) => {
 <audio
         ref={audioRef}
         key={audioSrc} // ensures reload on src change
-        loop
       >
         <source src={audioSrc} type="audio/mp3" />
         Your browser does not support the audio element.

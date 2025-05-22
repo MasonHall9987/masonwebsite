@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+// import React from 'react'; // Removed React
 import { LargeButton } from "./UIElements";
 
 const ProjectsPage = ({ onBack }) => {

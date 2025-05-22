@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { LargeButton } from "./UIElements";
 
 // Helper function to determine initial carousel indices
@@ -95,7 +95,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
   
   const handleSave = (videoPath, musicPath) => {
     clickSound.play();
-    setBackgroundVideo([videoPath, "/images/background-jungle.jpg"]); // Assuming fallback needs to be consistent or also selectable
+    setBackgroundVideo([videoPath, "/images/background-jungle.jpg"]);
     setBackgroundAudio(musicPath);
   };
 

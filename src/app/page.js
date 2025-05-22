@@ -1,10 +1,10 @@
 // page.js
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import './globals.css';
 import { Background, returnBackgroundAudio, returnBackgroundVideo} from './background';
-import { Home, SmallButton } from './home';
+import { Home } from './home';
 import { Footer } from './UIElements';
 import { AboutPage, ProjectsPage, ContactPage, SettingsPage } from './pageComponents';
 import MinecraftCursor from './MinecraftCursor';
@@ -31,7 +31,7 @@ const MinecraftWebsite = () => {
   const handleNavigate = (page) => {
     setCurrentPage(page);
     if (page !== 'home') {
-      setIsBlurred(true); // 👈 Enable blur
+      setIsBlurred(true);
     }
   };
 
@@ -41,9 +41,19 @@ const MinecraftWebsite = () => {
 
     setSkipHomeAnimation(true);
     setCurrentPage('home');
-    setIsBlurred(false); // 👈 Disable blur
+    setIsBlurred(false);
   };
 
+  const handleSongEndAndSelectNext = () => {
+    let nextAudio = returnBackgroundAudio();
+    // Ensure the next song is different from the current one
+    while (nextAudio === backgroundAudio) {
+      nextAudio = returnBackgroundAudio();
+    }
+    setBackgroundAudio(nextAudio);
+    // The audio should automatically play due to the useEffect in Footer reacting to audioSrc change
+    // and audioPlaying likely being true if the song ended naturally.
+  };
 
   // Render content based on current page
   const renderContent = () => {
@@ -77,7 +87,7 @@ const MinecraftWebsite = () => {
         {/* Current page content */}
         {renderContent()}
         {/* Bottom container for version and music button */}
-        <Footer audioSrc={backgroundAudio}/>
+        <Footer audioSrc={backgroundAudio} onSongEnd={handleSongEndAndSelectNext}/>
       </div>
       <Background
     videoSrc={backgroundVideo[0]}
