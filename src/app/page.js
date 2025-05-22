@@ -21,7 +21,10 @@ const MinecraftWebsite = () => {
 
 
    function returnSplashText (currentText){
-    const splashTextOptions = ['Who pushed to main?', 'Built with HTML and bedrock!', 'Now with 73 unused npm packages!', "git commit -m 'final FINAL version'", "Trust me, it's asynchronous"];
+    const splashTextOptions = ['Who pushed to main?', 'Built with HTML and bedrock!', 'Now with 73 unused npm packages!', "git commit -m 'final FINAL version'", 
+      "Trust me, it's asynchronous", "404: Splash text not found", "Works on my machine™",  "Welcome to dependency hell",  "Using AI to fix AI-generated bugs", "Linter says no.", 
+      "Not a bug, an undocumented feature", "Agile until the deadline", "Splashy splash text", "Press Meeeee!!!!", "Legacy code whisperer", "Hotfixing the hotfix", "Runs best on localhost", 
+      "Definitely not written in production", "Smells like merge conflict spirit", "Please don't inspect the element", "Documented in ancient runes", "Insert Stack Overflow solution here"];
     let newText;
     do {
       const index = Math.floor(Math.random() * splashTextOptions.length);
