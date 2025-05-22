@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { LargeButton, SmallButton } from './UIElements';
 
-const Home = ({ onNavigate, skipAnimation, splashText = false }) => {
+const Home = ({ onNavigate, skipAnimation, splashText = false, onSplashClick }) => {
   const [showTitle, setShowTitle] = useState(skipAnimation);
   const [showMainButtons, setShowMainButtons] = useState(skipAnimation);
   const [showFooterButtons, setShowFooterButtons] = useState(skipAnimation);
@@ -51,7 +51,10 @@ const Home = ({ onNavigate, skipAnimation, splashText = false }) => {
           alt="Minecraft"
           className="w-200"
         />
-        <div className="minecraft-splash-text z-2 transform -rotate-19 absolute bottom-11 translate-x-1/3 translate-y-1/4">
+        <div 
+          className="minecraft-splash-text z-2 transform -rotate-19 absolute bottom-11 translate-x-1/3 translate-y-1/4" 
+          onClick={onSplashClick}
+        >
           {splashText}
         </div>
       </div>

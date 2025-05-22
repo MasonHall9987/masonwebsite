@@ -92,7 +92,7 @@ const ProjectsPage = ({ onBack }) => {
                   : 'border-3 border-transparent'}`}
             >
               {/* Arrow indicator for hover */}
-              <div className="absolute left-[-65px] opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="absolute left-[-65px] opacity-0 group-hover:opacity-100">
                 <img 
                   src="/images/icon-arrow.png" 
                   alt="Selection Arrow" 

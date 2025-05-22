@@ -20,11 +20,21 @@ const MinecraftWebsite = () => {
 
 
 
-   function returnSplashText (){
+   function returnSplashText (currentText){
     const splashTextOptions = ['Who pushed to main?', 'Built with HTML and bedrock!', 'Now with 73 unused npm packages!', "git commit -m 'final FINAL version'", "Trust me, it's asynchronous"];
-    const index = Math.floor(Math.random() * splashTextOptions.length);
-    return splashTextOptions[index];
+    let newText;
+    do {
+      const index = Math.floor(Math.random() * splashTextOptions.length);
+      newText = splashTextOptions[index];
+    } while (newText === currentText && splashTextOptions.length > 1);
+    return newText;
    };
+
+  const handleSplashTextClick = () => {
+    const clickSound = new Audio('/audio/effect-button.mp3');
+    clickSound.play();
+    setSplashText(returnSplashText(splashText));
+  };
 
   const handleVideoLoaded = () => {};
 
@@ -74,7 +84,7 @@ const MinecraftWebsite = () => {
       />;
       case 'home':
       default:
-        return <Home onNavigate={handleNavigate} skipAnimation={skipHomeAnimation} splashText={splashText}/>;
+        return <Home onNavigate={handleNavigate} skipAnimation={skipHomeAnimation} splashText={splashText} onSplashClick={handleSplashTextClick} />;
     }
   };
   // Rendered Main Function
