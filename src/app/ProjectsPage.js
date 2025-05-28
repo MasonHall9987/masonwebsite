@@ -79,7 +79,7 @@ const ProjectsPage = ({ onBack }) => {
       </div>
       
       {/* Project list container - modified to match other pages */}
-      <div className="bg-black/60 border-t-2 border-b border-white w-full h-[70vh] p-10 px-60 flex flex-col justify-start text-white overflow-y-auto">
+      <div className="translucent-container-projects px-60">
         <div className="space-y-3">
           {projects.map((project) => (
             <div 

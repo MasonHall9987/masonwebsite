@@ -60,7 +60,7 @@ const ContactPage = ({ onBack }) => {
     <div className="flex flex-col items-center justify-center w-screen min-h-screen py-12 space-y-3">
       <h2 className="text-3xl font-semibold text-center text-white">Contact Me</h2>
 
-      <div className="bg-black/60 border-t-2 border-b border-white w-full h-[70vh] p-10 px-60 flex flex-col justify-between text-white">
+      <div className="translucent-container-contact px-60">
         <div className="flex flex-col space-y-6 flex-grow">
           <div className="flex flex-col">
             <label className="mb-1">Name:</label>

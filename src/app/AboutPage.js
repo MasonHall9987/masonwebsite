@@ -9,7 +9,7 @@ const AboutPage = ({ onBack }) => {
       <h2 className="text-3xl text-center text-white">About Me</h2>
 
       {/* FULL-WIDTH translucent container */}
-      <div className="bg-black/60 border-t-2 border-b border-white w-full h-[70vh] p-10 px-20 flex flex-col justify-start text-white">
+      <div className="translucent-container px-20">
         <div className="mb-6 leading-[1.8]">
           <h3 className="text-xl mb-2">Welcome to my Portfolio Website!</h3>
 

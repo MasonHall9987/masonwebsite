@@ -4,11 +4,11 @@
 import { useState, useEffect } from 'react';
 import { LargeButton, SmallButton } from './UIElements';
 
+
 const Home = ({ onNavigate, skipAnimation, splashText = false, onSplashClick }) => {
   const [showTitle, setShowTitle] = useState(skipAnimation);
   const [showMainButtons, setShowMainButtons] = useState(skipAnimation);
   const [showFooterButtons, setShowFooterButtons] = useState(skipAnimation);
-  const clickSound = new Audio('/audio/effect-button.mp3');
 
   
   useEffect(() => {
@@ -32,6 +32,7 @@ const Home = ({ onNavigate, skipAnimation, splashText = false, onSplashClick }) 
  
 
   const handleButtonClick = (page) => {
+    const clickSound = new Audio('/audio/effect-button.mp3');
     clickSound.play();
     
     // Navigate to the selected page

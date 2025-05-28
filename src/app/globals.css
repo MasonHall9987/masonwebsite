@@ -111,3 +111,114 @@ body {
   cursor: none;
   color: #fde047;  /* Yellow text on hover */
 }
+
+/* Translucent container used across pages */
+.translucent-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-top: 2px solid white;
+  border-bottom: 1px solid white;
+  width: 100%;
+  height: 70vh;
+  padding: 2.5rem;
+  padding-left: 15rem;
+  padding-right: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Variant for contact page with different padding and justify-content */
+.translucent-container-contact {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-top: 2px solid white;
+  border-bottom: 1px solid white;
+  width: 100%;
+  height: 70vh;
+  padding: 2.5rem;
+  padding-left: 15rem;
+  padding-right: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Variant for projects page with overflow */
+.translucent-container-projects {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-top: 2px solid white;
+  border-bottom: 1px solid white;
+  width: 100%;
+  height: 70vh;
+  padding: 2.5rem;
+  padding-left: 15rem;
+  padding-right: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Minecraft-themed scrollbar for all translucent containers */
+.translucent-container::-webkit-scrollbar,
+.translucent-container-contact::-webkit-scrollbar,
+.translucent-container-projects::-webkit-scrollbar {
+  width: 16px;
+}
+
+.translucent-container::-webkit-scrollbar-track,
+.translucent-container-contact::-webkit-scrollbar-track,
+.translucent-container-projects::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  border: 2px solid #555;
+  border-radius: 0;
+}
+
+.translucent-container::-webkit-scrollbar-thumb,
+.translucent-container-contact::-webkit-scrollbar-thumb,
+.translucent-container-projects::-webkit-scrollbar-thumb {
+  background: #666;
+  border: 2px solid #888;
+  border-radius: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #666,
+    #666 2px,
+    #777 2px,
+    #777 4px
+  );
+}
+
+.translucent-container::-webkit-scrollbar-thumb:hover,
+.translucent-container-contact::-webkit-scrollbar-thumb:hover,
+.translucent-container-projects::-webkit-scrollbar-thumb:hover {
+  background: #888;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #888,
+    #888 2px,
+    #999 2px,
+    #999 4px
+  );
+}
+
+.translucent-container::-webkit-scrollbar-corner,
+.translucent-container-contact::-webkit-scrollbar-corner,
+.translucent-container-projects::-webkit-scrollbar-corner {
+  background: #2a2a2a;
+}
+
+/* Firefox scrollbar styling */
+.translucent-container,
+.translucent-container-contact,
+.translucent-container-projects {
+  scrollbar-width: thin;
+  scrollbar-color: #666 #2a2a2a;
+}
