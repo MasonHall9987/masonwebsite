@@ -1,7 +1,7 @@
 // page.js
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './globals.css';
 import { Background, returnBackgroundAudio, returnBackgroundVideo} from './background';
 import { Home } from './home';
@@ -13,30 +13,63 @@ const MinecraftWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home'); // Default page is home
   const [skipHomeAnimation, setSkipHomeAnimation] = useState(false);
   const [isBlurred, setIsBlurred] = useState(false);
-  const [splashText, setSplashText] = useState(() => returnSplashText());
-  const [backgroundVideo, setBackgroundVideo] = useState(() => returnBackgroundVideo());
-  const [backgroundAudio, setBackgroundAudio] = useState(() => returnBackgroundAudio());
-  
-
-
-
-   function returnSplashText (currentText){
+  const [splashText, setSplashText] = useState(() => {
     const splashTextOptions = ['Who pushed to main?', 'Built with HTML and bedrock!', 'Now with 73 unused npm packages!', "git commit -m 'final FINAL version'", 
       "Trust me, it's asynchronous", "404: Splash text not found", "Works on my machine™",  "Welcome to dependency hell",  "Using AI to fix AI-generated bugs", "Linter says no.", 
       "Not a bug, an undocumented feature", "Agile until the deadline", "Splashy splash text", "Press Meeeee!!!!", "Legacy code whisperer", "Hotfixing the hotfix", "Runs best on localhost", 
       "Definitely not written in production", "Smells like merge conflict spirit", "Please don't inspect the element", "Documented in ancient runes", "Insert Stack Overflow solution here"];
-    let newText;
-    do {
-      const index = Math.floor(Math.random() * splashTextOptions.length);
-      newText = splashTextOptions[index];
-    } while (newText === currentText && splashTextOptions.length > 1);
-    return newText;
+    const randomIndex = Math.floor(Math.random() * splashTextOptions.length);
+    return splashTextOptions[randomIndex];
+  });
+  const [usedSplashTexts, setUsedSplashTexts] = useState(() => {
+    // We'll initialize this with the actual splash text in useEffect
+    return new Set();
+  });
+  const [backgroundVideo, setBackgroundVideo] = useState(() => returnBackgroundVideo());
+  const [backgroundAudio, setBackgroundAudio] = useState(() => returnBackgroundAudio());
+  
+  // Initialize usedSplashTexts with the initial splash text
+  useEffect(() => {
+    setUsedSplashTexts(new Set([splashText]));
+  }, []); // Only run once on mount
+
+
+
+   const splashTextOptions = ['Who pushed to main?', 'Built with HTML and bedrock!', 'Now with 73 unused npm packages!', "git commit -m 'final FINAL version'", 
+      "Trust me, it's asynchronous", "404: Splash text not found", "Works on my machine™",  "Welcome to dependency hell",  "Using AI to fix AI-generated bugs", "Linter says no.", 
+      "Not a bug, an undocumented feature", "Agile until the deadline", "Splashy splash text", "Press Meeeee!!!!", "Legacy code whisperer", "Hotfixing the hotfix", "Runs best on localhost", 
+      "Definitely not written in production", "Smells like merge conflict spirit", "Please don't inspect the element", "Documented in ancient runes", "Insert Stack Overflow solution here"];
+
+   function returnSplashText (){
+    const randomIndex = Math.floor(Math.random() * splashTextOptions.length);
+    return splashTextOptions[randomIndex];
    };
 
   const handleSplashTextClick = () => {
     const clickSound = new Audio('/audio/effect-button.mp3');
     clickSound.play();
-    setSplashText(returnSplashText(splashText));
+    
+    // Create a shuffled array of all splash texts if we've used them all
+    if (usedSplashTexts.size >= splashTextOptions.length) {
+      setUsedSplashTexts(new Set());
+    }
+    
+    // Find available splash texts (not yet used in this cycle)
+    const availableTexts = splashTextOptions.filter(text => 
+      !usedSplashTexts.has(text) && text !== splashText
+    );
+    
+    // If no available texts (shouldn't happen with the reset above), reset and use all
+    const textsToChooseFrom = availableTexts.length > 0 ? availableTexts : 
+      splashTextOptions.filter(text => text !== splashText);
+    
+    // Pick a random text from available options
+    const randomIndex = Math.floor(Math.random() * textsToChooseFrom.length);
+    const newText = textsToChooseFrom[randomIndex];
+    
+    // Update state
+    setSplashText(newText);
+    setUsedSplashTexts(prev => new Set([...prev, newText]));
   };
 
   const handleVideoLoaded = () => {};

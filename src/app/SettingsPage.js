@@ -154,7 +154,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
           <p className="text-xl text-center mt-6">{selectedBackground.name}</p>
         </div>
         <div>
-          <h3 className="text-2xl font-medium mb-8 text-center">Music</h3>
+          <h3 className="text-2xl font-medium mb-6 text-center">Music</h3>
           <div className="flex items-center justify-center gap-4">
             <button 
               onClick={shiftMusicLeft}

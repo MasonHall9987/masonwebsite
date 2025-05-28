@@ -80,7 +80,8 @@ const ProjectsPage = ({ onBack }) => {
       
       {/* Project list container - modified to match other pages */}
       <div className="translucent-container-projects px-60">
-        <div className="space-y-3">
+        <div className="scrollable-content">
+          <div className="space-y-3">
           {projects.map((project) => (
             <div 
               key={project.id}
@@ -91,17 +92,17 @@ const ProjectsPage = ({ onBack }) => {
                   ? 'border-3 border-white bg-black' 
                   : 'border-3 border-transparent'}`}
             >
-              {/* Arrow indicator for hover */}
-              <div className="absolute left-[-65px] opacity-0 group-hover:opacity-100">
+              {/* Arrow indicator for hover - positioned inside container */}
+              <div className="absolute left-2 opacity-0 group-hover:opacity-100 z-10">
                 <img 
                   src="/images/icon-arrow.png" 
                   alt="Selection Arrow" 
-                  className="w-14 h-12"
+                  className="w-8 h-6"
                 />
               </div>
               
               {/* Project icon/thumbnail */}
-              <div className="w-12 h-12 mr-4 flex-shrink-0">
+              <div className="w-12 h-12 mr-4 ml-10 flex-shrink-0">
                 <img 
                   src={project.image} 
                   alt={project.name} 
@@ -121,6 +122,7 @@ const ProjectsPage = ({ onBack }) => {
               </div>
             </div>
           ))}
+          </div>
         </div>
       </div>
       

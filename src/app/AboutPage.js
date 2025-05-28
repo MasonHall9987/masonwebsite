@@ -10,7 +10,8 @@ const AboutPage = ({ onBack }) => {
 
       {/* FULL-WIDTH translucent container */}
       <div className="translucent-container px-20">
-        <div className="mb-6 leading-[1.8]">
+        <div className="scrollable-content">
+          <div className="mb-6 leading-[1.8]">
           <h3 className="text-xl mb-2">Welcome to my Portfolio Website!</h3>
 
           <p>
@@ -46,6 +47,7 @@ const AboutPage = ({ onBack }) => {
           </p>
 
           <p>Thank you again for visiting!</p>
+          </div>
         </div>
       </div>
     <LargeButton text="Back" onClick={() => onBack()} />   
