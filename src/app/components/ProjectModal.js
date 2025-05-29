@@ -78,7 +78,7 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
                       onMouseEnter={(e) => handleTechHover(tech.name, e)}
                       onMouseLeave={handleTechLeave}
                     >
-                      <span className="text-lg hover:opacity-80 transition-opacity">
+                      <span className="text-2xl hover:opacity-80 transition-opacity">
                         {tech.icon}
                       </span>
                     </div>

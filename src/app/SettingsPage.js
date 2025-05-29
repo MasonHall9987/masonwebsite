@@ -102,100 +102,104 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
   return (
     <div className="flex flex-col items-center justify-center w-screen min-h-screen py-12 space-y-3">
       <h2 className="text-3xl font-semibold text-center text-white">Setting</h2>
-      <div className="bg-black/60 border-t-2 border-b border-white w-full h-[70vh] p-10 px-20 flex flex-col justify-start text-white space-y-12">
-        <div className="mb-10">
-          <h3 className="text-2xl font-medium mb-8 text-center">Background</h3>
-          <div className="flex items-center justify-center gap-4">
-            <button 
-              onClick={shiftBackgroundsLeft}
-              className="text-white text-2xl opacity-70 hover:opacity-100"
-            >
-              <img 
-                src="/images/icon-next.png" 
-                alt="Shift Left" 
-                className="w-10 h-10"
-                style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
-              />
-            </button>
-            <div className="flex items-center justify-center gap-3">
-              <div className="transition-all duration-300 opacity-40 scale-90">
-                <img 
-                  src={backgroundsData[visibleBackgroundIndices[0]].image} 
-                  alt={backgroundsData[visibleBackgroundIndices[0]].name}
-                  className="w-50 h-32 object-cover"
-                />
+      <div className="translucent-container px-20">
+        <div className="scrollable-content">
+          <div className="space-y-12">
+            <div className="mb-10">
+              <h3 className="text-2xl font-medium mb-8 text-center">Background</h3>
+              <div className="flex items-center justify-center gap-4">
+                <button 
+                  onClick={shiftBackgroundsLeft}
+                  className="text-white text-2xl opacity-70 hover:opacity-100"
+                >
+                  <img 
+                    src="/images/icon-next.png" 
+                    alt="Shift Left" 
+                    className="w-10 h-10"
+                    style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
+                  />
+                </button>
+                <div className="flex items-center justify-center gap-3">
+                  <div className="transition-all duration-300 opacity-40 scale-90">
+                    <img 
+                      src={backgroundsData[visibleBackgroundIndices[0]].image} 
+                      alt={backgroundsData[visibleBackgroundIndices[0]].name}
+                      className="w-50 h-32 object-cover"
+                    />
+                  </div>
+                  <div className="transition-all duration-300 transform scale-110 opacity-100 z-10">
+                    <img 
+                      src={backgroundsData[visibleBackgroundIndices[1]].image} 
+                      alt={backgroundsData[visibleBackgroundIndices[1]].name}
+                      className="w-50 h-32 object-cover"
+                    />
+                  </div>
+                  <div className="transition-all duration-300 opacity-40 scale-90">
+                    <img 
+                      src={backgroundsData[visibleBackgroundIndices[2]].image} 
+                      alt={backgroundsData[visibleBackgroundIndices[2]].name}
+                      className="w-50 h-32 object-cover"
+                    />
+                  </div>
+                </div>
+                <button 
+                  onClick={shiftBackgroundsRight}
+                  className="text-white text-2xl opacity-70 hover:opacity-100"
+                >
+                  <img 
+                    src="/images/icon-next.png" 
+                    alt="Shift Right" 
+                    className="w-10 h-10"
+                  />
+                </button>
               </div>
-              <div className="transition-all duration-300 transform scale-110 opacity-100 z-10">
-                <img 
-                  src={backgroundsData[visibleBackgroundIndices[1]].image} 
-                  alt={backgroundsData[visibleBackgroundIndices[1]].name}
-                  className="w-50 h-32 object-cover"
-                />
-              </div>
-              <div className="transition-all duration-300 opacity-40 scale-90">
-                <img 
-                  src={backgroundsData[visibleBackgroundIndices[2]].image} 
-                  alt={backgroundsData[visibleBackgroundIndices[2]].name}
-                  className="w-50 h-32 object-cover"
-                />
-              </div>
+              <p className="text-xl text-center mt-6">{selectedBackground.name}</p>
             </div>
-            <button 
-              onClick={shiftBackgroundsRight}
-              className="text-white text-2xl opacity-70 hover:opacity-100"
-            >
-              <img 
-                src="/images/icon-next.png" 
-                alt="Shift Right" 
-                className="w-10 h-10"
-              />
-            </button>
-          </div>
-          <p className="text-xl text-center mt-6">{selectedBackground.name}</p>
-        </div>
-        <div>
-          <h3 className="text-2xl font-medium mb-6 text-center">Music</h3>
-          <div className="flex items-center justify-center gap-4">
-            <button 
-              onClick={shiftMusicLeft}
-              className="text-white text-2xl opacity-70 hover:opacity-100"
-            >
-              <img 
-                src="/images/icon-next.png" 
-                alt="Shift Left" 
-                className="w-10 h-10"
-                style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
-              />
-            </button>
-            <div className="flex items-center justify-center gap-3">
-              <img 
-                src={musicData[visibleMusicIndices[0]].image} 
-                alt={musicData[visibleMusicIndices[0]].name}
-                className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-50 scale-90 brightness-75 saturate-50"
-              />
-              <img 
-                src={musicData[visibleMusicIndices[1]].image} 
-                alt={musicData[visibleMusicIndices[1]].name}
-                className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-100 scale-110 brightness-100 saturate-100 z-10"
-              />
-              <img 
-                src={musicData[visibleMusicIndices[2]].image} 
-                alt={musicData[visibleMusicIndices[2]].name}
-                className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-50 scale-90 brightness-75 saturate-50"
-              />
+            <div>
+              <h3 className="text-2xl font-medium mb-6 text-center">Music</h3>
+              <div className="flex items-center justify-center gap-4">
+                <button 
+                  onClick={shiftMusicLeft}
+                  className="text-white text-2xl opacity-70 hover:opacity-100"
+                >
+                  <img 
+                    src="/images/icon-next.png" 
+                    alt="Shift Left" 
+                    className="w-10 h-10"
+                    style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
+                  />
+                </button>
+                <div className="flex items-center justify-center gap-3">
+                  <img 
+                    src={musicData[visibleMusicIndices[0]].image} 
+                    alt={musicData[visibleMusicIndices[0]].name}
+                    className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-50 scale-90 brightness-75 saturate-50"
+                  />
+                  <img 
+                    src={musicData[visibleMusicIndices[1]].image} 
+                    alt={musicData[visibleMusicIndices[1]].name}
+                    className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-100 scale-110 brightness-100 saturate-100 z-10"
+                  />
+                  <img 
+                    src={musicData[visibleMusicIndices[2]].image} 
+                    alt={musicData[visibleMusicIndices[2]].name}
+                    className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-50 scale-90 brightness-75 saturate-50"
+                  />
+                </div>
+                <button 
+                  onClick={shiftMusicRight}
+                  className="text-white text-2xl opacity-70 hover:opacity-100"
+                >
+                  <img 
+                    src="/images/icon-next.png" 
+                    alt="Shift Right" 
+                    className="w-10 h-10" 
+                  />
+                </button>
+              </div>
+              <p className="text-xl text-center mt-6">{selectedMusic.name}</p>
             </div>
-            <button 
-              onClick={shiftMusicRight}
-              className="text-white text-2xl opacity-70 hover:opacity-100"
-            >
-              <img 
-                src="/images/icon-next.png" 
-                alt="Shift Right" 
-                className="w-10 h-10" 
-              />
-            </button>
           </div>
-          <p className="text-xl text-center mt-6">{selectedMusic.name}</p>
         </div>
       </div>
       <div className="flex gap-4">
