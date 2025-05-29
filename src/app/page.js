@@ -8,6 +8,7 @@ import { Home } from './home';
 import { Footer } from './UIElements';
 import { AboutPage, ProjectsPage, ContactPage, SettingsPage } from './pageComponents';
 import MinecraftCursor from './MinecraftCursor';
+import CreeperEasterEgg from './CreeperEasterEgg';
 
 const MinecraftWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home'); // Default page is home
@@ -141,6 +142,7 @@ const MinecraftWebsite = () => {
     onVideoLoaded={handleVideoLoaded}
   />
       <MinecraftCursor />
+      <CreeperEasterEgg />
     </div>
   );
 };
