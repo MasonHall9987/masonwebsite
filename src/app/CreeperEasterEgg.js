@@ -1,11 +1,13 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const CreeperEasterEgg = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isPeeking, setIsPeeking] = useState(false);
   const [hasBeenClicked, setHasBeenClicked] = useState(false);
+  const [isExploding, setIsExploding] = useState(false);
   const [position, setPosition] = useState({ side: 'right', offset: 50 });
+  const videoRef = useRef(null);
   
   // Random delay between 30-90 seconds for appearances
   const getRandomDelay = () => 10000;
@@ -61,14 +63,28 @@ const CreeperEasterEgg = () => {
   const handleClick = () => {
     const clickSound = new Audio('/audio/effect-button.mp3');
     clickSound.play();
+    
+    // Hide the creeper immediately
     setIsPeeking(false);
+    setIsVisible(false);
+    
+    // Wait 2 seconds then play explosion
     setTimeout(() => {
-      setIsVisible(false);
+      setIsExploding(true);
       setHasBeenClicked(true);
-    }, 300);
+      
+      // Play the video
+      if (videoRef.current) {
+        videoRef.current.play();
+      }
+    }, 2000);
   };
   
-  if (!isVisible || hasBeenClicked) return null;
+  const handleVideoEnd = () => {
+    setIsExploding(false);
+  };
+  
+  if (!isVisible && !isExploding || hasBeenClicked && !isExploding) return null;
   
   // Calculate position styles based on side
   const getPositionStyles = () => {
@@ -119,19 +135,43 @@ const CreeperEasterEgg = () => {
   };
   
   return (
-    <div
-      style={getPositionStyles()}
-      onClick={handleClick}
-    >
-      <img 
-        src="/images/icon-creeper.png" 
-        alt="Creeper" 
-        className="w-full h-full object-contain"
-        style={{
-          filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.5))',
-        }}
-      />
-    </div>
+    <>
+      {isVisible && !isExploding && (
+        <div
+          style={getPositionStyles()}
+          onClick={handleClick}
+        >
+          <img 
+            src="/images/icon-creeper.png" 
+            alt="Creeper" 
+            className="w-full h-full object-contain"
+            style={{
+              filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.5))',
+            }}
+          />
+        </div>
+      )}
+      
+      {isExploding && (
+        <div 
+          className="fixed inset-0 z-[10000] flex items-center justify-center"
+          style={{
+            backgroundColor: 'transparent',
+            pointerEvents: 'none',
+          }}
+        >
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            onEnded={handleVideoEnd}
+            autoPlay
+            playsInline
+          >
+            <source src="/videos/video-explosion.mp4" type="video/mp4" />
+          </video>
+        </div>
+      )}
+    </>
   );
 };
 
