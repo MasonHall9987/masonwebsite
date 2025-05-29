@@ -41,8 +41,7 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
           ref={modalRef}
           className="relative bg-gray-600 minecraft-modal-border max-w-4xl w-full mx-4 z-10" 
           style={{ 
-            backgroundColor: '#c6c6c6',
-            boxShadow: 'inset 6px 6px 0px #FFFFFF, inset -6px -6px 0px #373737'
+            backgroundColor: '#c6c6c6'
           }}>
           
           {/* Top Section - Video and Info */}
