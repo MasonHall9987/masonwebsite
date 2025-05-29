@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { LargeButton, SmallButton } from "./UIElements";
+import ProjectModal from "./components/ProjectModal";
 
 const ProjectsPage = ({ onBack }) => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -14,8 +15,14 @@ const ProjectsPage = ({ onBack }) => {
       date: "01/01/25-04/21/25",
       subtitle: "Arduino - Self Watering Plant Pot",
       description: "A Minecraft-inspired portfolio website built with Next.js and Tailwind CSS. Features include dynamic background videos, custom audio player, and interactive UI elements.",
-      image: "/images/icon-plant-pot.png", // placeholder image
-      technologies: ["React", "Next.js", "Tailwind CSS", "JavaScript"],
+      image: "/images/icon-plant-pot.png", // thumbnail for project list
+      video: "/videos/project-demo.mp4", // video for modal
+      technologies: [
+        { name: "React", icon: "⚛️" },
+        { name: "Next.js", icon: "▲" },
+        { name: "Tailwind CSS", icon: "🎨" },
+        { name: "JavaScript", icon: "📜" }
+      ],
     },
     {
       id: 2,
@@ -23,8 +30,14 @@ const ProjectsPage = ({ onBack }) => {
       date: "05/21/24-08/05/24",
       subtitle: "InternShip - Software Developer",
       description: "Full-featured e-commerce platform with user authentication, product catalog, shopping cart, and payment processing.",
-      image: "/images/icon-futurex.png", // placeholder image
-      technologies: ["Node.js", "Express", "MongoDB", "React"],
+      image: "/images/icon-futurex.png", // thumbnail for project list
+      video: "/videos/futurex-demo.mp4", // video for modal
+      technologies: [
+        { name: "Node.js", icon: "🟢" },
+        { name: "Express", icon: "🚂" },
+        { name: "MongoDB", icon: "🍃" },
+        { name: "React", icon: "⚛️" }
+      ],
     },
     {
       id: 3,
@@ -32,8 +45,14 @@ const ProjectsPage = ({ onBack }) => {
       date: "05/21/24-08/05/24",
       subtitle: "React Native - Mobile App",
       description: "Real-time weather application that provides current conditions and forecasts based on user location or search.",
-      image: "/images/icon-cabana.png", // placeholder image
-      technologies: ["JavaScript", "Weather API", "CSS", "HTML"],
+      image: "/images/icon-cabana.png", // thumbnail for project list
+      video: "/videos/cabana-demo.mp4", // video for modal
+      technologies: [
+        { name: "JavaScript", icon: "📜" },
+        { name: "Weather API", icon: "🌤️" },
+        { name: "CSS", icon: "🎨" },
+        { name: "HTML", icon: "📄" }
+      ],
     },
   ];
 
@@ -57,8 +76,6 @@ const ProjectsPage = ({ onBack }) => {
   };
 
   const handleCloseModal = () => {
-    const clickSound = new Audio('/audio/effect-button.mp3');
-    clickSound.play();
     setShowProjectModal(false);
   };
 
@@ -93,11 +110,11 @@ const ProjectsPage = ({ onBack }) => {
                   : 'border-3 border-transparent'}`}
             >
               {/* Arrow indicator for hover - positioned inside container */}
-              <div className="absolute left-2 opacity-0 group-hover:opacity-100 z-10">
+              <div className="absolute left-1 opacity-0 group-hover:opacity-100 z-10">
                 <img 
                   src="/images/icon-arrow.png" 
                   alt="Selection Arrow" 
-                  className="w-8 h-6"
+                  className="w-10 h-8"
                 />
               </div>
               
@@ -135,42 +152,12 @@ const ProjectsPage = ({ onBack }) => {
         />
       </div>
 
-      {/* Project Details Modal */}
-      {showProjectModal && selectedProjectData && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-black opacity-75" onClick={handleCloseModal}></div>
-          <div className="bg-gray-800 border-4 border-gray-700 p-6 max-w-2xl w-full mx-4 z-10">
-            <h3 className="text-2xl text-white minecraft-font mb-4">{selectedProjectData.name}</h3>
-            
-            <div className="mb-4">
-              <p className="text-white minecraft-font mb-4">{selectedProjectData.description}</p>
-              
-              <div className="mb-4">
-                <h4 className="text-white minecraft-font mb-2">Technologies:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProjectData.technologies.map((tech, index) => (
-                    <span key={index} className="bg-gray-700 text-white px-2 py-1 text-sm minecraft-font">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            
-            {/* Video/Demo placeholder */}
-            <div className="w-full h-48 bg-black border-2 border-gray-700 flex items-center justify-center mb-4">
-              <span className="text-gray-500 minecraft-font">Project Demo Video</span>
-            </div>
-            
-            <div className="flex justify-center">
-              <SmallButton 
-                text="Back" 
-                onClick={handleCloseModal} 
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Project Modal */}
+      <ProjectModal 
+        project={selectedProjectData}
+        isVisible={showProjectModal}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };

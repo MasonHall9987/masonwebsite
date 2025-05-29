@@ -215,3 +215,18 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #666 #2a2a2a;
 }
+
+.minecraft-inset-border {
+  border-top: 2px solid #383838;
+  border-left: 2px solid #383838;
+  border-right: 2px solid #efefef;
+  border-bottom: 2px solid #efefef;
+}
+
+.minecraft-modal-border {
+  border-top: 4px solid #000000;
+  border-left: 4px solid #000000;
+  border-right: 4px solid #000000;
+  border-bottom: 4px solid #000000;
+  border-radius: 8px;
+}
