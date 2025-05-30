@@ -6,8 +6,13 @@ const CreeperEasterEgg = () => {
   const [isPeeking, setIsPeeking] = useState(false);
   const [hasBeenClicked, setHasBeenClicked] = useState(false);
   const [isExploding, setIsExploding] = useState(false);
+  const [isFlashing, setIsFlashing] = useState(false);
+  const [flashIntensity, setFlashIntensity] = useState(0);
+  const [show404, setShow404] = useState(false);
   const [position, setPosition] = useState({ side: 'right', offset: 50 });
+  const [frozenPosition, setFrozenPosition] = useState(null);
   const videoRef = useRef(null);
+  const creeperRef = useRef(null);
   
   // Random delay between 30-90 seconds for appearances
   const getRandomDelay = () => 10000;
@@ -61,15 +66,55 @@ const CreeperEasterEgg = () => {
   }, [hasBeenClicked, isVisible]);
   
   const handleClick = () => {
-    const clickSound = new Audio('/audio/effect-button.mp3');
+    const clickSound = new Audio('/audio/effect-creeper.mp3');
     clickSound.play();
     
-    // Hide the creeper immediately
+    // Capture current position and freeze it
+    if (creeperRef.current) {
+      const rect = creeperRef.current.getBoundingClientRect();
+      setFrozenPosition({
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+        side: position.side // Keep track of which side for rotation
+      });
+    }
+    
+    // Stop the peeking animation immediately
     setIsPeeking(false);
-    setIsVisible(false);
+    
+    // Start flashing effect
+    setIsFlashing(true);
+    
+    // Animate flash intensity over 2 seconds
+    const startTime = Date.now();
+    const flashInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = elapsed / 2000; // 2 seconds total
+      
+      if (progress >= 1) {
+        clearInterval(flashInterval);
+        setFlashIntensity(1);
+        return;
+      }
+      
+      // Exponential increase for more dramatic effect
+      setFlashIntensity(Math.pow(progress, 2));
+    }, 16); // ~60fps
     
     // Wait 2 seconds then play explosion
     setTimeout(() => {
+      // Pause all audio elements on the page
+      const allAudio = document.querySelectorAll('audio');
+      allAudio.forEach(audio => {
+        audio.dataset.wasPlaying = !audio.paused ? 'true' : 'false';
+        audio.pause();
+      });
+      
+      setIsVisible(false);
+      setIsFlashing(false);
+      setFrozenPosition(null); // Reset frozen position
       setIsExploding(true);
       setHasBeenClicked(true);
       
@@ -82,12 +127,56 @@ const CreeperEasterEgg = () => {
   
   const handleVideoEnd = () => {
     setIsExploding(false);
+    setShow404(true);
   };
   
-  if (!isVisible && !isExploding || hasBeenClicked && !isExploding) return null;
+  const handle404Dismiss = () => {
+    setShow404(false);
+    // Resume all audio elements
+    const allAudio = document.querySelectorAll('audio');
+    allAudio.forEach(audio => {
+      if (audio.dataset.wasPlaying !== 'false') {
+        audio.play();
+      }
+    });
+  };
+  
+  if (!isVisible && !isExploding && !show404 || hasBeenClicked && !isExploding && !show404) return null;
   
   // Calculate position styles based on side
   const getPositionStyles = () => {
+    // If we have a frozen position, use that instead
+    if (frozenPosition) {
+      // Get the rotation based on the original side
+      let transform = '';
+      switch (frozenPosition.side) {
+        case 'top':
+          transform = 'rotate(180deg)';
+          break;
+        case 'right':
+          transform = 'rotate(-90deg)';
+          break;
+        case 'bottom':
+          transform = ''; // No rotation
+          break;
+        case 'left':
+          transform = 'rotate(90deg)';
+          break;
+      }
+      
+      return {
+        position: 'fixed',
+        top: `${frozenPosition.top}px`,
+        left: `${frozenPosition.left}px`,
+        width: `${frozenPosition.width}px`,
+        height: `${frozenPosition.height}px`,
+        cursor: 'pointer',
+        transition: 'none', // No transition when frozen
+        zIndex: 9999,
+        transform: transform,
+      };
+    }
+    
     const baseStyles = {
       position: 'fixed',
       width: '80px',
@@ -138,6 +227,7 @@ const CreeperEasterEgg = () => {
     <>
       {isVisible && !isExploding && (
         <div
+          ref={creeperRef}
           style={getPositionStyles()}
           onClick={handleClick}
         >
@@ -146,7 +236,12 @@ const CreeperEasterEgg = () => {
             alt="Creeper" 
             className="w-full h-full object-contain"
             style={{
-              filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.5))',
+              filter: `drop-shadow(2px 2px 4px rgba(0,0,0,0.5)) ${
+                isFlashing 
+                  ? `brightness(${1 + flashIntensity * 2}) contrast(${1 - flashIntensity * 0.5})` 
+                  : ''
+              }`,
+              mixBlendMode: isFlashing && flashIntensity > 0.5 ? 'screen' : 'normal',
             }}
           />
         </div>
@@ -169,6 +264,49 @@ const CreeperEasterEgg = () => {
           >
             <source src="/videos/video-explosion.mp4" type="video/mp4" />
           </video>
+        </div>
+      )}
+      
+      {show404 && (
+        <div 
+          className="fixed inset-0 z-[10000] flex items-center justify-center"
+          style={{
+            backgroundColor: '#C6C6C6',
+            cursor: 'inherit', // Keep the custom cursor
+          }}
+          onClick={handle404Dismiss}
+        >
+          <div className="text-center">
+            <h1 
+              className="text-7xl font-bold mb-6"
+              style={{
+                fontFamily: 'monospace',
+                color: '#000',
+                imageRendering: 'pixelated',
+                letterSpacing: '2px',
+              }}
+            >
+              404
+            </h1>
+            <p 
+              className="text-2xl mb-2"
+              style={{
+                fontFamily: 'monospace',
+                color: '#000',
+              }}
+            >
+              Terrain destroyed
+            </p>
+            <p 
+              className="text-lg"
+              style={{
+                fontFamily: 'monospace',
+                color: '#555',
+              }}
+            >
+              Click to respawn
+            </p>
+          </div>
         </div>
       )}
     </>
