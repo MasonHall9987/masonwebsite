@@ -17,10 +17,10 @@ const CreeperEasterEgg = () => {
   const animationFrameRef = useRef(null);
   
   // Control when 404 appears (in seconds). Set to null to wait for video end
-  const SHOW_404_AT_SECONDS = .5; // 404 appears at 1 second, but stays behind explosion
+  const SHOW_404_AT_SECONDS = .6; // 404 appears at 1 second, but stays behind explosion
   
   // Random delay between 30-90 seconds for appearances
-  const getRandomDelay = () => 10000;
+  const getRandomDelay = () => Math.floor(Math.random() * (90000 - 30000) + 30000); // Random delay between 30-90 seconds
   
   // Random side and position
   const getRandomPosition = () => {
@@ -180,12 +180,35 @@ const CreeperEasterEgg = () => {
     
     const ctx = canvas.getContext('2d');
     
-    // Set canvas size to match video
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    // Set canvas size to match viewport
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     
-    // Draw current video frame to canvas
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // Calculate scaling to cover entire viewport
+    const videoAspect = video.videoWidth / video.videoHeight;
+    const canvasAspect = canvas.width / canvas.height;
+    
+    let drawWidth, drawHeight, offsetX, offsetY;
+    
+    if (videoAspect > canvasAspect) {
+      // Video is wider - fit height, crop width
+      drawHeight = canvas.height;
+      drawWidth = drawHeight * videoAspect;
+      offsetX = (canvas.width - drawWidth) / 2;
+      offsetY = 0;
+    } else {
+      // Video is taller - fit width, crop height
+      drawWidth = canvas.width;
+      drawHeight = drawWidth / videoAspect;
+      offsetX = 0;
+      offsetY = (canvas.height - drawHeight) / 2;
+    }
+    
+    // Clear canvas first
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw current video frame to canvas (scaled to cover)
+    ctx.drawImage(video, offsetX, offsetY, drawWidth, drawHeight);
     
     // Get pixel data
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -385,7 +408,7 @@ const CreeperEasterEgg = () => {
         >
           <canvas
             ref={canvasRef}
-            className="w-full h-full object-contain"
+            className="w-full h-full object-cover"
             style={{
               backgroundColor: 'transparent',
             }}
