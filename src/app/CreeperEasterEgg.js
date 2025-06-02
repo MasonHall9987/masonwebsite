@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
+import { LargeButton} from './UIElements';
 
 const CreeperEasterEgg = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,10 +18,10 @@ const CreeperEasterEgg = () => {
   const animationFrameRef = useRef(null);
   
   // Control when 404 appears (in seconds). Set to null to wait for video end
-  const SHOW_404_AT_SECONDS = .6; // 404 appears at 1 second, but stays behind explosion
+  const SHOW_404_AT_SECONDS = .6;
   
   // Random delay between 30-90 seconds for appearances
-  const getRandomDelay = () => Math.floor(Math.random() * (90000 - 30000) + 30000); // Random delay between 30-90 seconds
+  const getRandomDelay = () => 3000; // Random delay between 30-90 seconds
   
   // Random side and position
   const getRandomPosition = () => {
@@ -142,6 +143,51 @@ const CreeperEasterEgg = () => {
   };
   
   const show404Screen = () => {
+    // Pause all media when death screen appears
+    const allAudio = document.querySelectorAll('audio');
+    allAudio.forEach(audio => {
+      audio.dataset.wasPlaying = !audio.paused ? 'true' : 'false';
+      audio.pause();
+    });
+    
+    const allVideos = document.querySelectorAll('video');
+    allVideos.forEach(video => {
+      if (video !== videoRef.current) { // Don't pause the explosion video
+        video.dataset.wasPlaying = !video.paused ? 'true' : 'false';
+        video.pause();
+      }
+    });
+    
+    // Try to find and pause animations more specifically
+    console.log('Looking for animated elements...');
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(element => {
+      const computedStyle = window.getComputedStyle(element);
+      if (computedStyle.animationName && computedStyle.animationName !== 'none') {
+        console.log('Found animated element:', element, 'with animation:', computedStyle.animationName);
+        element.style.animationPlayState = 'paused';
+      }
+    });
+    
+    // Pause ALL animations on the page
+    const style = document.createElement('style');
+    style.id = 'death-screen-styles';
+    style.textContent = `
+      *, *::before, *::after {
+        animation-play-state: paused !important;
+        -webkit-animation-play-state: paused !important;
+        animation: none !important;
+        -webkit-animation: none !important;
+      }
+      #death-screen-overlay {
+        cursor: auto !important;
+      }
+      #death-screen-overlay * {
+        cursor: auto !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
     // Just show the 404 without stopping the video
     setShow404(true);
   };
@@ -149,20 +195,35 @@ const CreeperEasterEgg = () => {
   const handle404Dismiss = () => {
     setShow404(false);
     
+    // Resume all previously playing media regardless of explosion state
+    const allAudio = document.querySelectorAll('audio');
+    allAudio.forEach(audio => {
+      if (audio.dataset.wasPlaying === 'true') {
+        audio.play();
+      }
+    });
+    
+    const allVideos = document.querySelectorAll('video');
+    allVideos.forEach(video => {
+      if (video !== videoRef.current && video.dataset.wasPlaying === 'true') {
+        video.play();
+      }
+    });
+    
+    // Remove the style element to resume animations and restore cursor
+    const styleElement = document.getElementById('death-screen-styles');
+    if (styleElement) {
+      styleElement.remove();
+    }
+    
     // Check if explosion is still playing
     if (videoRef.current && !videoRef.current.ended) {
       // Video is still playing, just hide 404
       return;
     }
     
-    // Video has ended, clean up and resume audio
+    // Video has ended, clean up
     setIsExploding(false);
-    const allAudio = document.querySelectorAll('audio');
-    allAudio.forEach(audio => {
-      if (audio.dataset.wasPlaying !== 'false') {
-        audio.play();
-      }
-    });
   };
   
   const processVideoFrame = () => {
@@ -358,43 +419,53 @@ const CreeperEasterEgg = () => {
       
       {show404 && (
         <div 
+          id="death-screen-overlay"
           className="fixed inset-0 z-[9999] flex items-center justify-center"
           style={{
-            backgroundColor: '#C6C6C6',
-            cursor: 'inherit', // Keep the custom cursor
+            backgroundColor: 'rgba(255, 0, 0, 0.7)', // Red tint overlay
           }}
-          onClick={handle404Dismiss}
         >
           <div className="text-center">
             <h1 
-              className="text-7xl font-bold mb-6"
+              className="text-7xl font-bold mb-8 minecraft-font"
               style={{
-                fontFamily: 'monospace',
-                color: '#000',
-                imageRendering: 'pixelated',
-                letterSpacing: '2px',
+                color: '#FFFFFF',
+                textShadow: '3px 3px 0px #000000',
               }}
             >
-              404
+              You Died!
             </h1>
             <p 
-              className="text-2xl mb-2"
+              className="text-xl mb-8 minecraft-font"
               style={{
-                fontFamily: 'monospace',
-                color: '#000',
+                color: '#FFFFFF',
+                textShadow: '2px 2px 0px #000000',
               }}
             >
-              Terrain destroyed
+              Steve was blown up by a creeper
             </p>
             <p 
-              className="text-lg"
+              className="text-2xl mb-12 minecraft-font"
               style={{
-                fontFamily: 'monospace',
-                color: '#555',
+                color: '#FFFFFF',
+                textShadow: '2px 2px 0px #000000',
               }}
             >
-              Click to respawn
+              Score: <span style={{ color: '#FFFF55' }}>404</span>
             </p>
+            <div className="flex justify-center">
+              <LargeButton
+                text="Respawn"
+                onClick={(e) => {
+                  const clickSound = new Audio('/audio/effect-button.mp3');
+                  e.stopPropagation();
+                  clickSound.addEventListener('ended', () => {
+                    window.location.reload();
+                  });
+                  clickSound.play();
+                }}
+              />
+            </div>
           </div>
         </div>
       )}
