@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
 import { LargeButton} from './UIElements';
+import { useCursor } from './CursorContext';
 
 const CreeperEasterEgg = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,6 +17,7 @@ const CreeperEasterEgg = () => {
   const creeperRef = useRef(null);
   const canvasRef = useRef(null);
   const animationFrameRef = useRef(null);
+  const { setIs404Active } = useCursor();
   
   // Control when 404 appears (in seconds). Set to null to wait for video end
   const SHOW_404_AT_SECONDS = .6;
@@ -143,6 +145,9 @@ const CreeperEasterEgg = () => {
   };
   
   const show404Screen = () => {
+    // Update cursor context
+    setIs404Active(true);
+    
     // Pause all media when death screen appears
     const allAudio = document.querySelectorAll('audio');
     allAudio.forEach(audio => {
@@ -194,6 +199,8 @@ const CreeperEasterEgg = () => {
   
   const handle404Dismiss = () => {
     setShow404(false);
+    // Update cursor context
+    setIs404Active(false);
     
     // Resume all previously playing media regardless of explosion state
     const allAudio = document.querySelectorAll('audio');

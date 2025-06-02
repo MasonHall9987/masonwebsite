@@ -1,8 +1,11 @@
+"use client";
 import { useState, useEffect } from 'react';
+import { useCursor } from './CursorContext';
 
 export default function MinecraftCursor() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isOverButton, setIsOverButton] = useState(false);
+  const { is404Active } = useCursor();
   
   useEffect(() => {
     // Hide default cursor everywhere with no exceptions
@@ -32,6 +35,11 @@ export default function MinecraftCursor() {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
+  // Don't render the custom cursor if 404 is active
+  if (is404Active) {
+    return null;
+  }
 
   return (
     <div 
