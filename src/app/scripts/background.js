@@ -1,7 +1,7 @@
 // background.js
 "use client";
 
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 function returnBackgroundAudio() {
     const songNames = ['moogcity','mice','haggstorm','minecraft','aria'];
@@ -19,30 +19,11 @@ function returnBackgroundVideo() {
   return [videoUrl, imagePath];
 }
 
-const Background = ({ onVideoLoaded, videoSrc }) => {
+const Background = ({ videoSrc }) => {
   const videoRef = useRef(null);
-  const videoLoadTimeoutRef = useRef(null);
 
-  const handleVideoLoadedInternal = () => {
-    if (onVideoLoaded) {
-      onVideoLoaded();
-    }
-  };
-
-  const handleVideoCanPlay = () => {
-    if (videoLoadTimeoutRef.current) {
-      clearTimeout(videoLoadTimeoutRef.current);
-    }
-    setTimeout(() => {
-      handleVideoLoadedInternal();
-    }, 100);
-  };
-  
   const handleVideoError = (e) => {
     console.error("Video loading error:", e);
-    if (videoLoadTimeoutRef.current) {
-      clearTimeout(videoLoadTimeoutRef.current);
-    }
   };
   
   const handleVideoStalled = () => {
@@ -54,18 +35,10 @@ const Background = ({ onVideoLoaded, videoSrc }) => {
     }
   };
 
-  const handleVideoProgress = () => {
-    if (videoRef.current && videoRef.current.readyState >= 3) {
-      handleVideoCanPlay();
-    }
-  };
-
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
       <div className="absolute inset-0 w-full h-full">
-        <div 
-          className={`absolute inset-0 w-full h-full`}
-        >
+        <div className="absolute inset-0 w-full h-full">
           <video
             key={videoSrc}
             ref={videoRef}
@@ -75,11 +48,8 @@ const Background = ({ onVideoLoaded, videoSrc }) => {
             playsInline
             preload="auto"
             className="w-full h-full object-cover"
-            onCanPlay={handleVideoCanPlay}
             onError={handleVideoError}
             onStalled={handleVideoStalled}
-            onProgress={handleVideoProgress}
-            onLoadedData={handleVideoCanPlay}
           >
             <source src={videoSrc} type="video/mp4" />
             Your browser does not support the video tag.

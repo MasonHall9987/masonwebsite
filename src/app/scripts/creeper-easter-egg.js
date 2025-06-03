@@ -197,41 +197,6 @@ const CreeperEasterEgg = () => {
     setShow404(true);
   };
   
-  const handle404Dismiss = () => {
-    setShow404(false);
-    // Update cursor context
-    setIs404Active(false);
-    
-    // Resume all previously playing media regardless of explosion state
-    const allAudio = document.querySelectorAll('audio');
-    allAudio.forEach(audio => {
-      if (audio.dataset.wasPlaying === 'true') {
-        audio.play();
-      }
-    });
-    
-    const allVideos = document.querySelectorAll('video');
-    allVideos.forEach(video => {
-      if (video !== videoRef.current && video.dataset.wasPlaying === 'true') {
-        video.play();
-      }
-    });
-    
-    // Remove the style element to resume animations and restore cursor
-    const styleElement = document.getElementById('death-screen-styles');
-    if (styleElement) {
-      styleElement.remove();
-    }
-    
-    // Check if explosion is still playing
-    if (videoRef.current && !videoRef.current.ended) {
-      // Video is still playing, just hide 404
-      return;
-    }
-    
-    // Video has ended, clean up
-    setIsExploding(false);
-  };
   
   const processVideoFrame = () => {
     const video = videoRef.current;

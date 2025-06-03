@@ -77,18 +77,17 @@ export const Footer = ({ audioSrc, onSongEnd }) => {
   }, [audioSrc, audioPlaying]);
 
   const getDiscImageSrc = () => {
-    if (!audioSrc) return "/images/icon-orange-disc.png"; // Default/fallback
+    if (!audioSrc) return "/images/icon-orange-disc.png";
 
-    const fileName = audioSrc.split('/').pop(); // e.g., "song-aria.mp3"
+    const fileName = audioSrc.split('/').pop();
     if (!fileName) return "/images/icon-orange-disc.png";
 
-    // Remove "song-" prefix and ".mp3" suffix
-    const songName = fileName.replace(/^song-/, '').replace(/\.mp3$/, ''); // e.g., "aria"
+    const songName = fileName.replace(/^song-/, '').replace(/\.mp3$/, '');
     
     if (songName) {
       return `/images/icon-${songName}-disc.png`;
     }
-    return "/images/icon-orange-disc.png"; // Fallback if parsing fails
+    return "/images/icon-orange-disc.png";
   };
 
   return (
@@ -97,38 +96,34 @@ export const Footer = ({ audioSrc, onSongEnd }) => {
         showMusicButton ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      <div className="minecraft-font text-white text-sm">
-        {/* PlaceHolder Text */}
-      </div>
+      <div className="minecraft-font text-white text-sm" />
 
       <div className="border-3 hover:border-white z-30">
-  <div className={`${borderOthers} ${borderRight}`}>
-    <button
-      onClick={playMusic}
-      className="relative textured-button tiny-button minecraft-font p-1 overflow-hidden"
-    >
-      {/* Always show disc icon */}
-      <img
-        src={getDiscImageSrc()}
-        className="w-15 h-10 relative z-10"
-        alt="Music Disc"
-      />
-      
-      {/* Overlay prohibit icon only when not playing */}
-      {!audioPlaying && (
-        <img
-          src="/images/icon-prohibit.png"
-          className="absolute top-1 left-0 w-15 h-10 z-20"
-          alt="Prohibit Icon"
-        />
-      )}
-    </button>
-  </div>
-</div>
+        <div className={`${borderOthers} ${borderRight}`}>
+          <button
+            onClick={playMusic}
+            className="relative textured-button tiny-button minecraft-font p-1 overflow-hidden"
+          >
+            <img
+              src={getDiscImageSrc()}
+              className="w-15 h-10 relative z-10"
+              alt="Music Disc"
+            />
+            
+            {!audioPlaying && (
+              <img
+                src="/images/icon-prohibit.png"
+                className="absolute top-1 left-0 w-15 h-10 z-20"
+                alt="Prohibit Icon"
+              />
+            )}
+          </button>
+        </div>
+      </div>
 
-<audio
+      <audio
         ref={audioRef}
-        key={audioSrc} // ensures reload on src change
+        key={audioSrc}
       >
         <source src={audioSrc} type="audio/mp3" />
         Your browser does not support the audio element.
