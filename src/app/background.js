@@ -11,7 +11,7 @@ function returnBackgroundAudio() {
 }
 
 function returnBackgroundVideo() {
-  const videoNames = ['sakura','jungle','coral','village','canyon'];
+  const videoNames = ['jungle','coral','village','canyon'];
   const index = Math.floor(Math.random() * videoNames.length);
   const name = videoNames[index];
   const videoUrl = `/videos/background-${name}.mp4`;

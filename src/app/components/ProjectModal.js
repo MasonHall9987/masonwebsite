@@ -1,5 +1,12 @@
 "use client";
 import { useState, useRef } from 'react';
+import * as SimpleIcons from 'simple-icons';
+
+// Default icon if the specified one isn't found
+const DEFAULT_ICON = {
+  title: 'Default',
+  path: 'M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z'
+};
 
 const ProjectModal = ({ project, isVisible, onClose }) => {
   const [hoveredTech, setHoveredTech] = useState(null);
@@ -68,21 +75,42 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
                   Technologies
                 </h4>
                 <div className="flex flex-wrap justify-center">
-                  {project.technologies.map((tech, index) => (
-                    <div 
-                      key={index} 
-                      className="w-14 h-14 flex items-center justify-center relative cursor-pointer minecraft-inset-border"
-                      style={{ 
-                        backgroundColor: '#8b8b8b'
-                      }}
-                      onMouseEnter={(e) => handleTechHover(tech.name, e)}
-                      onMouseLeave={handleTechLeave}
-                    >
-                      <span className="text-2xl hover:opacity-80 transition-opacity">
-                        {tech.icon}
-                      </span>
-                    </div>
-                  ))}
+                  {project.technologies.map((tech, index) => {
+                    let iconPath;
+                    try {
+                      // Try to get the icon using the provided iconName
+                      const iconKey = `si${tech.iconName}`;
+                      const Icon = SimpleIcons[iconKey];
+                      
+                      // Use the icon path if found, otherwise use default
+                      iconPath = Icon?.path || DEFAULT_ICON.path;
+                    } catch (error) {
+                      console.warn(`Icon not found for ${tech.name}, using default`);
+                      iconPath = DEFAULT_ICON.path;
+                    }
+                    
+                    return (
+                      <div 
+                        key={index} 
+                        className="w-14 h-14 flex items-center justify-center relative cursor-pointer minecraft-inset-border"
+                        style={{ 
+                          backgroundColor: '#8b8b8b'
+                        }}
+                        onMouseEnter={(e) => handleTechHover(tech.name, e)}
+                        onMouseLeave={handleTechLeave}
+                      >
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="text-white hover:opacity-80 transition-opacity"
+                        >
+                          <path d={iconPath} />
+                        </svg>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -90,7 +118,18 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
             {/* Right Side - Project Info */}
             <div className="w-1/2 pl-4">
               <h3 className="text-xl text-white minecraft-font mb-2" style={{ textShadow: '2px 2px 0px #000000' }}>
-                {project.name}
+                <a 
+                  href={project.githubUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-yellow-300 transition-colors duration-200 cursor-pointer underline hover:underline-offset-4"
+                  onClick={(e) => {
+                    const clickSound = new Audio('/audio/effect-button.mp3');
+                    clickSound.play();
+                  }}
+                >
+                  {project.name}
+                </a>
               </h3>
               <p className="text-white minecraft-font mb-1" style={{ textShadow: '2px 2px 0px #000000' }}>
                 {project.date}
@@ -101,9 +140,24 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
               
               {/* Project Description */}
               <div className="bg-black minecraft-inset-border p-3 h-80 overflow-y-auto">
-                <p className="text-white minecraft-font text-sm leading-relaxed">
-                  {project.description}
-                </p>
+                {project.description.split('\n').map((paragraph, index) => {
+                  if (paragraph.trim() === '') return <br key={index} />;
+                  
+                  // Check if this is a bullet point line
+                  if (paragraph.trim().startsWith('•')) {
+                    return (
+                      <p key={index} className="text-white minecraft-font text-sm leading-relaxed pl-4">
+                        {paragraph}
+                      </p>
+                    );
+                  }
+                  
+                  return (
+                    <p key={index} className="text-white minecraft-font text-sm leading-relaxed">
+                      {paragraph}
+                    </p>
+                  );
+                })}
               </div>
             </div>
           </div>

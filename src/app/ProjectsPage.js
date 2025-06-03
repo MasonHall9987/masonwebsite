@@ -2,59 +2,11 @@
 import { useState } from 'react';
 import { LargeButton, SmallButton } from "./UIElements";
 import ProjectModal from "./components/ProjectModal";
+import { projects } from './projectDescriptions';
 
 const ProjectsPage = ({ onBack }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showProjectModal, setShowProjectModal] = useState(false);
-
-  // Sample project data - replace with your actual projects
-  const projects = [
-    {
-      id: 1,
-      name: "Self Watering Plant Pot",
-      date: "01/01/25-04/21/25",
-      subtitle: "Arduino - Self Watering Plant Pot",
-      description: "A Minecraft-inspired portfolio website built with Next.js and Tailwind CSS. Features include dynamic background videos, custom audio player, and interactive UI elements.",
-      image: "/images/icon-plant-pot.png", // thumbnail for project list
-      video: "/videos/project-demo.mp4", // video for modal
-      technologies: [
-        { name: "React", icon: "⚛️" },
-        { name: "Next.js", icon: "▲" },
-        { name: "Tailwind CSS", icon: "🎨" },
-        { name: "JavaScript", icon: "📜" }
-      ],
-    },
-    {
-      id: 2,
-      name: "Futurex",
-      date: "05/21/24-08/05/24",
-      subtitle: "InternShip - Software Developer",
-      description: "Full-featured e-commerce platform with user authentication, product catalog, shopping cart, and payment processing.",
-      image: "/images/icon-futurex.png", // thumbnail for project list
-      video: "/videos/futurex-demo.mp4", // video for modal
-      technologies: [
-        { name: "Node.js", icon: "🟢" },
-        { name: "Express", icon: "🚂" },
-        { name: "MongoDB", icon: "🍃" },
-        { name: "React", icon: "⚛️" }
-      ],
-    },
-    {
-      id: 3,
-      name: "Cabana App",
-      date: "05/21/24-08/05/24",
-      subtitle: "React Native - Mobile App",
-      description: "Real-time weather application that provides current conditions and forecasts based on user location or search.",
-      image: "/images/icon-cabana.png", // thumbnail for project list
-      video: "/videos/cabana-demo.mp4", // video for modal
-      technologies: [
-        { name: "JavaScript", icon: "📜" },
-        { name: "Weather API", icon: "🌤️" },
-        { name: "CSS", icon: "🎨" },
-        { name: "HTML", icon: "📄" }
-      ],
-    },
-  ];
 
   const handleProjectClick = (projectId) => {
     setSelectedProject(projectId);

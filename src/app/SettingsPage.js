@@ -33,7 +33,6 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
     { name: "Canyon", image: "images/framed-canyon.png", filepath: "/videos/background-canyon.mp4"},
     { name: "Coral", image: "images/framed-coral.png", filepath: "/videos/background-coral.mp4"},
     { name: "Jungle", image: "images/framed-jungle.png", filepath: "/videos/background-jungle.mp4"},
-    { name: "Sakura", image: "images/framed-sakura.png", filepath: "/videos/background-sakura.mp4"},
     { name: "Village", image: "images/framed-village.png", filepath: "/videos/background-village.mp4"},
   ];
   
