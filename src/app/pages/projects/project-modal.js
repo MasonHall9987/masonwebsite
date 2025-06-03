@@ -100,11 +100,11 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
                         onMouseLeave={handleTechLeave}
                       >
                         <svg
-                          width="24"
-                          height="24"
+                          width="30"
+                          height="30"
                           viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="text-white hover:opacity-80 transition-opacity"
+                          fill={tech.color || "currentColor"}
+                          className="hover:opacity-80 transition-opacity"
                         >
                           <path d={iconPath} />
                         </svg>

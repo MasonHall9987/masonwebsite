@@ -23,7 +23,7 @@ const CreeperEasterEgg = () => {
   const SHOW_404_AT_SECONDS = .6;
   
   // Random delay between 30-90 seconds for appearances
-  const getRandomDelay = () => Math.floor(Math.random() * 60000) + 30000; // Random delay between 30-90 seconds
+  const getRandomDelay = () => Math.floor(Math.random() * 60000) + 60000; // Random delay between 60-120 seconds
   
   // Random side and position
   const getRandomPosition = () => {
