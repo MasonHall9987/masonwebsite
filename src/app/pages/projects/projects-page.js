@@ -1,8 +1,8 @@
 "use client";
 import { useState } from 'react';
-import { LargeButton, SmallButton } from "./UIElements";
-import ProjectModal from "./components/ProjectModal";
-import { projects } from './projectDescriptions';
+import { LargeButton, SmallButton } from "../../components/UIElements";
+import ProjectModal from "./project-modal";
+import { projects } from './project-descriptions';
 
 const ProjectsPage = ({ onBack }) => {
   const [selectedProject, setSelectedProject] = useState(null);

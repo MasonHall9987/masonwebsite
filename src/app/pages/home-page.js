@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { LargeButton, SmallButton } from './UIElements';
+import { LargeButton, SmallButton } from '../components/UIElements';
 
 
 const Home = ({ onNavigate, skipAnimation, splashText = false, onSplashClick }) => {

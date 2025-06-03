@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { LargeButton } from "./UIElements";
+import { LargeButton } from "../components/UIElements";
 
 const ContactPage = ({ onBack }) => {
   const [name, setName] = useState("");

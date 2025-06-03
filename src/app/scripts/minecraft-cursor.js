@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { useCursor } from './CursorContext';
+import { useCursor } from './cursor-context';
 
 export default function MinecraftCursor() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });

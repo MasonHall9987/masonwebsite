@@ -2,13 +2,12 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import './globals.css';
-import { Background, returnBackgroundAudio, returnBackgroundVideo} from './background';
-import { Home } from './home';
-import { Footer } from './UIElements';
-import { AboutPage, ProjectsPage, ContactPage, SettingsPage } from './pageComponents';
-import MinecraftCursor from './MinecraftCursor';
-import CreeperEasterEgg from './CreeperEasterEgg';
+import { Background, returnBackgroundAudio, returnBackgroundVideo} from './scripts/background';
+import { Home } from './pages/home-page';
+import { Footer } from './components/UIElements';
+import { AboutPage, ProjectsPage, ContactPage, SettingsPage } from './pages/components-page';
+import MinecraftCursor from './scripts/minecraft-cursor';
+import CreeperEasterEgg from './scripts/creeper-easter-egg';
 
 const MinecraftWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home'); // Default page is home

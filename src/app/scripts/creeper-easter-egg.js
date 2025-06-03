@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
-import { LargeButton} from './UIElements';
-import { useCursor } from './CursorContext';
+import { LargeButton} from '../components/UIElements';
+import { useCursor } from './cursor-context';
 
 const CreeperEasterEgg = () => {
   const [isVisible, setIsVisible] = useState(false);

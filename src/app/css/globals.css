@@ -21,7 +21,7 @@
 
 @font-face {
   font-family: 'Minecraft';
-  src: url('../../public/fonts/Minecraftia.ttf') format('truetype');
+  src: url('../../../public/fonts/Minecraftia.ttf') format('truetype');
   font-display: swap;
 }
 

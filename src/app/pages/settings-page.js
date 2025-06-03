@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { LargeButton } from "./UIElements";
+import { LargeButton } from "../components/UIElements";
 
 // Helper function to determine initial carousel indices
 const getInitialCarouselIndices = (dataArray, currentPath, pathKey = "filepath") => {
