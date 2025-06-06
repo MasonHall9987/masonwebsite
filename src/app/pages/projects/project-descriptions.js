@@ -41,7 +41,7 @@ export const projects = [
     id: 1,
     name: "Self Watering Plant Pot",
     date: "01/01/25-04/21/25",
-    subtitle: "EGN 3060C - Robotics Project",
+    subtitle: "App Developer & Hardware Engineer | EGN 3060C - Robotics Project",
     githubUrl: "https://github.com/yourusername/plant-pot",
     description: `An innovative IoT-enabled self-watering plant pot system developed for EGN 3060C. The project features a 3D printed pot integrated with an ESP32 microcontroller for automated plant care.
 
@@ -153,7 +153,7 @@ The project successfully modernized the HSM interface, improving usability and a
     id: 3,
     name: "Cabana App",
     date: "05/21/24-08/05/24",
-    subtitle: "React Native - College Roommate Finder",
+    subtitle: "Cofounder & Full Stack Engineer | React Native Mobile App Startup",
     githubUrl: "https://github.com/yourusername/cabana-app",
     description: `A college roommate finder mobile application developed as a replacement for Patio, focusing on creating a more focused and less dating-app-like experience for students.
 

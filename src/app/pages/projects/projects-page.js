@@ -7,6 +7,7 @@ import { projects } from './project-descriptions';
 const ProjectsPage = ({ onBack }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showProjectModal, setShowProjectModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleProjectClick = (projectId) => {
     setSelectedProject(projectId);
@@ -31,6 +32,16 @@ const ProjectsPage = ({ onBack }) => {
     setShowProjectModal(false);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredProjects = projects.filter(project => {
+    const searchLower = searchQuery.toLowerCase();
+    return project.name.toLowerCase().includes(searchLower) ||
+           project.technologies.some(tech => tech.name.toLowerCase().includes(searchLower));
+  });
+
   const selectedProjectData = projects.find(project => project.id === selectedProject);
 
   return (
@@ -38,13 +49,14 @@ const ProjectsPage = ({ onBack }) => {
       <div className="flex flex-col items-center justify-center w-screen min-h-screen py-12 space-y-3">
         <h2 className="text-3xl font-semibold text-center text-white">Project/Experience</h2>
         
-        {/* Search bar (non-functional) */}
+        {/* Search bar */}
         <div className="w-full max-w-xl">
           <input 
             type="text" 
-            placeholder="Search projects..."
+            placeholder="Search projects or technologies..."
             className="w-full p-2 border-2 border-gray-700 bg-black text-white minecraft-font text-sm"
-            readOnly 
+            value={searchQuery}
+            onChange={handleSearchChange}
           />
         </div>
         
@@ -52,7 +64,7 @@ const ProjectsPage = ({ onBack }) => {
         <div className="translucent-container-projects px-60">
           <div className="scrollable-content">
             <div className="space-y-3">
-            {projects.map((project) => (
+            {filteredProjects.map((project) => (
               <div 
                 key={project.id}
                 onClick={() => handleProjectClick(project.id)}
