@@ -40,9 +40,9 @@ export const projects = [
   {
     id: 1,
     name: "Self Watering Plant Pot",
-    date: "01/01/25-04/21/25",
+    date: "01/2025-04/2025",
     subtitle: "App Developer & Hardware Engineer | EGN 3060C - Robotics Project",
-    githubUrl: "https://github.com/yourusername/plant-pot",
+    githubUrl: "https://github.com/ESiegman/Robotics-Final-Project",
     description: `An innovative IoT-enabled self-watering plant pot system developed for EGN 3060C. The project features a 3D printed pot integrated with an ESP32 microcontroller for automated plant care.
 
 Hardware Components:
@@ -93,9 +93,9 @@ The system maintains optimal growing conditions by automatically adjusting water
   {
     id: 2,
     name: "Futurex",
-    date: "05/21/24-08/05/24",
+    date: "05/2024-08/2024",
     subtitle: "Full Stack Software Engineer Intern",
-    githubUrl: "https://github.com/yourusername/futurex",
+    githubUrl: "https://www.futurex.com/",
     description: `Led a three-person intern team in refactoring the LCD display interface for Hardware Security Modules (HSM) at Futurex. The project involved comprehensive system redesign and integration across firmware, API, and web interfaces.
 
 Project Overview:
@@ -152,9 +152,9 @@ The project successfully modernized the HSM interface, improving usability and a
   {
     id: 3,
     name: "Cabana App",
-    date: "05/21/24-08/05/24",
+    date: "05/2023-02/2024",
     subtitle: "Cofounder & Full Stack Engineer | React Native Mobile App Startup",
-    githubUrl: "https://github.com/yourusername/cabana-app",
+    githubUrl: "https://github.com/ryanzambrano/app",
     description: `A college roommate finder mobile application developed as a replacement for Patio, focusing on creating a more focused and less dating-app-like experience for students.
 
 Project Overview:
@@ -213,7 +213,7 @@ The app successfully filled the gap left by Patio's shutdown, providing a more f
     name: "ScoutGlobal.tech",
     date: "02/2024",
     subtitle: "Full-Stack Engineer | Georgia Tech Hackalytics",
-    githubUrl: "https://github.com/yourusername/scoutglobal",
+    githubUrl: "https://github.com/ryanzambrano/scout-ai",
     description: `A 24-hour hackathon project that revolutionized talent scouting for international basketball players through advanced data analytics and web scraping.
 
 Project Overview:
@@ -256,7 +256,7 @@ The project demonstrated the power of data analytics in sports scouting, providi
     name: "Outfitme",
     date: "10/2023",
     subtitle: "Full-Stack Engineer | UCF Hackathon",
-    githubUrl: "https://github.com/yourusername/outfitme",
+    githubUrl: "https://github.com/ryanzambrano/Outfitme",
     description: `A 24-hour hackathon project that leverages AI to revolutionize personal fashion styling through image analysis and outfit recommendations.
 
 Project Overview:
@@ -295,10 +295,10 @@ The project demonstrated the potential of AI in fashion technology, providing us
   },
   {
     id: 6,
-    name: "Minecraft Portfolio",
-    date: "03/2024",
+    name: "Portfolio Website",
+    date: "05/2025-06/2025",
     subtitle: "Full-Stack Engineer | Personal Website",
-    githubUrl: "https://github.com/yourusername/masonwebsite",
+    githubUrl: "https://github.com/MasonHall9987/masonwebsite",
     description: `A Minecraft-themed portfolio website that showcases projects and experiences through an immersive, interactive interface.
 
 Project Overview:
@@ -340,10 +340,10 @@ The website combines modern web development practices with nostalgic gaming elem
   },
   {
     id: 7,
-    name: "FitTrack",
-    date: "01/2024",
+    name: "StayFit",
+    date: "01/2025-04/2025",
     subtitle: "Full-Stack Engineer | School Project",
-    githubUrl: "https://github.com/yourusername/fittrack",
+    githubUrl: "https://github.com/MasonHall9987/stayfit",
     description: `A comprehensive fitness tracking web application that helps users monitor their workouts and nutrition through an intuitive interface.
 
 Project Overview:
@@ -384,9 +384,9 @@ The application provides users with a seamless experience for tracking their fit
   {
     id: 8,
     name: "Contact Manager",
-    date: "12/2023",
+    date: "05/2025-06/2025",
     subtitle: "Full-Stack Engineer | COP4331C Small Project",
-    githubUrl: "https://github.com/yourusername/contact-manager",
+    githubUrl: "https://github.com/MasonHall9987/COP4331Project1",
     description: `A full-stack contact management system built with the LAMP stack, featuring comprehensive planning documentation and secure user authentication.
 
 Project Overview:
@@ -438,9 +438,9 @@ The project demonstrates strong fundamentals in web development, database design
   {
     id: 9,
     name: "Super Chess Bros",
-    date: "03/2024-Present",
+    date: "06/2025-Present",
     subtitle: "Project Manager & Developer | Senior Design Project",
-    githubUrl: "https://github.com/yourusername/super-chess-bros",
+    githubUrl: "https://github.com/MasonHall9987/Super-Chess-Bros",
     description: `An innovative chess game that combines traditional chess with platform fighting mechanics, where piece captures trigger character duels.
 
 Project Overview:
