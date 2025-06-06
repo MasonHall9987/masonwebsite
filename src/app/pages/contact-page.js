@@ -13,11 +13,9 @@ const ContactPage = ({ onBack }) => {
   const isFormValid = name.trim() !== "" && email.trim() !== "" && message.trim() !== "";
   const clickSound = new Audio('/audio/effect-button.mp3');
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     clickSound.play();
-
 
     if (!isFormValid) {
       setStatusMessage("Please fill in all fields before sending.");
@@ -28,25 +26,33 @@ const ContactPage = ({ onBack }) => {
     setIsSending(true);
     setStatusMessage(null);
 
-    const body = { name, email, message };
-
     try {
-      const res = await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name: name,
+          email: email,
+          message: message,
+          subject: `New Portfolio Message from ${name}`,
+        })
       });
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText || "Unknown error");
+      const result = await response.json();
+      
+      if (result.success) {
+        setStatusMessage("Email sent. I'll get back with you shortly.");
+        setIsError(false);
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        throw new Error(result.message || 'Failed to send message');
       }
-
-      setStatusMessage("Email sent. I\'ll get back with you shortly.");
-      setIsError(false);
-      setName("");
-      setEmail("");
-      setMessage("");
     } catch (err) {
       console.error("Error sending email:", err);
       setStatusMessage(`Failed to send message: ${err.message}`);
