@@ -139,7 +139,7 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
               </p>
               
               {/* Project Description */}
-              <div className="bg-black minecraft-inset-border p-3 h-80 overflow-y-auto">
+              <div className="bg-black minecraft-inset-border p-3 h-80 overflow-y-auto scrollbar-3d">
                 {project.description.split('\n').map((paragraph, index) => {
                   if (paragraph.trim() === '') return <br key={index} />;
                   

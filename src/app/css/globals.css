@@ -233,3 +233,45 @@ body {
   animation: none;
   opacity: 1 !important;
 }
+
+.scrollbar-3d {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.scrollbar-3d::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-3d::-webkit-scrollbar-track {
+  background: #000000;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.scrollbar-3d::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-right: 2px solid #818181;
+  border-bottom: 2px solid #818181;
+  border-top: 1px solid #c0c0c0;
+  border-left: 1px solid #c0c0c0;
+  box-shadow: 
+    inset -1px -1px 2px rgba(0,0,0,0.15),
+    inset 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+.scrollbar-3dmodal::-webkit-scrollbar-track {
+  background: #8b8b8b;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.scrollbar-3dmodal::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-right: 2px solid #818181;
+  border-bottom: 2px solid #818181;
+  border-top: 1px solid #c0c0c0;
+  border-left: 1px solid #c0c0c0;
+  box-shadow: 
+    inset -1px -1px 2px rgba(0,0,0,0.15),
+    inset 1px 1px 2px rgba(255,255,255,0.8);
+}
+

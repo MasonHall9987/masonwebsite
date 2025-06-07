@@ -99,11 +99,11 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen min-h-screen py-12 space-y-3">
+    <div className="flex flex-col items-center justify-center w-screen h-screen py-12 space-y-3 overflow-hidden">
       <h2 className="text-3xl font-semibold text-center text-white">Setting</h2>
-      <div className="translucent-container px-20">
-        <div className="scrollable-content">
-          <div className="space-y-12">
+      <div className="translucent-container px-20 overflow-y-auto">
+        <div className="scrollbar-3d ">
+          <div className="space-y-12 py-4">
             <div className="mb-10">
               <h3 className="text-2xl font-medium mb-8 text-center">Background</h3>
               <div className="flex items-center justify-center gap-4">
