@@ -6,7 +6,7 @@ const borderOthers = 'border-t-3 border-l-3 border-t-[#c7c7c7] border-l-[#c7c7c7
 // Main reusable button component
 export const LargeButton = ({ text, onClick }) => {
   return (
-    <div className="border-3 hover:border-white">
+    <div className="border-3 border-black hover:border-white">
       <div className={`${borderOthers} ${borderRight}`}>
         <button onClick={onClick} className="textured-button large-button minecraft-font">
           {text}
@@ -18,7 +18,7 @@ export const LargeButton = ({ text, onClick }) => {
 
 export const SmallButton = ({ text, onClick }) => {
   return (
-    <div className="border-3 hover:border-white">
+    <div className="border-3 border-black hover:border-white">
       <div className={`${borderOthers} ${borderRight}`}>
         <button onClick={onClick} className="textured-button small-button minecraft-font">
           {text}
@@ -98,7 +98,7 @@ export const Footer = ({ audioSrc, onSongEnd }) => {
     >
       <div className="minecraft-font text-white text-sm" />
 
-      <div className="border-3 hover:border-white z-30">
+      <div className="border-3 border-black hover:border-white z-30">
         <div className={`${borderOthers} ${borderRight}`}>
           <button
             onClick={playMusic}
