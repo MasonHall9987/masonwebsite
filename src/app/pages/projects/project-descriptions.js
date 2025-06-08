@@ -1,41 +1,3 @@
-// Technology color definitions
-const TECH_COLORS = {
-  Arduino: "#00979D",
-  Cplusplus: "#00599C",
-  React: "#61DAFB",
-  Javascript: "#F7DF1E",
-  Supabase: "#3ECF8E",
-  Threedotjs: "#000000",
-  Internetexplorer: "#0076D6",
-  Git: "#F05032",
-  Vuedotjs: "#41B883",
-  Python: "#3776AB",
-  Docker: "#2496ED",
-  Jira: "#0052CC",
-  Confluence: "#172B4D",
-  Agile: "#2E7D32",
-  Typescript: "#3178C6",
-  Nodedotjs: "#339933",
-  Apple: "#000000",
-  Pandas: "#150458",
-  Selenium: "#43B02A",
-  Beautifulsoup: "#FF4C4C",
-  Openai: "#412991",
-  Nextdotjs: "#000000",
-  Tailwindcss: "#06B6D4",
-  Cloudflare: "#F6821F",
-  Vercel: "#000000",
-  Firebase: "#FFCA28",
-  Php: "#777BB4",
-  Mysql: "#4479A1",
-  Digitalocean: "#0080FF",
-  Html5: "#E34F26",
-  Css3: "#1572B6",
-  Godot: "#478CBF",
-  Trello: "#0052CC",
-  GDScript: "#478CBF"
-};
-
 export const projects = [
   {
     id: 1,
@@ -80,14 +42,12 @@ The system maintains optimal growing conditions by automatically adjusting water
     image: "/images/icon-plant-pot.png",
     video: "/videos/project-demo.mp4",
     technologies: [
-      { name: "Arduino/ESP32", iconName: "Arduino", color: TECH_COLORS.Arduino },
-      { name: "C++", iconName: "Cplusplus", color: TECH_COLORS.Cplusplus },
-      { name: "React Native", iconName: "React", color: TECH_COLORS.React },
-      { name: "JavaScript", iconName: "Javascript", color: TECH_COLORS.Javascript },
-      { name: "Supabase", iconName: "Supabase", color: TECH_COLORS.Supabase },
-      { name: "3D Printing", iconName: "Threedotjs", color: TECH_COLORS.Threedotjs },
-      { name: "IoT", iconName: "Internetexplorer", color: TECH_COLORS.Internetexplorer },
-      { name: "Git", iconName: "Git", color: TECH_COLORS.Git }
+      { name: "Arduino/ESP32", iconPath: "/images/icon-arduino.png" },
+      { name: "C++", iconPath: "/images/icon-cplusplus.png" },
+      { name: "React Native", iconPath: "/images/icon-react.png" },
+      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
+      { name: "Supabase", iconPath: "/images/icon-supabase.png" },
+      { name: "Git", iconPath: "/images/icon-git.png" }
     ],
   },
   {
@@ -139,14 +99,14 @@ The project successfully modernized the HSM interface, improving usability and a
     image: "/images/icon-futurex.png",
     video: "/videos/futurex-demo.mp4",
     technologies: [
-      { name: "C++", iconName: "Cplusplus", color: TECH_COLORS.Cplusplus },
-      { name: "Vue.js", iconName: "Vuedotjs", color: TECH_COLORS.Vuedotjs },
-      { name: "Python", iconName: "Python", color: TECH_COLORS.Python },
-      { name: "Docker", iconName: "Docker", color: TECH_COLORS.Docker },
-      { name: "Git", iconName: "Git", color: TECH_COLORS.Git },
-      { name: "Jira", iconName: "Jira", color: TECH_COLORS.Jira },
-      { name: "Confluence", iconName: "Confluence", color: TECH_COLORS.Confluence },
-      { name: "Agile", iconName: "Agile", color: TECH_COLORS.Agile }
+      { name: "C++", iconPath: "/images/icon-cplusplus.png" },
+      { name: "Vue.js", iconPath: "/images/icon-vuedotjs.png" },
+      { name: "Python", iconPath: "/images/icon-python.png" },
+      { name: "Docker", iconPath: "/images/icon-docker.png" },
+      { name: "Git", iconPath: "/images/icon-git.png" },
+      { name: "Jira", iconPath: "/images/icon-jira*.png" },
+      { name: "Confluence", iconPath: "/images/icon-confluence.png" },
+      { name: "Agile", iconPath: "/images/icon-agile.png" }
     ],
   },
   {
@@ -199,13 +159,13 @@ The app successfully filled the gap left by Patio's shutdown, providing a more f
     image: "/images/icon-cabana.png",
     video: "/videos/cabana-demo.mp4",
     technologies: [
-      { name: "React Native", iconName: "React", color: TECH_COLORS.React },
-      { name: "JavaScript", iconName: "Javascript", color: TECH_COLORS.Javascript },
-      { name: "TypeScript", iconName: "Typescript", color: TECH_COLORS.Typescript },
-      { name: "Supabase", iconName: "Supabase", color: TECH_COLORS.Supabase },
-      { name: "Node.js", iconName: "Nodedotjs", color: TECH_COLORS.Nodedotjs },
-      { name: "Apple", iconName: "Apple", color: TECH_COLORS.Apple },
-      { name: "Git", iconName: "Git", color: TECH_COLORS.Git }
+      { name: "React Native", iconPath: "/images/icon-react.png" },
+      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
+      { name: "TypeScript", iconPath: "/images/icon-typescript.png" },
+      { name: "Supabase", iconPath: "/images/icon-supabase.png" },
+      { name: "Node.js", iconPath: "/images/icon-nodedotjs.png" },
+      { name: "Apple", iconPath: "/images/icon-apple.png" },
+      { name: "Git", iconPath: "/images/icon-git.png" }
     ],
   },
   {
@@ -242,13 +202,13 @@ The project demonstrated the power of data analytics in sports scouting, providi
     image: "/images/icon-basketball.png",
     video: "/videos/scoutglobal-demo.mp4",
     technologies: [
-      { name: "JavaScript", iconName: "Javascript", color: TECH_COLORS.Javascript },
-      { name: "Python", iconName: "Python", color: TECH_COLORS.Python },
-      { name: "React", iconName: "React", color: TECH_COLORS.React },
-      { name: "Pandas", iconName: "Pandas", color: TECH_COLORS.Pandas },
-      { name: "Selenium", iconName: "Selenium", color: TECH_COLORS.Selenium },
-      { name: "BeautifulSoup", iconName: "Beautifulsoup", color: TECH_COLORS.Beautifulsoup },
-      { name: "Git", iconName: "Git", color: TECH_COLORS.Git }
+      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
+      { name: "Python", iconPath: "/images/icon-python.png" },
+      { name: "React", iconPath: "/images/icon-react.png" },
+      { name: "Pandas", iconPath: "/images/icon-pandas*.png" },
+      { name: "Selenium", iconPath: "/images/icon-selenium.png" },
+      { name: "BeautifulSoup", iconPath: "/images/icon-beutifulsoup.png" },
+      { name: "Git", iconPath: "/images/icon-git.png" }
     ],
   },
   {
@@ -286,11 +246,11 @@ The project demonstrated the potential of AI in fashion technology, providing us
     image: "/images/icon-chestplate.png",
     video: "/videos/outfitme-demo.mp4",
     technologies: [
-      { name: "JavaScript", iconName: "Javascript", color: TECH_COLORS.Javascript },
-      { name: "React Native", iconName: "React", color: TECH_COLORS.React },
-      { name: "OpenAI", iconName: "Openai", color: TECH_COLORS.Openai },
-      { name: "Supabase", iconName: "Supabase", color: TECH_COLORS.Supabase },
-      { name: "Git", iconName: "Git", color: TECH_COLORS.Git }
+      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
+      { name: "React Native", iconPath: "/images/icon-react.png" },
+      { name: "OpenAI", iconPath: "/images/icon-openai.png" },
+      { name: "Supabase", iconPath: "/images/icon-supabase.png" },
+      { name: "Git", iconPath: "/images/icon-git.png" }
     ],
   },
   {
@@ -330,12 +290,12 @@ The website combines modern web development practices with nostalgic gaming elem
     image: "/images/icon-herobrine.png",
     video: "/videos/website-demo.mp4",
     technologies: [
-      { name: "Next.js", iconName: "Nextdotjs", color: TECH_COLORS.Nextdotjs },
-      { name: "React", iconName: "React", color: TECH_COLORS.React },
-      { name: "Tailwind CSS", iconName: "Tailwindcss", color: TECH_COLORS.Tailwindcss },
-      { name: "Cloudflare", iconName: "Cloudflare", color: TECH_COLORS.Cloudflare },
-      { name: "Vercel", iconName: "Vercel", color: TECH_COLORS.Vercel },
-      { name: "Git", iconName: "Git", color: TECH_COLORS.Git }
+      { name: "Next.js", iconPath: "/images/icon-next.png" },
+      { name: "React", iconPath: "/images/icon-react.png" },
+      { name: "Tailwind CSS", iconPath: "/images/icon-tailwindcss.png" },
+      { name: "Cloudflare", iconPath: "/images/icon-cloudflare.png" },
+      { name: "Vercel", iconPath: "/images/icon-vercel.png" },
+      { name: "Git", iconPath: "/images/icon-git.png" }
     ],
   },
   {
@@ -375,10 +335,10 @@ The application provides users with a seamless experience for tracking their fit
     image: "/images/icon-dumbell.png",
     video: "/videos/fittrack-demo.mp4",
     technologies: [
-      { name: "React", iconName: "React", color: TECH_COLORS.React },
-      { name: "JavaScript", iconName: "Javascript", color: TECH_COLORS.Javascript },
-      { name: "Firebase", iconName: "Firebase", color: TECH_COLORS.Firebase },
-      { name: "Git", iconName: "Git", color: TECH_COLORS.Git }
+      { name: "React", iconPath: "/images/icon-react.png" },
+      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
+      { name: "Firebase", iconPath: "/images/icon-firebase.png" },
+      { name: "Git", iconPath: "/images/icon-git.png" }
     ],
   },
   {
@@ -426,13 +386,13 @@ The project demonstrates strong fundamentals in web development, database design
     image: "/images/icon-phone.png",
     video: "/videos/contact-manager-demo.mp4",
     technologies: [
-      { name: "HTML5", iconName: "Html5", color: TECH_COLORS.Html5 },
-      { name: "CSS3", iconName: "Css3", color: TECH_COLORS.Css3 },
-      { name: "JavaScript", iconName: "Javascript", color: TECH_COLORS.Javascript },
-      { name: "PHP", iconName: "Php", color: TECH_COLORS.Php },
-      { name: "MySQL", iconName: "Mysql", color: TECH_COLORS.Mysql },
-      { name: "DigitalOcean", iconName: "Digitalocean", color: TECH_COLORS.Digitalocean },
-      { name: "Git", iconName: "Git", color: TECH_COLORS.Git }
+      { name: "HTML5", iconPath: "/images/icon-html5.png" },
+      { name: "CSS3", iconPath: "/images/icon-css3.png" },
+      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
+      { name: "PHP", iconPath: "/images/icon-php.png" },
+      { name: "MySQL", iconPath: "/images/icon-mysql.png" },
+      { name: "DigitalOcean", iconPath: "/images/icon-digitalocean.png" },
+      { name: "Git", iconPath: "/images/icon-git.png" }
     ],
   },
   {
@@ -499,11 +459,11 @@ The project combines strategic chess gameplay with dynamic fighting mechanics, c
     image: "/images/icon-king.png",
     video: "/videos/super-chess-bros-demo.mp4",
     technologies: [
-      { name: "Godot", iconName: "Godot", color: TECH_COLORS.Godot },
-      { name: "GDScript", iconName: "GDScript", color: TECH_COLORS.GDScript },
-      { name: "Trello", iconName: "Trello", color: TECH_COLORS.Trello },
-      { name: "Git", iconName: "Git", color: TECH_COLORS.Git },
-      { name: "Agile", iconName: "Agile", color: TECH_COLORS.Agile }
+      { name: "Godot", iconPath: "/images/icon-godot.png" },
+      { name: "GDScript", iconPath: "/images/icon-gdscript.png" },
+      { name: "Trello", iconPath: "/images/icon-trello.png" },
+      { name: "Git", iconPath: "/images/icon-git.png" },
+      { name: "Agile", iconPath: "/images/icon-agile.png" }
     ],
   },
 ]; 
