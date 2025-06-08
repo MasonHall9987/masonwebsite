@@ -54,7 +54,7 @@ const ProjectsPage = ({ onBack }) => {
           <input 
             type="text" 
             placeholder="Search projects or technologies..."
-            className="w-full p-2 border-2 border-gray-700 bg-black text-white minecraft-font text-sm"
+            className="w-full p-2 border-2 border-white bg-black text-white minecraft-font text-md"
             value={searchQuery}
             onChange={handleSearchChange}
           />
@@ -62,7 +62,7 @@ const ProjectsPage = ({ onBack }) => {
         
         {/* Project list container - modified to match other pages */}
         <div className="translucent-container-projects px-60">
-          <div className="scrollbar-3d">
+          <div className="scrollbar-3d pr-2">
             <div className="space-y-3">
             {filteredProjects.map((project) => (
               <div 
