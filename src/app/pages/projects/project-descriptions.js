@@ -290,7 +290,7 @@ The website combines modern web development practices with nostalgic gaming elem
     image: "/images/icon-herobrine.png",
     video: "/videos/website-demo.mp4",
     technologies: [
-      { name: "Next.js", iconPath: "/images/icon-next.png" },
+      { name: "Next.js", iconPath: "/images/icon-next.js*.png" },
       { name: "React", iconPath: "/images/icon-react.png" },
       { name: "Tailwind CSS", iconPath: "/images/icon-tailwindcss.png" },
       { name: "Cloudflare", iconPath: "/images/icon-cloudflare.png" },
