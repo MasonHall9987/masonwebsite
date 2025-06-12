@@ -63,7 +63,7 @@ const MinecraftWebsite = () => {
   };
 
   const handleBackToHome = () => {
-    const clickSound = new Audio('/audio/effect-button.mp3');
+    const clickSound = getClickAudio();
     clickSound.play();
 
     setSkipHomeAnimation(true);
