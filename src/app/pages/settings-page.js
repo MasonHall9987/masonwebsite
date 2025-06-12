@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { LargeButton } from "../components/UIElements";
+import { getClickAudio, getAssetUrl } from '../scripts/get-asset';
 
 // Helper function to determine initial carousel indices
 const getInitialCarouselIndices = (dataArray, currentPath, pathKey = "filepath") => {
@@ -30,18 +31,18 @@ const getInitialCarouselIndices = (dataArray, currentPath, pathKey = "filepath")
 
 const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentBackgroundVideoPath, currentBackgroundAudioPath }) => {
   const backgroundsData = [
-    { name: "Canyon", image: "images/framed-canyon.png", filepath: "/videos/background-canyon.mp4"},
-    { name: "Coral", image: "images/framed-coral.png", filepath: "/videos/background-coral.mp4"},
-    { name: "Jungle", image: "images/framed-jungle.png", filepath: "/videos/background-jungle.mp4"},
-    { name: "Village", image: "images/framed-village.png", filepath: "/videos/background-village.mp4"},
+    { name: "Canyon", image: getAssetUrl('image', 'framed-canyon.png'), filepath: getAssetUrl('video', 'background-canyon.mp4')},
+    { name: "Coral", image: getAssetUrl('image', 'framed-coral.png'), filepath: getAssetUrl('video', 'background-coral.mp4')},
+    { name: "Jungle", image: getAssetUrl('image', 'framed-jungle.png'), filepath: getAssetUrl('video', 'background-jungle.mp4')},
+    { name: "Village", image: getAssetUrl('image', 'framed-village.png'), filepath: getAssetUrl('video', 'background-village.mp4')},
   ];
   
   const musicData = [
-    { name: "Moogcity", image: "images/icon-moogcity-disc.png", filepath: "audio/song-moogcity.mp3"},
-    { name: "Haggstorm", image: "images/icon-haggstorm-disc.png", filepath: "audio/song-haggstorm.mp3"},
-    { name: "Mice On Venus", image: "images/icon-mice-disc.png", filepath: "audio/song-mice.mp3"},
-    { name: "Minecraft", image: "images/icon-minecraft-disc.png", filepath: "audio/song-minecraft.mp3"},
-    { name: "Aria Math", image: "images/icon-aria-disc.png", filepath: "audio/song-aria.mp3"},
+    { name: "Moogcity", image: getAssetUrl('image', 'icon-moogcity-disc.png'), filepath: getAssetUrl('audio', 'song-moogcity.mp3')},
+    { name: "Haggstorm", image: getAssetUrl('image', 'icon-haggstorm-disc.png'), filepath: getAssetUrl('audio', 'song-haggstorm.mp3')},
+    { name: "Mice On Venus", image: getAssetUrl('image', 'icon-mice-disc.png'), filepath: getAssetUrl('audio', 'song-mice.mp3')},
+    { name: "Minecraft", image: getAssetUrl('image', 'icon-minecraft-disc.png'), filepath: getAssetUrl('audio', 'song-minecraft.mp3')},
+    { name: "Aria Math", image: getAssetUrl('image', 'icon-aria-disc.png'), filepath: getAssetUrl('audio', 'song-aria.mp3')},
   ];
   
   const [visibleBackgroundIndices, setVisibleBackgroundIndices] = useState(() => 
@@ -51,7 +52,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
     getInitialCarouselIndices(musicData, currentBackgroundAudioPath, "filepath")
   );
 
-  const clickSound = new Audio('/audio/effect-button.mp3');
+  const clickSound = getClickAudio();
   
   const shiftBackgroundsRight = () => {
     clickSound.play();
@@ -94,7 +95,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
   
   const handleSave = (videoPath, musicPath) => {
     clickSound.play();
-    setBackgroundVideo([videoPath, "/images/background-jungle.jpg"]);
+    setBackgroundVideo([videoPath, getAssetUrl('image', 'background-jungle.jpg')]);
     setBackgroundAudio(musicPath);
   };
 
@@ -112,7 +113,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
                   className="text-white text-2xl opacity-70 hover:opacity-100"
                 >
                   <img 
-                    src="/images/icon-next.png" 
+                    src={getAssetUrl('image', 'icon-next.png')} 
                     alt="Shift Left" 
                     className="w-10 h-10"
                     style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
@@ -146,7 +147,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
                   className="text-white text-2xl opacity-70 hover:opacity-100"
                 >
                   <img 
-                    src="/images/icon-next.png" 
+                    src={getAssetUrl('image', 'icon-next.png')} 
                     alt="Shift Right" 
                     className="w-10 h-10"
                   />
@@ -162,7 +163,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
                   className="text-white text-2xl opacity-70 hover:opacity-100"
                 >
                   <img 
-                    src="/images/icon-next.png" 
+                    src={getAssetUrl('image', 'icon-next.png')} 
                     alt="Shift Left" 
                     className="w-10 h-10"
                     style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
@@ -190,7 +191,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
                   className="text-white text-2xl opacity-70 hover:opacity-100"
                 >
                   <img 
-                    src="/images/icon-next.png" 
+                    src={getAssetUrl('image', 'icon-next.png')} 
                     alt="Shift Right" 
                     className="w-10 h-10" 
                   />

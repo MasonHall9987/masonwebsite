@@ -1,3 +1,6 @@
+import { getAssetUrl } from '../../scripts/get-asset';
+
+
 export const projects = [
   {
     id: 1,
@@ -39,15 +42,15 @@ Integration:
 • Automated data logging and storage
 
 The system maintains optimal growing conditions by automatically adjusting water levels and lighting based on sensor readings. Users can monitor their plant's health metrics and manually control the system through the mobile app, with all data being synchronized in real-time through Supabase.`,
-    image: "/images/icon-plant-pot.png",
+    image: getAssetUrl('image', 'icon-plant-pot.png'),
     video: "/videos/project-demo.mp4",
     technologies: [
-      { name: "Arduino/ESP32", iconPath: "/images/icon-arduino.png" },
-      { name: "C++", iconPath: "/images/icon-cplusplus.png" },
-      { name: "React Native", iconPath: "/images/icon-react.png" },
-      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
-      { name: "Supabase", iconPath: "/images/icon-supabase.png" },
-      { name: "Git", iconPath: "/images/icon-git.png" }
+      { name: "Arduino/ESP32", iconPath: getAssetUrl('image', 'icon-arduino.png') },
+      { name: "C++", iconPath: getAssetUrl('image', 'icon-cplusplus.png') },
+      { name: "React Native", iconPath: getAssetUrl('image', 'icon-react.png') },
+      { name: "JavaScript", iconPath: getAssetUrl('image', 'icon-javascript.png') },
+      { name: "Supabase", iconPath: getAssetUrl('image', 'icon-supabase.png') },
+      { name: "Git", iconPath: getAssetUrl('image', 'icon-git.png') }
     ],
   },
   {
@@ -96,17 +99,17 @@ Development Tools:
 • Docker for local testing environment
 
 The project successfully modernized the HSM interface, improving usability and adding new features while maintaining compatibility with existing systems. The implementation was completed within the internship timeframe and met all company standards.`,
-    image: "/images/icon-futurex.png",
-    video: "/videos/futurex-demo.mp4",
+    image: getAssetUrl('image', 'icon-futurex.PNG'),
+    video: getAssetUrl('video', 'futurex-demo.mp4'),
     technologies: [
-      { name: "C++", iconPath: "/images/icon-cplusplus.png" },
-      { name: "Vue.js", iconPath: "/images/icon-vuedotjs.png" },
-      { name: "Python", iconPath: "/images/icon-python.png" },
-      { name: "Docker", iconPath: "/images/icon-docker.png" },
-      { name: "Git", iconPath: "/images/icon-git.png" },
-      { name: "Jira", iconPath: "/images/icon-jira*.png" },
-      { name: "Confluence", iconPath: "/images/icon-confluence.png" },
-      { name: "Agile", iconPath: "/images/icon-agile.png" }
+      { name: "C++", iconPath: getAssetUrl('image', 'icon-cplusplus.png') },
+      { name: "Vue.js", iconPath: getAssetUrl('image', 'icon-vuedotjs.png') },
+      { name: "Python", iconPath: getAssetUrl('image', 'icon-python.png') },
+      { name: "Docker", iconPath: getAssetUrl('image', 'icon-docker.png') },
+      { name: "Git", iconPath: getAssetUrl('image', 'icon-git.png') },
+      { name: "Jira", iconPath: getAssetUrl('image', 'icon-jira.png') },
+      { name: "Confluence", iconPath: getAssetUrl('image', 'icon-confluence.png') },
+      { name: "Agile", iconPath: getAssetUrl('image', 'icon-agile.png') }
     ],
   },
   {
@@ -156,16 +159,16 @@ Social media marketing:
 • Legal business structure with LLC formation
 
 The app successfully filled the gap left by Patio's shutdown, providing a more focused and appropriate platform for college students to find roommates. The combination of technical innovation and strategic marketing led to successful user adoption and growth.`,
-    image: "/images/icon-cabana.png",
-    video: "/videos/cabana-demo.mp4",
+    image: getAssetUrl('image', 'icon-cabana.PNG'),
+    video: getAssetUrl('video', 'cabana-demo.mp4'),
     technologies: [
-      { name: "React Native", iconPath: "/images/icon-react.png" },
-      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
-      { name: "TypeScript", iconPath: "/images/icon-typescript.png" },
-      { name: "Supabase", iconPath: "/images/icon-supabase.png" },
-      { name: "Node.js", iconPath: "/images/icon-nodedotjs.png" },
-      { name: "Apple", iconPath: "/images/icon-apple.png" },
-      { name: "Git", iconPath: "/images/icon-git.png" }
+      { name: "React Native", iconPath: getAssetUrl('image', 'icon-react.png') },
+      { name: "JavaScript", iconPath: getAssetUrl('image', 'icon-javascript.png') },
+      { name: "TypeScript", iconPath: getAssetUrl('image', 'icon-typescript.png') },
+      { name: "Supabase", iconPath: getAssetUrl('image', 'icon-supabase.png') },
+      { name: "Node.js", iconPath: getAssetUrl('image', 'icon-nodedotjs.png') },
+      { name: "Apple", iconPath: getAssetUrl('image', 'icon-apple.png') },
+      { name: "Git", iconPath: getAssetUrl('image', 'icon-git.png') }
     ],
   },
   {
@@ -199,16 +202,16 @@ Key Achievements:
 • Created an efficient data pipeline for real-time player evaluation
 
 The project demonstrated the power of data analytics in sports scouting, providing valuable insights for talent evaluation while showcasing rapid development capabilities under time constraints.`,
-    image: "/images/icon-basketball.png",
-    video: "/videos/scoutglobal-demo.mp4",
+    image: getAssetUrl('image', 'icon-basketball.png'),
+    video: getAssetUrl('video', 'scoutglobal-demo.mp4'),
     technologies: [
-      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
-      { name: "Python", iconPath: "/images/icon-python.png" },
-      { name: "React", iconPath: "/images/icon-react.png" },
-      { name: "Pandas", iconPath: "/images/icon-pandas*.png" },
-      { name: "Selenium", iconPath: "/images/icon-selenium.png" },
-      { name: "BeautifulSoup", iconPath: "/images/icon-beutifulsoup.png" },
-      { name: "Git", iconPath: "/images/icon-git.png" }
+      { name: "JavaScript", iconPath: getAssetUrl('image', 'icon-javascript.png') },
+      { name: "Python", iconPath: getAssetUrl('image', 'icon-python.png') },
+      { name: "React", iconPath: getAssetUrl('image', 'icon-react.png') },
+      { name: "Pandas", iconPath: getAssetUrl('image', 'icon-pandas.png') },
+      { name: "Selenium", iconPath: getAssetUrl('image', 'icon-selenium.png') },
+      { name: "BeautifulSoup", iconPath: getAssetUrl('image', 'icon-beutifulsoup.png') },
+      { name: "Git", iconPath: getAssetUrl('image', 'icon-git.png') }
     ],
   },
   {
@@ -243,14 +246,14 @@ Key Achievements:
 • Created efficient image processing pipeline
 
 The project demonstrated the potential of AI in fashion technology, providing users with instant, personalized outfit recommendations based on color theory and social norms.`,
-    image: "/images/icon-chestplate.png",
-    video: "/videos/outfitme-demo.mp4",
+    image: getAssetUrl('image', 'icon-chestplate.png'),
+    video: getAssetUrl('video', 'outfitme-demo.mp4'),
     technologies: [
-      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
-      { name: "React Native", iconPath: "/images/icon-react.png" },
-      { name: "OpenAI", iconPath: "/images/icon-openai.png" },
-      { name: "Supabase", iconPath: "/images/icon-supabase.png" },
-      { name: "Git", iconPath: "/images/icon-git.png" }
+      { name: "JavaScript", iconPath: getAssetUrl('image', 'icon-javascript.png') },
+      { name: "React Native", iconPath: getAssetUrl('image', 'icon-react.png') },
+      { name: "OpenAI", iconPath: getAssetUrl('image', 'icon-openai.png') },
+      { name: "Supabase", iconPath: getAssetUrl('image', 'icon-supabase.png') },
+      { name: "Git", iconPath: getAssetUrl('image', 'icon-git.png') }
     ],
   },
   {
@@ -287,15 +290,15 @@ Key Features:
 • Smooth transitions and hover effects
 
 The website combines modern web development practices with nostalgic gaming elements, creating an engaging and memorable user experience while maintaining professional presentation of projects and skills.`,
-    image: "/images/icon-herobrine.png",
-    video: "/videos/website-demo.mp4",
+    image: getAssetUrl('image', 'icon-herobrine.png'),
+    video: getAssetUrl('video', 'website-demo.mp4'),
     technologies: [
-      { name: "Next.js", iconPath: "/images/icon-next.js*.png" },
-      { name: "React", iconPath: "/images/icon-react.png" },
-      { name: "Tailwind CSS", iconPath: "/images/icon-tailwindcss.png" },
-      { name: "Cloudflare", iconPath: "/images/icon-cloudflare.png" },
-      { name: "Vercel", iconPath: "/images/icon-vercel.png" },
-      { name: "Git", iconPath: "/images/icon-git.png" }
+      { name: "Next.js", iconPath: getAssetUrl('image', 'icon-next.js.png') },
+      { name: "React", iconPath: getAssetUrl('image', 'icon-react.png') },
+      { name: "Tailwind CSS", iconPath: getAssetUrl('image', 'icon-tailwindcss.png') },
+      { name: "Cloudflare", iconPath: getAssetUrl('image', 'icon-cloudflare.png') },
+      { name: "Vercel", iconPath: getAssetUrl('image', 'icon-vercel.png') },
+      { name: "Git", iconPath: getAssetUrl('image', 'icon-git.png') }
     ],
   },
   {
@@ -332,13 +335,13 @@ Key Features:
 • Progress visualization and statistics
 
 The application provides users with a seamless experience for tracking their fitness journey, combining modern web technologies with practical fitness management features.`,
-    image: "/images/icon-dumbell.png",
-    video: "/videos/fittrack-demo.mp4",
+    image: getAssetUrl('image', 'icon-dumbell.png'),
+    video: getAssetUrl('video', 'fittrack-demo.mp4'),
     technologies: [
-      { name: "React", iconPath: "/images/icon-react.png" },
-      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
-      { name: "Firebase", iconPath: "/images/icon-firebase.png" },
-      { name: "Git", iconPath: "/images/icon-git.png" }
+      { name: "React", iconPath: getAssetUrl('image', 'icon-react.png') },
+      { name: "JavaScript", iconPath: getAssetUrl('image', 'icon-javascript.png') },
+      { name: "Firebase", iconPath: getAssetUrl('image', 'icon-firebase.png') },
+      { name: "Git", iconPath: getAssetUrl('image', 'icon-git.png') }
     ],
   },
   {
@@ -383,16 +386,16 @@ Project Planning:
 • Database schema design
 
 The project demonstrates strong fundamentals in web development, database design, and project planning, showcasing the implementation of a complete full-stack application.`,
-    image: "/images/icon-phone.png",
-    video: "/videos/contact-manager-demo.mp4",
+    image: getAssetUrl('image', 'icon-phone.png'),
+    video: getAssetUrl('video', 'contact-manager-demo.mp4'),
     technologies: [
-      { name: "HTML5", iconPath: "/images/icon-html5.png" },
-      { name: "CSS3", iconPath: "/images/icon-css3.png" },
-      { name: "JavaScript", iconPath: "/images/icon-javascript.png" },
-      { name: "PHP", iconPath: "/images/icon-php.png" },
-      { name: "MySQL", iconPath: "/images/icon-mysql.png" },
-      { name: "DigitalOcean", iconPath: "/images/icon-digitalocean.png" },
-      { name: "Git", iconPath: "/images/icon-git.png" }
+      { name: "HTML5", iconPath: getAssetUrl('image', 'icon-html5.png') },
+      { name: "CSS3", iconPath: getAssetUrl('image', 'icon-css3.png') },
+      { name: "JavaScript", iconPath: getAssetUrl('image', 'icon-javascript.png') },
+      { name: "PHP", iconPath: getAssetUrl('image', 'icon-php.png') },
+      { name: "MySQL", iconPath: getAssetUrl('image', 'icon-mysql.png') },
+      { name: "DigitalOcean", iconPath: getAssetUrl('image', 'icon-digitalocean.png') },
+      { name: "Git", iconPath: getAssetUrl('image', 'icon-git.png') }
     ],
   },
   {
@@ -456,14 +459,14 @@ Key Features:
 • Sound effect integration
 
 The project combines strategic chess gameplay with dynamic fighting mechanics, creating a unique gaming experience while demonstrating strong project management and development skills.`,
-    image: "/images/icon-king.png",
-    video: "/videos/super-chess-bros-demo.mp4",
+    image: getAssetUrl('image', 'icon-king.png'),
+    video: getAssetUrl('video', 'super-chess-bros-demo.mp4'),
     technologies: [
-      { name: "Godot", iconPath: "/images/icon-godot.png" },
-      { name: "GDScript", iconPath: "/images/icon-gdscript.png" },
-      { name: "Trello", iconPath: "/images/icon-trello.png" },
-      { name: "Git", iconPath: "/images/icon-git.png" },
-      { name: "Agile", iconPath: "/images/icon-agile.png" }
+      { name: "Godot", iconPath: getAssetUrl('image', 'icon-godot.png') },
+      { name: "GDScript", iconPath: getAssetUrl('image', 'icon-gdscript.png') },
+      { name: "Trello", iconPath: getAssetUrl('image', 'icon-trello.png') },
+      { name: "Git", iconPath: getAssetUrl('image', 'icon-git.png') },
+      { name: "Agile", iconPath: getAssetUrl('image', 'icon-agile.png') }
     ],
   },
 ]; 

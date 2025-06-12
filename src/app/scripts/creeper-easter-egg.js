@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { LargeButton} from '../components/UIElements';
 import { useCursor } from './cursor-context';
+import { getClickAudio, getAssetUrl, getCreeperAudio } from './get-asset';
 
 const CreeperEasterEgg = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -74,7 +75,7 @@ const CreeperEasterEgg = () => {
   }, [hasBeenClicked, isVisible]);
   
   const handleClick = () => {
-    const clickSound = new Audio('/audio/effect-creeper.mp3');
+    const clickSound = getCreeperAudio();
     clickSound.play();
     
     // Capture current position and freeze it
@@ -374,7 +375,7 @@ const CreeperEasterEgg = () => {
           onClick={handleClick}
         >
           <img 
-            src="/images/icon-creeper.png" 
+            src={getAssetUrl('image', 'icon-creeper.png')} 
             alt="Creeper" 
             className="w-full h-full object-contain"
             style={{
@@ -429,7 +430,7 @@ const CreeperEasterEgg = () => {
               <LargeButton
                 text="Respawn"
                 onClick={(e) => {
-                  const clickSound = new Audio('/audio/effect-button.mp3');
+                  const clickSound = getClickAudio();
                   e.stopPropagation();
                   clickSound.addEventListener('ended', () => {
                     window.location.reload();
@@ -464,7 +465,7 @@ const CreeperEasterEgg = () => {
             playsInline
             style={{ display: 'none' }}
           >
-            <source src="/videos/video-explosion.mp4" type="video/mp4" />
+            <source src={getAssetUrl('video', 'video-explosion.mp4')} type="video/mp4" />
           </video>
         </div>
       )}

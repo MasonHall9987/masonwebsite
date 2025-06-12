@@ -1,26 +1,44 @@
 // background.js
 "use client";
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import { getAssetUrl } from './get-asset';
 
 function returnBackgroundAudio() {
     const songNames = ['moogcity','mice','haggstorm','minecraft','aria'];
     const index = Math.floor(Math.random() * songNames.length);
     const name = songNames[index];
-    return `audio/song-${name}.mp3`;
+    return getAssetUrl('audio', `song-${name}.mp3`);
 }
 
 function returnBackgroundVideo() {
   const videoNames = ['jungle','coral','village','canyon'];
   const index = Math.floor(Math.random() * videoNames.length);
   const name = videoNames[index];
-  const videoUrl = `/videos/background-${name}.mp4`;
-  const imagePath = `/images/background-${name}.jpg`;
+  const videoUrl = getAssetUrl('video', `background-${name}.mp4`);
+  const imagePath = getAssetUrl('image', `background-${name}.jpg`);
   return [videoUrl, imagePath];
 }
 
 const Background = ({ videoSrc }) => {
   const videoRef = useRef(null);
+
+  // Preload the video
+  useEffect(() => {
+    if (videoSrc) {
+      // Create a link element for preloading
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'video';
+      link.href = videoSrc;
+      document.head.appendChild(link);
+
+      // Cleanup
+      return () => {
+        document.head.removeChild(link);
+      };
+    }
+  }, [videoSrc]);
 
   const handleVideoError = (e) => {
     console.error("Video loading error:", e);

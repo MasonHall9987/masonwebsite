@@ -6,6 +6,7 @@ import { Background, returnBackgroundAudio, returnBackgroundVideo} from './scrip
 import { Home } from './pages/home-page';
 import { Footer } from './components/UIElements';
 import { AboutPage, ProjectsPage, ContactPage, SettingsPage } from './pages/components-page';
+import { getClickAudio, getCreeperAudio, getAssetUrl} from './scripts/get-asset';
 import MinecraftCursor from './scripts/minecraft-cursor';
 import CreeperEasterEgg from './scripts/creeper-easter-egg';
 
@@ -33,7 +34,7 @@ const MinecraftWebsite = () => {
   }, []); // Only run once on mount
 
   const handleSplashTextClick = () => {
-    const clickSound = new Audio('/audio/effect-button.mp3');
+    const clickSound = getClickAudio();
     clickSound.play();
     
     if (usedSplashTexts.size >= splashTextOptions.length) {

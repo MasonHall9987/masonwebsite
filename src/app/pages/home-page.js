@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { LargeButton, SmallButton } from '../components/UIElements';
+import { getClickAudio, getAssetUrl } from '../scripts/get-asset';
 
 
 const Home = ({ onNavigate, skipAnimation, splashText = false, onSplashClick }) => {
@@ -32,7 +33,7 @@ const Home = ({ onNavigate, skipAnimation, splashText = false, onSplashClick }) 
  
 
   const handleButtonClick = (page) => {
-    const clickSound = new Audio('/audio/effect-button.mp3');
+    const clickSound = getClickAudio();
     clickSound.play();
     
     // Navigate to the selected page
@@ -48,7 +49,7 @@ const Home = ({ onNavigate, skipAnimation, splashText = false, onSplashClick }) 
         className={`transition-opacity duration-1000 mb-16 ${showTitle ? 'opacity-100' : 'opacity-0'} flex justify-end relative`}
       >
         <img
-          src="/images/title.png"
+          src={getAssetUrl('image', 'title.png')}
           alt="Minecraft"
           className="w-200"
         />

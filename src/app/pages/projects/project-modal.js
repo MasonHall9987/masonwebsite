@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from 'react';
+import { getClickAudio, getAssetUrl } from '../../scripts/get-asset';
 
 const ProjectModal = ({ project, isVisible, onClose }) => {
   const [hoveredTech, setHoveredTech] = useState(null);
@@ -22,7 +23,7 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
   };
 
   const handleCloseModal = () => {
-    const clickSound = new Audio('/audio/effect-button.mp3');
+    const clickSound = getClickAudio();
     clickSound.play();
     onClose();
   };
@@ -73,13 +74,13 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
                         onMouseLeave={handleTechLeave}
                       >
                         <img
-                          src={tech.iconPath || "/images/icon-arduino.png"}
+                          src={tech.iconPath || getAssetUrl('image', 'icon-arduino.png')}
                           alt={tech.name}
                           className="w-15 h-15 object-cover"
                           style={{ imageRendering: 'pixelated' }}
                           onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = "/images/icon-arduino.png";
+                            e.target.src = getAssetUrl('image', 'icon-arduino.png');
                           }}
                         />
                       </div>

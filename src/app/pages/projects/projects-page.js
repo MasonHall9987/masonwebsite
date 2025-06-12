@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { LargeButton, SmallButton } from "../../components/UIElements";
 import ProjectModal from "./project-modal";
 import { projects } from './project-descriptions';
+import { getClickAudio, getAssetUrl } from '../../scripts/get-asset';
 
 const ProjectsPage = ({ onBack }) => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -14,14 +15,14 @@ const ProjectsPage = ({ onBack }) => {
   };
 
   const handleProjectDoubleClick = (projectId) => {
-    const clickSound = new Audio('/audio/effect-button.mp3');
+    const clickSound = getClickAudio();
     clickSound.play();
     setSelectedProject(projectId);
     setShowProjectModal(true);
   };
 
   const handleSelectButtonClick = () => {
-    const clickSound = new Audio('/audio/effect-button.mp3');
+    const clickSound = getClickAudio();
     clickSound.play();
     if (selectedProject !== null) {
       setShowProjectModal(true);
@@ -77,7 +78,7 @@ const ProjectsPage = ({ onBack }) => {
                 {/* Arrow indicator for hover - positioned inside container */}
                 <div className="absolute left-1 opacity-0 group-hover:opacity-100 z-10">
                   <img 
-                    src="/images/icon-arrow.png" 
+                    src={getAssetUrl('image', 'icon-arrow.png')} 
                     alt="Selection Arrow" 
                     className="w-10 h-8"
                   />
@@ -91,7 +92,7 @@ const ProjectsPage = ({ onBack }) => {
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = "/images/icon-arrow.png";
+                      e.target.src = getAssetUrl('image', 'icon-arrow.png');
                     }}
                   />
                 </div>

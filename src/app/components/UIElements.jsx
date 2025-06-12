@@ -1,4 +1,5 @@
 import {useState,useRef,useEffect} from 'react';
+import { getClickAudio, getAssetUrl } from '../scripts/get-asset';
 // Shared border class variables
 const borderRight = 'border-r-3 border-r-[#6b6b6b]';
 const borderOthers = 'border-t-3 border-l-3 border-t-[#c7c7c7] border-l-[#c7c7c7]';
@@ -34,7 +35,7 @@ export const Footer = ({ audioSrc, onSongEnd }) => {
   const audioRef = useRef(null);
 
   const playMusic = () => {
-    const clickSound = new Audio('/audio/effect-button.mp3');
+    const clickSound = getClickAudio();
     clickSound.play();
     setAudioPlaying(prevAudioPlaying => !prevAudioPlaying);
   };
@@ -77,17 +78,17 @@ export const Footer = ({ audioSrc, onSongEnd }) => {
   }, [audioSrc, audioPlaying]);
 
   const getDiscImageSrc = () => {
-    if (!audioSrc) return "/images/icon-orange-disc.png";
+    if (!audioSrc) return getAssetUrl('image', 'icon-orange-disc.png');
 
     const fileName = audioSrc.split('/').pop();
-    if (!fileName) return "/images/icon-orange-disc.png";
+    if (!fileName) return getAssetUrl('image', 'icon-orange-disc.png');
 
     const songName = fileName.replace(/^song-/, '').replace(/\.mp3$/, '');
     
     if (songName) {
-      return `/images/icon-${songName}-disc.png`;
+      return getAssetUrl('image', `icon-${songName}-disc.png`);
     }
-    return "/images/icon-orange-disc.png";
+    return getAssetUrl('image', 'icon-orange-disc.png');
   };
 
   return (
@@ -112,7 +113,7 @@ export const Footer = ({ audioSrc, onSongEnd }) => {
             
             {!audioPlaying && (
               <img
-                src="/images/icon-prohibit.png"
+                src={getAssetUrl('image', 'icon-prohibit.png')}
                 className="absolute top-1 left-0 w-15 h-10 z-20"
                 alt="Prohibit Icon"
               />

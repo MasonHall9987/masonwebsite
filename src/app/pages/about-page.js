@@ -1,6 +1,7 @@
 "use client";
 // import React from 'react'; // Removed React
 import { LargeButton } from "../components/UIElements";
+import { getAssetUrl } from '../scripts/get-asset';
 
 const AboutPage = ({ onBack }) => {
   return (
@@ -17,7 +18,7 @@ const AboutPage = ({ onBack }) => {
             <p>
               Thank you so much for taking the time to check it out. If you're here to quickly view my resume and skills, feel free to click the link right
               <span> </span>
-              <a href="/images/Mason-Hall-Resume.pdf" download className="underline-link hide-cursor-on-hover">here</a>.
+              <a href={getAssetUrl('image', 'Mason-Hall-Resume.pdf')} download className="underline-link hide-cursor-on-hover">here</a>.
             </p>
 
             <p>
@@ -32,7 +33,7 @@ const AboutPage = ({ onBack }) => {
                 <li>• Contact: Find my contact information, and you can even send me an email directly through the form.</li>
                 <li>• Settings: This is where the fun begins! Customize the site's theming, change the background video and music.</li>
                 <li>• Try clicking the splash text near the title of the main paeg!</li>
-                <li>• Keep an eye out for a tiny <img src="/images/icon-creeper.png" alt="creeper" className="inline-block w-8 h-8" /> that appears randomly around the site and click it to see what happens!</li>
+                <li>• Keep an eye out for a tiny <img src={getAssetUrl('image', 'icon-creeper.png')} alt="creeper" className="inline-block w-8 h-8" /> that appears randomly around the site and click it to see what happens!</li>
               </ul>
             </p>
             <p>

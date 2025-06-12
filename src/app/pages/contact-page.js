@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { LargeButton } from "../components/UIElements";
+import { getClickAudio, getAssetUrl } from '../scripts/get-asset';
 
 const ContactPage = ({ onBack }) => {
   const [name, setName] = useState("");
@@ -11,7 +12,7 @@ const ContactPage = ({ onBack }) => {
   const [isError, setIsError] = useState(false);
 
   const isFormValid = name.trim() !== "" && email.trim() !== "" && message.trim() !== "";
-  const clickSound = new Audio('/audio/effect-button.mp3');
+  const clickSound = getClickAudio();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -117,7 +118,7 @@ const ContactPage = ({ onBack }) => {
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
               <div className="h-13 w-13 flex items-center justify-center">
                 <img 
-                  src="/images/icon-githublogo.png" 
+                  src={getAssetUrl('image', 'icon-githublogo.png')} 
                   alt="GitHub" 
                   className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition duration-200"
                 />
@@ -126,7 +127,7 @@ const ContactPage = ({ onBack }) => {
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
               <div className="h-10.5 w-10.5 flex items-center justify-center">
                 <img 
-                  src="/images/icon-linkedin.png" 
+                  src={getAssetUrl('image', 'icon-linkedin.png')} 
                   alt="LinkedIn" 
                   className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition duration-200"
                 />
