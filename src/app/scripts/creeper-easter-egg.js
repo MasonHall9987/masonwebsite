@@ -445,7 +445,11 @@ const CreeperEasterEgg = () => {
               backgroundColor: 'transparent',
             }}
           >
-            <source src={"https://pub-f3ed1098080a4128adc7fb10cb429333.r2.dev/videos/explosion.webm"} type="video/webm"/>
+            {navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1 ? (
+              <source src={"https://pub-f3ed1098080a4128adc7fb10cb429333.r2.dev/videos/explosion.mov"} type="video/quicktime"/>
+            ) : (
+              <source src={"https://pub-f3ed1098080a4128adc7fb10cb429333.r2.dev/videos/explosion.webm"} type="video/webm"/>
+            )}
           </video>
         </div>
       )}
