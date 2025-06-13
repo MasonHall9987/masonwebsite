@@ -14,17 +14,52 @@ const CreeperEasterEgg = () => {
   const [show404, setShow404] = useState(false);
   const [position, setPosition] = useState({ side: 'right', offset: 50 });
   const [frozenPosition, setFrozenPosition] = useState(null);
-  const [isClickDisabled, setIsClickDisabled] = useState(false); // Add this state
-  const videoRef = useRef(null);
+  const [isClickDisabled, setIsClickDisabled] = useState(false);
+  const preloadVideoRef = useRef(null);
+  const explosionVideoRef = useRef(null);
   const creeperRef = useRef(null);
-  const creeperAudioRef = useRef(null); // Add ref to store creeper audio
+  const creeperAudioRef = useRef(null);
   const { setIs404Active } = useCursor();
   
   // Control when 404 appears (in seconds). Set to null to wait for video end
   const SHOW_404_AT_SECONDS = .4;
   
+  // Preload assets
+  useEffect(() => {
+    // Preload creeper audio
+    const preloadCreeperAudio = () => {
+      const audio = getCreeperAudio();
+      creeperAudioRef.current = audio;
+      audio.load(); // Force load
+      console.log('Preloading creeper audio');
+    };
+    
+    // Preload explosion video
+    const preloadExplosionVideo = () => {
+      if (preloadVideoRef.current) {
+        preloadVideoRef.current.load(); // Force load
+        console.log('Preloading explosion video');
+      }
+    };
+    
+    // Preload both assets
+    preloadCreeperAudio();
+    preloadExplosionVideo();
+    
+    // Cleanup
+    return () => {
+      if (creeperAudioRef.current) {
+        creeperAudioRef.current.pause();
+        creeperAudioRef.current = null;
+      }
+      if (preloadVideoRef.current) {
+        preloadVideoRef.current.pause();
+      }
+    };
+  }, []);
+  
   // Random delay between 30-90 seconds for appearances
-  const getRandomDelay = () => Math.floor(Math.random() * 10000) + 10000; // Random delay between 60-120 seconds
+  const getRandomDelay = () => Math.floor(Math.random() * 60000) + 120000; // Random delay between 60-120 seconds
   
   // Random side and position
   const getRandomPosition = () => {
@@ -153,23 +188,23 @@ const CreeperEasterEgg = () => {
       setIsExploding(true);
       
       // Play the video
-      if (videoRef.current) {
-        console.log('Attempting to play video:', videoRef.current.src);
-        videoRef.current.load(); // Force reload
-        videoRef.current.play().then(() => {
+      if (explosionVideoRef.current) {
+        console.log('Attempting to play video:', explosionVideoRef.current.src);
+        explosionVideoRef.current.load(); // Force reload
+        explosionVideoRef.current.play().then(() => {
           console.log('Video playing successfully');
         }).catch(err => {
           console.error('Error playing video:', err);
-          console.log('Video readyState:', videoRef.current.readyState);
-          console.log('Video networkState:', videoRef.current.networkState);
+          console.log('Video readyState:', explosionVideoRef.current.readyState);
+          console.log('Video networkState:', explosionVideoRef.current.networkState);
         });
       }
     }, 2000);
   };
   
   const handleVideoEnd = () => {
-    if (videoRef.current && !videoRef.current.paused) {
-      videoRef.current.pause();
+    if (explosionVideoRef.current && !explosionVideoRef.current.paused) {
+      explosionVideoRef.current.pause();
     }
     setIsExploding(false);
     setShow404(true);
@@ -188,7 +223,7 @@ const CreeperEasterEgg = () => {
     
     const allVideos = document.querySelectorAll('video');
     allVideos.forEach(video => {
-      if (video !== videoRef.current) { // Don't pause the explosion video
+      if (video !== explosionVideoRef.current) { // Don't pause the explosion video
         video.dataset.wasPlaying = !video.paused ? 'true' : 'false';
         video.pause();
       }
@@ -230,8 +265,8 @@ const CreeperEasterEgg = () => {
   
   useEffect(() => {
     // Add video event listeners for debugging
-    if (videoRef.current && isExploding) {
-      const video = videoRef.current;
+    if (explosionVideoRef.current && isExploding) {
+      const video = explosionVideoRef.current;
       
       // Add debugging event listeners
       video.addEventListener('loadstart', () => console.log('Video: loadstart'));
@@ -345,6 +380,20 @@ const CreeperEasterEgg = () => {
   
   return (
     <>
+      {/* Hidden preload video */}
+      <video
+        ref={preloadVideoRef}
+        style={{ display: 'none' }}
+        preload="auto"
+        muted
+      >
+        {navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1 ? (
+          <source src={"https://pub-f3ed1098080a4128adc7fb10cb429333.r2.dev/videos/explosion.mov"} type="video/quicktime"/>
+        ) : (
+          <source src={"https://pub-f3ed1098080a4128adc7fb10cb429333.r2.dev/videos/explosion.webm"} type="video/webm"/>
+        )}
+      </video>
+      
       {isVisible && !isExploding && (
         <div
           ref={creeperRef}
@@ -428,13 +477,12 @@ const CreeperEasterEgg = () => {
           }}
         >
           <video
-            ref={videoRef}
+            ref={explosionVideoRef}
             className="w-full h-full object-cover"
             onEnded={handleVideoEnd}
             autoPlay
             playsInline
             muted
-            preload="auto"
             onTimeUpdate={(e) => {
               // Check if we should show 404 at specific time
               if (SHOW_404_AT_SECONDS && e.target.currentTime >= SHOW_404_AT_SECONDS && !show404) {
