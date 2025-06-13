@@ -32,7 +32,7 @@ const AboutPage = ({ onBack }) => {
                 <li>• About: Learn more about who I am and what drives me.</li>
                 <li>• Contact: Find my contact information, and you can even send me an email directly through the form.</li>
                 <li>• Settings: This is where the fun begins! Customize the site's theming, change the background video and music.</li>
-                <li>• Try clicking the splash text near the title of the main paeg!</li>
+                <li>• Try clicking the splash text near the title of the main page!</li>
                 <li>• Keep an eye out for a tiny <img src={getAssetUrl('image', 'icon-creeper.png')} alt="creeper" className="inline-block w-8 h-8" /> that appears randomly around the site and click it to see what happens!</li>
               </ul>
             </p>
