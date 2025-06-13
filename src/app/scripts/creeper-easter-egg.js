@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { LargeButton} from '../components/UIElements';
 import { useCursor } from './cursor-context';
-import { getClickAudio, getAssetUrl, getCreeperAudio } from './get-asset';
+import { getClickAudio, getAssetUrl, getCreeperAudio} from './get-asset';
 
 const CreeperEasterEgg = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,17 +14,17 @@ const CreeperEasterEgg = () => {
   const [show404, setShow404] = useState(false);
   const [position, setPosition] = useState({ side: 'right', offset: 50 });
   const [frozenPosition, setFrozenPosition] = useState(null);
+  const [isClickDisabled, setIsClickDisabled] = useState(false); // Add this state
   const videoRef = useRef(null);
   const creeperRef = useRef(null);
-  const canvasRef = useRef(null);
-  const animationFrameRef = useRef(null);
+  const creeperAudioRef = useRef(null); // Add ref to store creeper audio
   const { setIs404Active } = useCursor();
   
   // Control when 404 appears (in seconds). Set to null to wait for video end
-  const SHOW_404_AT_SECONDS = .6;
+  const SHOW_404_AT_SECONDS = .4;
   
   // Random delay between 30-90 seconds for appearances
-  const getRandomDelay = () => Math.floor(Math.random() * 60000) + 60000; // Random delay between 60-120 seconds
+  const getRandomDelay = () => Math.floor(Math.random() * 10000) + 10000; // Random delay between 60-120 seconds
   
   // Random side and position
   const getRandomPosition = () => {
@@ -75,8 +75,21 @@ const CreeperEasterEgg = () => {
   }, [hasBeenClicked, isVisible]);
   
   const handleClick = () => {
-    const clickSound = getCreeperAudio();
-    clickSound.play();
+    // Prevent multiple clicks
+    if (isClickDisabled || hasBeenClicked) return;
+    
+    // Immediately disable further clicks but don't set hasBeenClicked yet
+    setIsClickDisabled(true);
+    
+    const creeperAudio = getCreeperAudio();
+    creeperAudioRef.current = creeperAudio; // Store reference
+    console.log('Playing creeper audio:', creeperAudio.src);
+    creeperAudio.play().catch(err => console.error('Error playing creeper audio:', err));
+    
+    // Log audio duration when metadata loads
+    creeperAudio.addEventListener('loadedmetadata', () => {
+      console.log('Creeper audio duration:', creeperAudio.duration, 'seconds');
+    });
     
     // Capture current position and freeze it
     if (creeperRef.current) {
@@ -114,30 +127,47 @@ const CreeperEasterEgg = () => {
     
     // Wait 2 seconds then play explosion
     setTimeout(() => {
-      // Pause all audio elements on the page
+      console.log('Starting explosion phase');
+      console.log('Creeper audio still playing?', !creeperAudioRef.current.paused);
+      console.log('Creeper audio current time:', creeperAudioRef.current.currentTime);
+      
+      // Pause all audio elements on the page EXCEPT the creeper audio
       const allAudio = document.querySelectorAll('audio');
+      console.log('Total audio elements found:', allAudio.length);
       allAudio.forEach(audio => {
-        audio.dataset.wasPlaying = !audio.paused ? 'true' : 'false';
-        audio.pause();
+        // Don't pause the creeper audio effect - check by reference
+        if (audio !== creeperAudioRef.current) {
+          console.log('Pausing audio:', audio.src);
+          audio.dataset.wasPlaying = !audio.paused ? 'true' : 'false';
+          audio.pause();
+        } else {
+          console.log('NOT pausing creeper audio - let it play fully');
+        }
       });
       
+      // Now set hasBeenClicked and hide the creeper
+      setHasBeenClicked(true);
       setIsVisible(false);
       setIsFlashing(false);
       setFrozenPosition(null); // Reset frozen position
       setIsExploding(true);
-      setHasBeenClicked(true);
       
       // Play the video
       if (videoRef.current) {
-        videoRef.current.play();
+        console.log('Attempting to play video:', videoRef.current.src);
+        videoRef.current.load(); // Force reload
+        videoRef.current.play().then(() => {
+          console.log('Video playing successfully');
+        }).catch(err => {
+          console.error('Error playing video:', err);
+          console.log('Video readyState:', videoRef.current.readyState);
+          console.log('Video networkState:', videoRef.current.networkState);
+        });
       }
     }, 2000);
   };
   
   const handleVideoEnd = () => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
     if (videoRef.current && !videoRef.current.paused) {
       videoRef.current.pause();
     }
@@ -198,90 +228,35 @@ const CreeperEasterEgg = () => {
     setShow404(true);
   };
   
-  
-  const processVideoFrame = () => {
-    const video = videoRef.current;
-    const canvas = canvasRef.current;
-    
-    if (!video || !canvas || video.paused || video.ended) {
-      return;
-    }
-    
-    // Check if we should show 404 at specific time
-    if (SHOW_404_AT_SECONDS && video.currentTime >= SHOW_404_AT_SECONDS && !show404) {
-      show404Screen();
-    }
-    
-    const ctx = canvas.getContext('2d');
-    
-    // Set canvas size to match viewport
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    // Calculate scaling to cover entire viewport
-    const videoAspect = video.videoWidth / video.videoHeight;
-    const canvasAspect = canvas.width / canvas.height;
-    
-    let drawWidth, drawHeight, offsetX, offsetY;
-    
-    if (videoAspect > canvasAspect) {
-      // Video is wider - fit height, crop width
-      drawHeight = canvas.height;
-      drawWidth = drawHeight * videoAspect;
-      offsetX = (canvas.width - drawWidth) / 2;
-      offsetY = 0;
-    } else {
-      // Video is taller - fit width, crop height
-      drawWidth = canvas.width;
-      drawHeight = drawWidth / videoAspect;
-      offsetX = 0;
-      offsetY = (canvas.height - drawHeight) / 2;
-    }
-    
-    // Clear canvas first
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Draw current video frame to canvas (scaled to cover)
-    ctx.drawImage(video, offsetX, offsetY, drawWidth, drawHeight);
-    
-    // Get pixel data
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
-    
-    // Process each pixel
-    for (let i = 0; i < data.length; i += 4) {
-      const red = data[i];
-      const green = data[i + 1];
-      const blue = data[i + 2];
-      
-      // Check if pixel is greenish (adjust these values as needed)
-      if (green > 100 && red < 100 && blue < 100 && (green - red) > 50 && (green - blue) > 50) {
-        // Make pixel transparent
-        data[i + 3] = 0; // Alpha channel
-      }
-    }
-    
-    // Put modified image data back
-    ctx.putImageData(imageData, 0, 0);
-    
-    // Continue processing next frame
-    animationFrameRef.current = requestAnimationFrame(processVideoFrame);
-  };
-  
   useEffect(() => {
-    // Start processing when video starts playing
+    // Add video event listeners for debugging
     if (videoRef.current && isExploding) {
-      videoRef.current.addEventListener('play', () => {
-        processVideoFrame();
+      const video = videoRef.current;
+      
+      // Add debugging event listeners
+      video.addEventListener('loadstart', () => console.log('Video: loadstart'));
+      video.addEventListener('loadedmetadata', () => {
+        console.log('Video: loadedmetadata', {
+          duration: video.duration,
+          videoWidth: video.videoWidth,
+          videoHeight: video.videoHeight
+        });
       });
+      video.addEventListener('canplay', () => console.log('Video: canplay'));
+      video.addEventListener('play', () => {
+        console.log('Video: play event fired');
+      });
+      video.addEventListener('error', (e) => {
+        console.error('Video error:', e);
+        if (video.error) {
+          console.error('Video error code:', video.error.code);
+          console.error('Video error message:', video.error.message);
+        }
+      });
+      video.addEventListener('stalled', () => console.log('Video: stalled'));
+      video.addEventListener('suspend', () => console.log('Video: suspend'));
+      video.addEventListener('waiting', () => console.log('Video: waiting'));
     }
-    
-    // Cleanup
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
   }, [isExploding]);
   
   if (!isVisible && !isExploding && !show404 || hasBeenClicked && !isExploding && !show404) return null;
@@ -313,10 +288,11 @@ const CreeperEasterEgg = () => {
         left: `${frozenPosition.left}px`,
         width: `${frozenPosition.width}px`,
         height: `${frozenPosition.height}px`,
-        cursor: 'pointer',
+        cursor: isClickDisabled ? 'default' : 'pointer', // Change cursor when disabled
         transition: 'none', // No transition when frozen
         zIndex: 9999,
         transform: transform,
+        pointerEvents: isClickDisabled ? 'none' : 'auto', // Disable pointer events when clicked
       };
     }
     
@@ -324,9 +300,10 @@ const CreeperEasterEgg = () => {
       position: 'fixed',
       width: '80px',
       height: '80px',
-      cursor: 'pointer',
+      cursor: isClickDisabled ? 'default' : 'pointer', // Change cursor when disabled
       transition: 'all 2s ease-in-out',
       zIndex: 9999,
+      pointerEvents: isClickDisabled ? 'none' : 'auto', // Disable pointer events when clicked
     };
     
     const peekDistance = '0px'; // Right at the edge
@@ -450,22 +427,25 @@ const CreeperEasterEgg = () => {
             pointerEvents: 'none',
           }}
         >
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full object-cover"
-            style={{
-              backgroundColor: 'transparent',
-            }}
-          />
           <video
             ref={videoRef}
-            className="hidden"
+            className="w-full h-full object-cover"
             onEnded={handleVideoEnd}
             autoPlay
             playsInline
-            style={{ display: 'none' }}
+            muted
+            preload="auto"
+            onTimeUpdate={(e) => {
+              // Check if we should show 404 at specific time
+              if (SHOW_404_AT_SECONDS && e.target.currentTime >= SHOW_404_AT_SECONDS && !show404) {
+                show404Screen();
+              }
+            }}
+            style={{
+              backgroundColor: 'transparent',
+            }}
           >
-            <source src={getAssetUrl('video', 'video-explosion.mp4')} type="video/mp4" />
+            <source src={"https://pub-f3ed1098080a4128adc7fb10cb429333.r2.dev/videos/explosion.webm"} type="video/webm"/>
           </video>
         </div>
       )}
@@ -473,4 +453,4 @@ const CreeperEasterEgg = () => {
   );
 };
 
-export default CreeperEasterEgg; 
+export default CreeperEasterEgg;
