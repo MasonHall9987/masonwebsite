@@ -18,7 +18,7 @@ const AboutPage = ({ onBack }) => {
             <p>
               Thank you so much for taking the time to check it out. If you're here to quickly view my resume and skills, feel free to click the link right
               <span> </span>
-              <a href={getAssetUrl('image', 'Mason-Hall-Resume.pdf')} download className="underline-link hide-cursor-on-hover">here</a>.
+              <a href={"https://pub-f3ed1098080a4128adc7fb10cb429333.r2.dev/images/Mason-Hall-Resume.pdf"} download className="underline-link hide-cursor-on-hover">here</a>.
             </p>
 
             <p>
