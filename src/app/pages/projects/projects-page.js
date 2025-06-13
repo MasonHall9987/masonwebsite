@@ -4,6 +4,7 @@ import { LargeButton, SmallButton } from "../../components/UIElements";
 import ProjectModal from "./project-modal";
 import { projects } from './project-descriptions';
 import { getClickAudio, getAssetUrl } from '../../scripts/get-asset';
+import Image from 'next/image';
 
 const ProjectsPage = ({ onBack }) => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -37,11 +38,20 @@ const ProjectsPage = ({ onBack }) => {
     setSearchQuery(e.target.value);
   };
 
-  const filteredProjects = projects.filter(project => {
-    const searchLower = searchQuery.toLowerCase();
-    return project.name.toLowerCase().includes(searchLower) ||
-           project.technologies.some(tech => tech.name.toLowerCase().includes(searchLower));
-  });
+  const parseDate = (dateStr) => {
+    // Extract the first date from the range (e.g., "01/2025-04/2025" -> "01/2025")
+    const firstDate = dateStr.split('-')[0];
+    const [month, year] = firstDate.split('/');
+    return new Date(parseInt(year), parseInt(month) - 1);
+  };
+
+  const filteredProjects = projects
+    .filter(project => {
+      const searchLower = searchQuery.toLowerCase();
+      return project.name.toLowerCase().includes(searchLower) ||
+             project.technologies.some(tech => tech.name.toLowerCase().includes(searchLower));
+    })
+    .sort((a, b) => parseDate(b.date) - parseDate(a.date));
 
   const selectedProjectData = projects.find(project => project.id === selectedProject);
 
@@ -77,10 +87,13 @@ const ProjectsPage = ({ onBack }) => {
               >
                 {/* Arrow indicator for hover - positioned inside container */}
                 <div className="absolute left-1 opacity-0 group-hover:opacity-100 z-10">
-                  <img 
+                  <Image 
                     src={getAssetUrl('image', 'icon-arrow.png')} 
                     alt="Selection Arrow" 
                     className="w-10 h-8"
+                    width={40}
+                    height={32}
+                    priority
                   />
                 </div>
                 

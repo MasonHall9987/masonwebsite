@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { LargeButton } from "../components/UIElements";
 import { getClickAudio, getAssetUrl } from '../scripts/get-asset';
+import Image from 'next/image'; 
 
 // Helper function to determine initial carousel indices
 const getInitialCarouselIndices = (dataArray, currentPath, pathKey = "filepath") => {
@@ -101,7 +102,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen py-12 space-y-3 overflow-hidden">
-      <h2 className="text-3xl font-semibold text-center text-white">Setting</h2>
+      <h2 className="text-3xl font-semibold text-center text-white">Settings</h2>
       <div className="translucent-container px-20 overflow-y-auto">
         <div className="scrollbar-3d ">
           <div className="space-y-12 py-4">
@@ -112,33 +113,41 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
                   onClick={shiftBackgroundsLeft}
                   className="text-white text-2xl opacity-70 hover:opacity-100"
                 >
-                  <img 
+                  <Image
                     src={getAssetUrl('image', 'icon-next.png')} 
                     alt="Shift Left" 
-                    className="w-10 h-10"
+                    width={50}
+                    height={50}
                     style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
+                    priority
                   />
                 </button>
                 <div className="flex items-center justify-center gap-3">
                   <div className="transition-all duration-300 opacity-40 scale-90">
-                    <img 
+                    <Image
                       src={backgroundsData[visibleBackgroundIndices[0]].image} 
                       alt={backgroundsData[visibleBackgroundIndices[0]].name}
-                      className="w-50 h-32 object-cover"
+                      width={185}
+                      height={185}
+                      priority
                     />
                   </div>
                   <div className="transition-all duration-300 transform scale-110 opacity-100 z-10">
-                    <img 
+                    <Image
                       src={backgroundsData[visibleBackgroundIndices[1]].image} 
                       alt={backgroundsData[visibleBackgroundIndices[1]].name}
-                      className="w-50 h-32 object-cover"
+                      width={200}
+                      height={200}
+                      priority
                     />
                   </div>
                   <div className="transition-all duration-300 opacity-40 scale-90">
-                    <img 
+                    <Image
                       src={backgroundsData[visibleBackgroundIndices[2]].image} 
                       alt={backgroundsData[visibleBackgroundIndices[2]].name}
-                      className="w-50 h-32 object-cover"
+                      width={185}
+                      height={185}
+                      priority
                     />
                   </div>
                 </div>
@@ -146,10 +155,12 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
                   onClick={shiftBackgroundsRight}
                   className="text-white text-2xl opacity-70 hover:opacity-100"
                 >
-                  <img 
+                  <Image
                     src={getAssetUrl('image', 'icon-next.png')} 
                     alt="Shift Right" 
-                    className="w-10 h-10"
+                    width={50}
+                    height={50}
+                    priority
                   />
                 </button>
               </div>
@@ -162,38 +173,51 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
                   onClick={shiftMusicLeft}
                   className="text-white text-2xl opacity-70 hover:opacity-100"
                 >
-                  <img 
+                  <Image
                     src={getAssetUrl('image', 'icon-next.png')} 
                     alt="Shift Left" 
-                    className="w-10 h-10"
+                    width={50}
+                    height={50}
                     style={{ transform: 'rotate(180deg) scaleY(-1)' }} 
+                    priority
                   />
                 </button>
                 <div className="flex items-center justify-center gap-3">
-                  <img 
+                  <Image
                     src={musicData[visibleMusicIndices[0]].image} 
                     alt={musicData[visibleMusicIndices[0]].name}
-                    className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-50 scale-90 brightness-75 saturate-50"
+                    unoptimized
+                    width={100}
+                    height={100}
+                    priority
                   />
-                  <img 
+                  <Image
                     src={musicData[visibleMusicIndices[1]].image} 
                     alt={musicData[visibleMusicIndices[1]].name}
-                    className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-100 scale-110 brightness-100 saturate-100 z-10"
+                    unoptimized
+                    width={123}
+                    height={123}
+                    priority
                   />
-                  <img 
+                  <Image
                     src={musicData[visibleMusicIndices[2]].image} 
                     alt={musicData[visibleMusicIndices[2]].name}
-                    className="w-32 h-32 object-cover rounded-full transition-all duration-300 opacity-50 scale-90 brightness-75 saturate-50"
+                    unoptimized
+                    width={100}
+                    height={100}
+                    priority
                   />
                 </div>
                 <button 
                   onClick={shiftMusicRight}
                   className="text-white text-2xl opacity-70 hover:opacity-100"
                 >
-                  <img 
+                  <Image
                     src={getAssetUrl('image', 'icon-next.png')} 
                     alt="Shift Right" 
-                    className="w-10 h-10" 
+                    width={50}
+                    height={50}
+                    priority
                   />
                 </button>
               </div>

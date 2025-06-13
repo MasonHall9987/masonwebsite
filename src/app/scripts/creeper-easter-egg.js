@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { LargeButton} from '../components/UIElements';
 import { useCursor } from './cursor-context';
 import { getClickAudio, getAssetUrl, getCreeperAudio} from './get-asset';
+import Image from 'next/image';
 
 const CreeperEasterEgg = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -59,7 +60,7 @@ const CreeperEasterEgg = () => {
   }, []);
   
   // Random delay between 30-90 seconds for appearances
-  const getRandomDelay = () => Math.floor(Math.random() * 60000) + 120000; // Random delay between 60-120 seconds
+  const getRandomDelay = () => Math.floor(Math.random() * 60000) + 120000; // Random delay between 60-180 seconds
   
   // Random side and position
   const getRandomPosition = () => {
@@ -400,9 +401,13 @@ const CreeperEasterEgg = () => {
           style={getPositionStyles()}
           onClick={handleClick}
         >
-          <img 
+          <Image 
             src={getAssetUrl('image', 'icon-creeper.png')} 
             alt="Creeper" 
+            width={32}
+            height={32}
+            priority
+            unoptimized
             className="w-full h-full object-contain"
             style={{
               filter: `drop-shadow(2px 2px 4px rgba(0,0,0,0.5)) ${

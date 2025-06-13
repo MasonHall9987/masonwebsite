@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { LargeButton } from "../components/UIElements";
 import { getClickAudio, getAssetUrl } from '../scripts/get-asset';
+import Image from 'next/image';
 
 const ContactPage = ({ onBack }) => {
   const [name, setName] = useState("");
@@ -115,20 +116,26 @@ const ContactPage = ({ onBack }) => {
             </div>
           )}
           <div className="flex gap-2 ml-auto">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+            <a href="https://github.com/MasonHall9987" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
               <div className="h-13 w-13 flex items-center justify-center">
-                <img 
+                <Image 
                   src={getAssetUrl('image', 'icon-githublogo.png')} 
                   alt="GitHub" 
+                  width={50}
+                  height={50}
+                  priority
                   className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition duration-200"
                 />
               </div>
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+            <a href="https://www.linkedin.com/in/mason-hall-2794441b4/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
               <div className="h-10.5 w-10.5 flex items-center justify-center">
-                <img 
+                <Image 
                   src={getAssetUrl('image', 'icon-linkedin.png')} 
                   alt="LinkedIn" 
+                  width={50}
+                  height={50}
+                  priority
                   className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition duration-200"
                 />
               </div>

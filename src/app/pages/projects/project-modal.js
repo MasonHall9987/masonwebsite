@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from 'react';
 import { getClickAudio, getAssetUrl } from '../../scripts/get-asset';
+import Image from 'next/image';
 
 const ProjectModal = ({ project, isVisible, onClose }) => {
   const [hoveredTech, setHoveredTech] = useState(null);
@@ -73,7 +74,7 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
                         onMouseEnter={(e) => handleTechHover(tech.name, e)}
                         onMouseLeave={handleTechLeave}
                       >
-                        <img
+                        <Image
                           src={tech.iconPath || getAssetUrl('image', 'icon-arduino.png')}
                           alt={tech.name}
                           className="w-15 h-15 object-cover"
@@ -82,6 +83,10 @@ const ProjectModal = ({ project, isVisible, onClose }) => {
                             e.target.onerror = null;
                             e.target.src = getAssetUrl('image', 'icon-arduino.png');
                           }}
+                          width={60}
+                          height={60}
+                          unoptimized
+                          priority
                         />
                       </div>
                     );

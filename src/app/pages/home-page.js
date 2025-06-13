@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { LargeButton, SmallButton } from '../components/UIElements';
 import { getClickAudio, getAssetUrl } from '../scripts/get-asset';
-
+import Image from 'next/image'; 
 
 const Home = ({ onNavigate, skipAnimation, splashText = false, onSplashClick }) => {
   const [showTitle, setShowTitle] = useState(skipAnimation);
@@ -48,10 +48,12 @@ const Home = ({ onNavigate, skipAnimation, splashText = false, onSplashClick }) 
       <div
         className={`transition-opacity duration-1000 mb-16 ${showTitle ? 'opacity-100' : 'opacity-0'} flex justify-end relative`}
       >
-        <img
+        <Image
           src={getAssetUrl('image', 'title.png')}
           alt="Minecraft"
-          className="w-200"
+          width={800}
+          height={800}
+          priority
         />
         <div 
           className="minecraft-splash-text z-2 transform -rotate-19 absolute bottom-11 translate-x-1/3 translate-y-1/4" 
