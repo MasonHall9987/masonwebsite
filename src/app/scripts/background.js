@@ -24,6 +24,23 @@ const Background = ({ videoSrc, currentPage, setBackgroundAudio }) => {
   const videoRef = useRef(null);
   const [currentVideo, setCurrentVideo] = useState(videoSrc);
   const [isPortalActive, setIsPortalActive] = useState(false);
+  
+  // Only preload portal video if background is sakura
+  useEffect(() => {
+    if (videoSrc && videoSrc.includes('sakura.mov')) {
+      const portalVideo = getAssetUrl('video', 'background-portal.mov');
+      const portalLink = document.createElement('link');
+      portalLink.rel = 'preload';
+      portalLink.as = 'video';
+      portalLink.href = portalVideo;
+      document.head.appendChild(portalLink);
+      
+      // Cleanup
+      return () => {
+        document.head.removeChild(portalLink);
+      };
+    }
+  }, [videoSrc]);
 
   // Preload the video
   useEffect(() => {
@@ -68,10 +85,23 @@ const Background = ({ videoSrc, currentPage, setBackgroundAudio }) => {
       currentAudio.currentTime = 0;
     }
     
+    // Preload nether video
+    const netherVideo = getAssetUrl('video', 'background-neather.mov');
+    const netherLink = document.createElement('link');
+    netherLink.rel = 'preload';
+    netherLink.as = 'video';
+    netherLink.href = netherVideo;
+    document.head.appendChild(netherLink);
+    
     // Change to portal video
     const portalVideo = getAssetUrl('video', 'background-portal.mov');
     setCurrentVideo(portalVideo);
     setIsPortalActive(true);
+    
+    // Cleanup nether preload link after a delay
+    setTimeout(() => {
+      document.head.removeChild(netherLink);
+    }, 5000);
   };
 
   const handleVideoEnded = () => {
