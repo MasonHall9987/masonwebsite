@@ -36,6 +36,7 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
     { name: "Coral", image: getAssetUrl('image', 'framed-coral.png'), filepath: getAssetUrl('video', 'background-coral.mp4')},
     { name: "Jungle", image: getAssetUrl('image', 'framed-jungle.png'), filepath: getAssetUrl('video', 'background-jungle.mp4')},
     { name: "Village", image: getAssetUrl('image', 'framed-village.png'), filepath: getAssetUrl('video', 'background-village.mp4')},
+    { name: "Sakura", image: getAssetUrl('image', 'framed-sakura.png'), filepath: getAssetUrl('video', 'background-sakura.mov')},
   ];
   
   const musicData = [
@@ -183,30 +184,36 @@ const SettingsPage = ({ onBack, setBackgroundVideo, setBackgroundAudio, currentB
                   />
                 </button>
                 <div className="flex items-center justify-center gap-3">
-                  <Image
-                    src={musicData[visibleMusicIndices[0]].image} 
-                    alt={musicData[visibleMusicIndices[0]].name}
-                    unoptimized
-                    width={100}
-                    height={100}
-                    priority
-                  />
-                  <Image
-                    src={musicData[visibleMusicIndices[1]].image} 
-                    alt={musicData[visibleMusicIndices[1]].name}
-                    unoptimized
-                    width={123}
-                    height={123}
-                    priority
-                  />
-                  <Image
-                    src={musicData[visibleMusicIndices[2]].image} 
-                    alt={musicData[visibleMusicIndices[2]].name}
-                    unoptimized
-                    width={100}
-                    height={100}
-                    priority
-                  />
+                  <div className="transition-all duration-300 opacity-40 scale-90">
+                    <Image
+                      src={musicData[visibleMusicIndices[0]].image} 
+                      alt={musicData[visibleMusicIndices[0]].name}
+                      unoptimized
+                      width={100}
+                      height={100}
+                      priority
+                    />
+                  </div>
+                  <div className="transition-all duration-300 transform scale-110 opacity-100 z-10">
+                    <Image
+                      src={musicData[visibleMusicIndices[1]].image} 
+                      alt={musicData[visibleMusicIndices[1]].name}
+                      unoptimized
+                      width={123}
+                      height={123}
+                      priority
+                    />
+                  </div>
+                  <div className="transition-all duration-300 opacity-40 scale-90">
+                    <Image
+                      src={musicData[visibleMusicIndices[2]].image} 
+                      alt={musicData[visibleMusicIndices[2]].name}
+                      unoptimized
+                      width={100}
+                      height={100}
+                      priority
+                    />
+                  </div>
                 </div>
                 <button 
                   onClick={shiftMusicRight}

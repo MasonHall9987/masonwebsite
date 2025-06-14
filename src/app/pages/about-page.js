@@ -37,6 +37,8 @@ const AboutPage = ({ onBack }) => {
                 <li>• Settings: This is where the fun begins! Customize the site's theming, change the background video and music.</li>
                 <li>• Try clicking the splash text near the title of the main page!</li>
                 <li>• Keep an eye out for a tiny <Image  src={getAssetUrl('image', 'icon-creeper.png')} alt="creeper" className="inline-block w-8 h-8" width={32} height={32} /> that appears randomly around the site and click it to see what happens!</li>
+                <li>• There is one more clickable easter egg hidden in one of the background videos.</li>
+                <li>• Hint: A different dimension is only a click away...</li>
               </ul>
             </p>
             <p>

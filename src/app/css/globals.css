@@ -93,7 +93,7 @@ body {
   color: #fde047; 
   font-size: 1.2rem; 
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
-  animation: growShrink 1.5s ease-in-out infinite;
+  animation: growShrink 1s ease-in-out infinite;
 }
 
 .underline-link {

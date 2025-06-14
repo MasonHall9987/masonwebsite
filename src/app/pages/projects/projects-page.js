@@ -47,9 +47,9 @@ const ProjectsPage = ({ onBack }) => {
 
   const filteredProjects = projects
     .filter(project => {
-      const searchLower = searchQuery.toLowerCase();
-      return project.name.toLowerCase().includes(searchLower) ||
-             project.technologies.some(tech => tech.name.toLowerCase().includes(searchLower));
+    const searchLower = searchQuery.toLowerCase();
+    return project.name.toLowerCase().includes(searchLower) ||
+           project.technologies.some(tech => tech.name.toLowerCase().includes(searchLower));
     })
     .sort((a, b) => parseDate(b.date) - parseDate(a.date));
 

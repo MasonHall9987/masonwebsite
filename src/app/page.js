@@ -112,6 +112,8 @@ const MinecraftWebsite = () => {
       <Background
         videoSrc={backgroundVideo[0]}
         fallbackImageSrc={backgroundVideo[1]}
+        currentPage={currentPage}
+        setBackgroundAudio={setBackgroundAudio}
       />
       <MinecraftCursor />
       <CreeperEasterEgg />
